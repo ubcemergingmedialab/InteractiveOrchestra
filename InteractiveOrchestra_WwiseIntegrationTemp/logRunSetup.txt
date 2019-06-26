@@ -1,0 +1,205 @@
+
+LICENSE SYSTEM [20181115 16:16:41] Next license update check is after 2018-11-17T00:14:16
+
+Built from '2018.1/release' branch; Version is '2018.1.4f1 (1a308f4ebef1) revision 1716367'; Using compiler version '191125508'
+OS: 'Windows 10  (10.0.0) 64bit' Language: 'en' Physical Memory: 65414 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+[Package Manager] Server::Start -- Port 51926 was selected
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity 2018.1.4f1\Editor\Unity.exe
+-batchmode
+-nographics
+-logFile
+logRunSetup.txt
+-projectPath
+C:\Users\wbeltran\wkspaces\InteractiveOrchestra_WwiseIntegrationTemp
+-executeMethod
+WwiseSetupWizard.RunSetup
+-quit
+Successfully changed project path to: C:\Users\wbeltran\wkspaces\InteractiveOrchestra_WwiseIntegrationTemp
+C:/Users/wbeltran/wkspaces/InteractiveOrchestra_WwiseIntegrationTemp
+Loading GUID <-> Path mappings...0.000083 seconds
+Loading Asset Database...0.013037 seconds
+Audio: FMOD Profiler initialized on port 54900
+AssetDatabase consistency checks...0.037043 seconds
+Refreshing native plugins compatible for Editor in 20.68 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+DisplayProgressbar: Unity Package Manager
+[Package Manager] Done resolving packages in 0.25s seconds
+[Package Manager] Registering 62 packages:
+[Package Manager]  * Package :  com.unity.ads@2.0.7
+    (location: C:\Users\wbeltran\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.ads@2.0.7)
+[Package Manager]  * Package :  com.unity.analytics@2.0.16
+    (location: C:\Users\wbeltran\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.analytics@2.0.16)
+[Package Manager]  * Package :  com.unity.modules.accessibility@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.accessibility
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.accessibility)
+[Package Manager]  * Package :  com.unity.modules.ai@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.ai
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.ai)
+[Package Manager]  * Package :  com.unity.modules.animation@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.animation
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.animation)
+[Package Manager]  * Package :  com.unity.modules.ar@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.ar
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.ar)
+[Package Manager]  * Package :  com.unity.modules.assetbundle@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.assetbundle
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.assetbundle)
+[Package Manager]  * Package :  com.unity.modules.audio@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.audio
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.audio)
+[Package Manager]  * Package :  com.unity.modules.baselib@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.baselib
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.baselib)
+[Package Manager]  * Package :  com.unity.modules.cloth@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.cloth
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.cloth)
+[Package Manager]  * Package :  com.unity.modules.cloudwebservices@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.cloudwebservices
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.cloudwebservices)
+[Package Manager]  * Package :  com.unity.modules.clusterinput@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.clusterinput
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.clusterinput)
+[Package Manager]  * Package :  com.unity.modules.clusterrenderer@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.clusterrenderer
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.clusterrenderer)
+[Package Manager]  * Package :  com.unity.modules.core@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.core
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.core)
+[Package Manager]  * Package :  com.unity.modules.crashreporting@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.crashreporting
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.crashreporting)
+[Package Manager]  * Package :  com.unity.modules.director@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.director
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.director)
+[Package Manager]  * Package :  com.unity.modules.facebook@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.facebook
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.facebook)
+[Package Manager]  * Package :  com.unity.modules.gamecenter@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.gamecenter
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.gamecenter)
+[Package Manager]  * Package :  com.unity.modules.grid@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.grid
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.grid)
+[Package Manager]  * Package :  com.unity.modules.hotreload@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.hotreload
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.hotreload)
+[Package Manager]  * Package :  com.unity.modules.imageconversion@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.imageconversion
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.imageconversion)
+[Package Manager]  * Package :  com.unity.modules.imgui@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.imgui
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.imgui)
+[Package Manager]  * Package :  com.unity.modules.input@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.input
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.input)
+[Package Manager]  * Package :  com.unity.modules.jsonserialize@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.jsonserialize
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.jsonserialize)
+[Package Manager]  * Package :  com.unity.modules.particleslegacy@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.particleslegacy
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.particleslegacy)
+[Package Manager]  * Package :  com.unity.modules.particlesystem@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.particlesystem
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.particlesystem)
+[Package Manager]  * Package :  com.unity.modules.performancereporting@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.performancereporting
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.performancereporting)
+[Package Manager]  * Package :  com.unity.modules.physics2d@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.physics2d
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.physics2d)
+[Package Manager]  * Package :  com.unity.modules.physics@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.physics
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.physics)
+[Package Manager]  * Package :  com.unity.modules.screencapture@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.screencapture
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.screencapture)
+[Package Manager]  * Package :  com.unity.modules.sharedinternals@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.sharedinternals
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.sharedinternals)
+[Package Manager]  * Package :  com.unity.modules.spatialtracking@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.spatialtracking
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.spatialtracking)
+[Package Manager]  * Package :  com.unity.modules.spritemask@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.spritemask
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.spritemask)
+[Package Manager]  * Package :  com.unity.modules.spriteshape@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.spriteshape
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.spriteshape)
+[Package Manager]  * Package :  com.unity.modules.stylesheets@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.stylesheets
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.stylesheets)
+[Package Manager]  * Package :  com.unity.modules.substance@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.substance
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.substance)
+[Package Manager]  * Package :  com.unity.modules.terrain@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.terrain
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.terrain)
+[Package Manager]  * Package :  com.unity.modules.terrainphysics@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.terrainphysics
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.terrainphysics)
+[Package Manager]  * Package :  com.unity.modules.textrendering@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.textrendering
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.textrendering)
+[Package Manager]  * Package :  com.unity.modules.tilemap@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.tilemap
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.tilemap)
+[Package Manager]  * Package :  com.unity.modules.timeline@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.timeline
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.timeline)
+[Package Manager]  * Package :  com.unity.modules.tls@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.tls
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.tls)
+[Package Manager]  * Package :  com.unity.modules.ui@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.ui
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.ui)
+[Package Manager]  * Package :  com.unity.modules.uielements@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.uielements
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.uielements)
+[Package Manager]  * Package :  com.unity.modules.umbra@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.umbra
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.umbra)
+[Package Manager]  * Package :  com.unity.modules.unet@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unet
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unet)
+[Package Manager]  * Package :  com.unity.modules.unityanalytics@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unityanalytics
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unityanalytics)
+[Package Manager]  * Package :  com.unity.modules.unityconnect@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unityconnect
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unityconnect)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequest@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequest
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequest)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequestassetbundle@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequestassetbundle
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequestassetbundle)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequestaudio@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequestaudio
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequestaudio)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequesttexture@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequesttexture
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequesttexture)
+[Package Manager]  * Package :  com.unity.modules.unitywebrequestwww@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequestwww
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.unitywebrequestwww)
+[Package Manager]  * Package :  com.unity.modules.vehicles@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.vehicles
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.vehicles)
+[Package Manager]  * Package :  com.unity.modules.video@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.video
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.video)
+[Package Manager]  * Package :  com.unity.modules.vr@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.vr
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.vr)
+[Package Manager]  * Package :  com.unity.modules.web@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.web
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.web)
+[Package Manager]  * Package :  com.unity.modules.wind@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.wind
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.wind)
+[Package Manager]  * Package :  com.unity.modules.xr@file:C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.xr
+    (location: C:\Program Files\Unity 2018.1.4f1\Editor\Data\Resources\PackageManager\Editor\com.unity.modules.xr)
+[Package Manager]  * Package :  com.unity.package-manager-ui@1.8.8
+    (location: C:\Users\wbeltran\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.package-manager-ui@1.8.8)
+[Package Manager]  * Package :  com.unity.purchasing@2.0.1
+    (location: C:\Users\wbeltran\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.purchasing@2.0.1)
+[Package Manager]  * Package :  com.unity.standardevents@1.0.13
+    (location: C:\Users\wbeltran\AppData\Local\Unity\cache\packages\packages.unity.com\com.unity.standardevents@1.0.13)
+[Package Manager] Done registering packages in 0.00s seconds
+Initialize engine version: 2018.1.4f1 (1a308f4ebef1)
+Forcing GfxDevice: Null
+GfxDevice: creating device client; threaded=0
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+WARNING: Shader Unsupported: 'Hidden/FrameDebuggerRenderTargetDisplay' - Pass '' has no vertex shader
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity 2018.1.4f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/mono/2.0'
+Mono config path = 'C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56084
+Begin MonoManager ReloadAssembly
+Refreshing native plugins compatible for Editor in 0.77 ms, found 6 plugins.
+Error parsing module from C:\Program Files\Unity 2018.1.4f1\Editor\Data\PlaybackEngines\VuforiaSupport\ivy.xml. Access to the path "C:\Program Files\Unity 2018.1.4f1\Editor\Data\PlaybackEngines\VuforiaSupport\ivy.xml" is denied.
+Initializing Unity.PackageManager (PackageManager) v2018.1.4 for Unity v2018.1.4f1
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/libc
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/.\libc
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/libc
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/libc
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/.\libc
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/libc
+Registering precompiled unity dll's ...
+Register platform support module: C:\Program Files\Unity 2018.1.4f1\Editor\Data\PlaybackEngines\AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity 2018.1.4f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll
+Register platform support module: C:\Program Files\Unity 2018.1.4f1\Editor\Data\PlaybackEngines\MetroSupport/UnityEditor.WSA.Extensions.dll
+Register platform support module: C:\Program Files\Unity 2018.1.4f1\Editor\Data\PlaybackEngines\WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:\Program Files\Unity 2018.1.4f1\Editor\Data\PlaybackEngines\windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.003507 seconds.
+Registering precompiled user dll's ...
+Registered in 0.483860 seconds.
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/data-000000003764B840.dll
+Fallback handler could not load library C:/Program Files/Unity 2018.1.4f1/Editor/Data/Mono/lib/data-000000003785EBF0.dll
+Refreshing native plugins compatible for Editor in 0.86 ms, found 6 plugins.
+Preloading 3 native plugins for Editor in 2.62 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.635 seconds
+Registering platform support modules:
+Registered platform support modules in: 0.0181131s.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Native extension for Metro target not found
+[usbmuxd] Start listen thread
+[usbmuxd] Listen thread started
+Native extension for iOS target not found
+Native extension for Android target not found
+Begin MonoManager ReloadAssembly
+Refreshing native plugins compatible for Editor in 0.82 ms, found 6 plugins.
+Preloading 3 native plugins for Editor in 0.32 ms.

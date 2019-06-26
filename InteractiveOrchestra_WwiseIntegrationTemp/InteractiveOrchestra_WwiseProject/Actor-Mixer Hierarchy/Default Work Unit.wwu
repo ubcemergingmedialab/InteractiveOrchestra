@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{8FABBA1E-8477-4DA5-B50F-787A3145A38C}" SchemaVersion="89">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{8FABBA1E-8477-4DA5-B50F-787A3145A38C}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="Synth" ID="{B62DCA08-E781-4EC0-A117-3C8DC8BBC7C7}" ShortID="3446154">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{2FCDD9B4-EEF9-4FCF-9DEB-0069EE3363FF}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{524B7FAA-9AEE-4769-A8E7-DBF5CE066ACB}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<SourcePlugin Name="Wwise Synth One" ID="{D169DB74-A3C7-48FA-9AD5-7830234D8021}" ShortID="713709676" PluginName="Wwise Synth One" CompanyID="0" PluginID="148">
+							<PropertyList>
+								<Property Name="FrequencyMode" Type="int32" Value="1"/>
+								<Property Name="Osc1Level" Type="Real32" Value="-22"/>
+								<Property Name="Osc1Waveform" Type="int32" Value="2"/>
+								<Property Name="Osc2Level" Type="Real32" Value="-18"/>
+								<Property Name="OutputLevel" Type="Real32">
+									<RTPCList>
+										<RTPC Name="" ID="{14F08D7B-3637-4D11-9939-3919A0AD3441}" ShortID="788928067">
+											<ReferenceList>
+												<Reference Name="ControlInput">
+													<Custom>
+														<ModulatorEnvelope Name="Modulator Envelope (Custom)" ID="{6C5A2591-833E-4182-B525-9FC32C75ECC0}" ShortID="255324946"/>
+													</Custom>
+												</Reference>
+											</ReferenceList>
+											<Curve Name="" ID="{5E48F7F9-0C09-4385-A97F-2CA3E59B368B}">
+												<PropertyList>
+													<Property Name="Flags" Type="int32" Value="3"/>
+												</PropertyList>
+												<PointList>
+													<Point>
+														<XPos>0</XPos>
+														<YPos>-96</YPos>
+														<Flags>21</Flags>
+													</Point>
+													<Point>
+														<XPos>1</XPos>
+														<YPos>0</YPos>
+														<Flags>53</Flags>
+													</Point>
+												</PointList>
+											</Curve>
+										</RTPC>
+									</RTPCList>
+								</Property>
+							</PropertyList>
+							<Language>SFX</Language>
+						</SourcePlugin>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="Wwise Synth One" ID="{D169DB74-A3C7-48FA-9AD5-7830234D8021}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

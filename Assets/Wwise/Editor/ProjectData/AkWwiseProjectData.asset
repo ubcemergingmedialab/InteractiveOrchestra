@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd0365d2da3a3c4cac26d68b94867e5, type: 3}
+  m_Name: AkWwiseProjectData
+  m_EditorClassIdentifier: 
+  AcousticTextureWwu:
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 9b18b4a9589f9c429497381791cbe22d
+    m_lastTime: -8586501394468159742
+    List: []
+  AuxBusWwu:
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: aa7f4b52ee9a6947a8e7dbf5ce066acb
+    m_lastTime: -8586501394470225146
+    List: []
+  BankWwu:
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 9427f34b9fd75f4597cdd60e4752f788
+    m_lastTime: -8586501394469116162
+    List:
+    - name: Main
+      guid: bc63e0a385948742b10b5548e08ccc8b
+      id: 3161908922
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Main
+        ObjectType: 7
+      Path: Default Work Unit\Main
+  EventWwu:
+  - PhysicalPath: Events\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: c9256ad04076dd4cb3e47300a04e75d2
+    m_lastTime: -8586501394470833448
+    List:
+    - name: PieceBegins
+      guid: 0bdc37560af7684cb727fa0743728949
+      id: 1494663835
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: PieceBegins
+        ObjectType: 3
+      Path: Default Work Unit\PieceBegins
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+  RtpcWwu:
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 0178cbaf4cee7848aae777f901c5371e
+    m_lastTime: -8586501394470619752
+    List:
+    - name: PieceVelocity
+      guid: 5a162209b8c610408116bc48803c8525
+      id: 2483534544
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: PieceVelocity
+        ObjectType: 13
+      Path: Default Work Unit\PieceVelocity
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 6917f066c54a354d87babaf23a42bc43
+    m_lastTime: -8586501394468726879
+    List: []
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 82e5f0a12db61b4ca336fd2c60cb5260
+    m_lastTime: -8586501394468551232
+    List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    ParentPhysicalPath: 
+    guid: 364378eb9df065448e48ca6dc3591ac8
+    m_lastTime: -8586501394468329892
+    List: []
+  ExpandedItems:
+  - /InteractiveOrchestra_WwiseProject
+  - /InteractiveOrchestra_WwiseProject/Events
+  - /InteractiveOrchestra_WwiseProject/Events/Default Work Unit
+  - /InteractiveOrchestra_WwiseProject/SoundBanks
+  - /InteractiveOrchestra_WwiseProject/SoundBanks/Default Work Unit
+  autoPopulateEnabled: 1
+  CurrentPluginConfig: 

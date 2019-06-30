@@ -192,9 +192,9 @@ public class OVRVelocityTracker : OVRGestureHandle
             if(previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
                 horizontalPlane.SpawnPlane(conductorBaton.position);
-                timeSincePrevCollision = GetTimeSincePrevCollisionWithBasePlane(currOverallTime);
+                prevCollisionTime = currOverallTime;
                 horizontalPlane.SpawnPlane(conductorBaton.position);
-                basePlaneCollisionPoint = controllerPosition;
+                basePlaneCollisionPoint = controllerPosition; 
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
                     horizontalPlane.SpawnPlane(conductorBaton.position);
@@ -217,6 +217,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             // 2. The BP1 has not been degined
             // 3. Controller y velocity is positive 
             // These combinations of conditions allow for data points to only be recorded for the prep gesture
+
             if (controllerPosition.y > BP1.y || BP1 == Vector3.zero|| controllerVelocity.y>0 )
             {
                 ConductorSample newConductorSample = new ConductorSample(
@@ -290,17 +291,25 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     /// <summary>
     /// Calculates time elapsed since the last recorded collision with the base plane
+    /// Trigger on device must be pressed down for this function to be called from OVRGestureHandle.cs
     /// </summary>
-    /// <param name="currOverallTime"> Global time </param>
+    /// <param name="device"> Device corresponding to the baton </param>
     /// <returns>Time elapsed since previous collision</returns>
-    private float GetTimeSincePrevCollisionWithBasePlane(float currOverallTime)
-    { 
-        Debug.Log("Previous Collision occurred at: " + prevCollisionTime + " seconds");
-        timeSincePrevCollision = currOverallTime - prevCollisionTime;
-        prevCollisionTime = currOverallTime;
-        Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
-        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
-        return timeSincePrevCollision;
+    public void GetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
+    {
+        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
+        float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
+        // if collision (from above) with already spawned base plane is occurring 
+        if (previousYVelocity > BP1.y && controllerPosition.y < BP1.y && planeHasBeenSpawned)
+        {
+            // calculate time since last recorded collision 
+            Debug.Log("Previous Collision occurred at: " + prevCollisionTime + " seconds");
+            timeSincePrevCollision = currOverallTime - prevCollisionTime;
+            prevCollisionTime = currOverallTime;
+            Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
+            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+            // TODO: give user feedback on timing
+        } 
     }
 
     private float GetAngleToFirstCollisionWithBasePlane(Vector3 BP1, Vector3 currentPosition)

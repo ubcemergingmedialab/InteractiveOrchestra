@@ -32,13 +32,15 @@ public class OVRVelocityTracker : OVRGestureHandle
     private float prevCollisionTime = 0;
     private float timeSincePrevCollision;
     private Vector3 BP1;
-    private Vector3 previousConductorSamplePoint;
+    private Vector3 previousConductorSamplePoint; 
 
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
     public int[] BPMToRecord = { 80, 100, 120 };
     private int currentBPMToRecord;
+    private float timeBetweenBeats;
+    private float allowedTimingError;
    
     public Transform conductorBaton;
     public InHouseMetronome inHouseMetronome;
@@ -51,7 +53,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     private List<ConductorSample> finalSamples;
 
     [SerializeField] private HorizontalPlane horizontalPlane;
-    [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour;
+    [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour; 
     #endregion
 
     #region Unity Methods
@@ -104,6 +106,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (Input.GetKeyUp("1"))
         {
             currentBPMToRecord = BPMToRecord[0];
+            timeBetweenBeats = (60 / currentBPMToRecord);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -112,6 +115,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (Input.GetKeyUp("2"))
         {
             currentBPMToRecord = BPMToRecord[1];
+            timeBetweenBeats = (60 / currentBPMToRecord);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -121,6 +125,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (Input.GetKeyUp("3"))
         {
             currentBPMToRecord = BPMToRecord[2];
+            timeBetweenBeats = (60 / currentBPMToRecord);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -307,9 +312,34 @@ public class OVRVelocityTracker : OVRGestureHandle
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
             Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
-            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
-            // TODO: give user feedback on timing
+            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
+            CheckUserTiming();
         } 
+    }
+
+    /// <summary>
+    /// Checks whether user's gestures are in time with audio BPM, providing user feedback
+    /// </summary> 
+    private void CheckUserTiming()
+    {
+        // TODO: play around with this value
+        allowedTimingError = timeBetweenBeats * 0.10f;
+        // user is on time
+        // TODO: create PerformanceIndicator object in scene
+        if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
+        {
+            // PerformanceIndicator (orb) turns green
+        }
+        // user is too fast
+        else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
+        {
+            // PerformanceIndicator (orb) turns red
+        }
+        // user is too slow
+        else
+        {
+            // PerformanceIndicator (orb) turns blue
+        }
     }
 
     private float GetAngleToFirstCollisionWithBasePlane(Vector3 BP1, Vector3 currentPosition)

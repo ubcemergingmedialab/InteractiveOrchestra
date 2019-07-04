@@ -53,7 +53,8 @@ public class OVRVelocityTracker : OVRGestureHandle
     private List<ConductorSample> finalSamples;
 
     [SerializeField] private HorizontalPlane horizontalPlane;
-    [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour; 
+    [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour;
+    [SerializeField] private PerformanceIndicator performanceIndicator;
     #endregion
 
     #region Unity Methods
@@ -313,33 +314,8 @@ public class OVRVelocityTracker : OVRGestureHandle
             prevCollisionTime = currOverallTime;
             Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
             Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
-            CheckUserTiming();
+            performanceIndicator.CheckUserTiming(allowedTimingError, timeBetweenBeats, timeSincePrevCollision);
         } 
-    }
-
-    /// <summary>
-    /// Checks whether user's gestures are in time with audio BPM, providing user feedback
-    /// </summary> 
-    private void CheckUserTiming()
-    {
-        // TODO: play around with this value
-        allowedTimingError = timeBetweenBeats * 0.10f;
-        // user is on time
-        // TODO: create PerformanceIndicator object in scene
-        if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
-        {
-            // PerformanceIndicator (orb) turns green
-        }
-        // user is too fast
-        else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
-        {
-            // PerformanceIndicator (orb) turns red
-        }
-        // user is too slow
-        else
-        {
-            // PerformanceIndicator (orb) turns blue
-        }
     }
 
     private float GetAngleToFirstCollisionWithBasePlane(Vector3 BP1, Vector3 currentPosition)

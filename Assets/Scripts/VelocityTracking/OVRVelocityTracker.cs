@@ -180,7 +180,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     /// <param name="device"> Device corresponding to the baton </param>
     public void StoreConductorSample(string gestureString, OVRInput.Controller device)
     {
-        if (!dataShouldBeRecorded) return;
+        //if (!dataShouldBeRecorded) return;
         int SizeOfSamplesList = samples.Count;
         // We're starting a new list of Conductor Samples so we need to track the start time
         if (SizeOfSamplesList == 0) startTime = (Time.time*1000.0f)/1000.0f;
@@ -195,11 +195,11 @@ public class OVRVelocityTracker : OVRGestureHandle
             Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
-            if(previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
+
+            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
                 horizontalPlane.SpawnPlane(conductorBaton.position);
-                prevCollisionTime = currOverallTime;
-                horizontalPlane.SpawnPlane(conductorBaton.position);
+                prevCollisionTime = currOverallTime; 
                 basePlaneCollisionPoint = controllerPosition; 
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
@@ -210,7 +210,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                 {
                     horizontalPlane.SpawnPlane(previousBatonPosition);
                     BP1 = previousControllerPosition;
-                }
+                } 
                 planeHasBeenSpawned = true;
             }
 
@@ -276,11 +276,13 @@ public class OVRVelocityTracker : OVRGestureHandle
                 }
             }
             previousYVelocity = controllerVelocity.y;
+            Debug.Log("Updating previous Y velocity to " + previousYVelocity);
             previousBatonPosition = conductorBaton.position;
             previousControllerPosition = controllerPosition;
             return;
         }
-
+        
+        
 
     }
 
@@ -297,16 +299,16 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     /// <summary>
     /// Calculates time elapsed since the last recorded collision with the base plane
-    /// Trigger on device must be pressed down for this function to be called from OVRGestureHandle.cs
+    /// Trigger on device must be pressed down for this function to be called (at every frame) from OVRGestureHandle.cs
     /// </summary>
-    /// <param name="device"> Device corresponding to the baton </param>
-    /// <returns>Time elapsed since previous collision</returns>
+    /// <param name="device"> Device corresponding to the baton </param> 
     public void GetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
     {
         Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
         // if collision (from above) with already spawned base plane is occurring 
-        if (previousYVelocity > BP1.y && controllerPosition.y < BP1.y && planeHasBeenSpawned)
+        Debug.Log("previousYVelocity: " + previousYVelocity + " > BP1 y position: " + BP1.y + " > controllerPosition.y: " + controllerPosition.y);
+        if (previousYVelocity > BP1.y && controllerPosition.y <= BP1.y)
         {
             // calculate time since last recorded collision 
             Debug.Log("Previous Collision occurred at: " + prevCollisionTime + " seconds");
@@ -314,7 +316,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             prevCollisionTime = currOverallTime;
             Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
             Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
-            performanceIndicator.CheckUserTiming(allowedTimingError, timeBetweenBeats, timeSincePrevCollision);
+            //performanceIndicator.CheckUserTiming(allowedTimingError, timeBetweenBeats, timeSincePrevCollision);
         } 
     }
 

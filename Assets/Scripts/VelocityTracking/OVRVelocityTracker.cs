@@ -39,8 +39,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     private char currentGestureSize;
     public int[] BPMToRecord = { 80, 100, 120 };
     private int currentBPMToRecord;
-    private float timeBetweenBeats;
-    private float allowedTimingError;
+    private float timeBetweenBeats; 
    
     public Transform conductorBaton;
     public InHouseMetronome inHouseMetronome;
@@ -70,9 +69,10 @@ public class OVRVelocityTracker : OVRGestureHandle
         planeHasBeenSpawned = false;
         dataShouldBeRecorded = true;
         currentGestureSize = gestureSize[0];
-        currentBPMToRecord = BPMToRecord[1];
-        currentBPMToRecord = BPMToRecord[0];
-        timeBetweenBeats = (60 / currentBPMToRecord);
+        currentBPMToRecord = BPMToRecord[1];                // BPM of 'O Canada' track
+        Debug.Log("Current BPM to record: " + currentBPMToRecord);
+        timeBetweenBeats = ((float)60 / currentBPMToRecord);       // ( 60 / 100 ) = 0.6 seconds
+        Debug.Log("Initializing time between beats: " + timeBetweenBeats);
         //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
         startTime = 0;
@@ -181,7 +181,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     /// <param name="device"> Device corresponding to the baton </param>
     public void StoreConductorSample(string gestureString, OVRInput.Controller device)
     {
-        //if (!dataShouldBeRecorded) return;
+        // if (!dataShouldBeRecorded) return;
         int SizeOfSamplesList = samples.Count;
         // We're starting a new list of Conductor Samples so we need to track the start time
         if (SizeOfSamplesList == 0) startTime = (Time.time*1000.0f)/1000.0f;
@@ -247,8 +247,8 @@ public class OVRVelocityTracker : OVRGestureHandle
             }
             else
             {
-                Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
-                Debug.Log("BP1 y position = " + BP1.y);
+                // Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
+                // Debug.Log("BP1 y position = " + BP1.y);
                 if (samples[samples.Count - 1].position.y > BP1.y)
                 {
                     ConductorSample newConductorSample = new ConductorSample(
@@ -272,12 +272,11 @@ public class OVRVelocityTracker : OVRGestureHandle
                 }
                 else
                 {
-                    Debug.Log("Number of data points: " + samples.Count);
+                    // Debug.Log("Number of data points: " + samples.Count);
                     dataShouldBeRecorded = false;
                 }
             }
-            previousYVelocity = controllerVelocity.y;
-            Debug.Log("Updating previous Y velocity to " + previousYVelocity);
+            previousYVelocity = controllerVelocity.y; 
             previousBatonPosition = conductorBaton.position;
             previousControllerPosition = controllerPosition;
             return;
@@ -308,14 +307,11 @@ public class OVRVelocityTracker : OVRGestureHandle
         Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
         // if collision (from above) with already spawned base plane is occurring 
-        Debug.Log("previousYVelocity: " + previousYVelocity + " > BP1 y position: " + BP1.y + " > controllerPosition.y: " + controllerPosition.y);
         if (previousYVelocity > BP1.y && controllerPosition.y <= BP1.y)
         {
-            // calculate time since last recorded collision 
-            Debug.Log("Previous Collision occurred at: " + prevCollisionTime + " seconds");
+            // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
-            prevCollisionTime = currOverallTime;
-            Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
+            prevCollisionTime = currOverallTime; 
             Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
             performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision);
         } 

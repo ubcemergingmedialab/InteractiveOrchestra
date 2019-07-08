@@ -4,61 +4,42 @@ using UnityEngine;
 
 public class PerformanceIndicator : MonoBehaviour {
 
-    #region Variables
-    private bool visible = true;
-    private Renderer performanceIndicatorRenderer;
-    private int userTiming;
+    #region Variables 
+    Renderer performanceIndicatorRend; 
     private float allowedTimingError;
+    public Material[] materials;
     #endregion
 
     // Use this for initialization
-    void Awake () {
-        performanceIndicatorRenderer = GetComponent<Renderer>();
-        performanceIndicatorRenderer.enabled = visible;
+    void Start () {
+        performanceIndicatorRend = this.GetComponent<Renderer>();
+        performanceIndicatorRend.enabled = true; 
     }
      
     /// <summary>
-    /// Checks whether user's gestures are in time with audio BPM, providing user feedback
+    /// Checks whether user's gestures are in time with audio BPM, providing user feedback by changing its color
     /// </summary> 
     /// <param name="timeBetweenBeats"></param> 
     /// <param name="timeSincePrevCollision"></param>
-    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision) {
-        
-        Debug.Log("Time between beats: " + timeBetweenBeats);
-        // TODO: play around with this value
-        allowedTimingError = timeBetweenBeats * 0.10f;
+    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
+    { 
+        allowedTimingError = timeBetweenBeats * 0.2f;
         Debug.Log("Allowed timing error: " + allowedTimingError);
-        // user is on time 
-        if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
-        {  
-            userTiming = 0;
+        if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
+        {
+            performanceIndicatorRend.sharedMaterial = materials[0];
+            Debug.Log("User is too slow!");
         }
-        // user is too fast
-        else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
-        { 
-            userTiming = 1;
+        else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
+            timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
+        {
+            performanceIndicatorRend.sharedMaterial = materials[1];
+            Debug.Log("User is on time!"); 
         }
-        // user is too slow
         else
-        { 
-            userTiming = -1;
-        }
-        UpdateColour();
-   }
-
-    private void UpdateColour()
-    {
-        if (userTiming == -1)
         {
-            performanceIndicatorRenderer.material.color = Color.blue;
-        }
-        if (userTiming == 0)
-        {
-            performanceIndicatorRenderer.material.color = Color.green;
-        }
-        if (userTiming == 1)
-        {
-            performanceIndicatorRenderer.material.color = Color.red;
-        }
+            performanceIndicatorRend.sharedMaterial = materials[2];
+            Debug.Log("User is too fast!");
+        } 
     } 
 }

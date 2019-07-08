@@ -70,7 +70,9 @@ public class OVRVelocityTracker : OVRGestureHandle
         planeHasBeenSpawned = false;
         dataShouldBeRecorded = true;
         currentGestureSize = gestureSize[0];
+        currentBPMToRecord = BPMToRecord[1];
         currentBPMToRecord = BPMToRecord[0];
+        timeBetweenBeats = (60 / currentBPMToRecord);
         //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
         startTime = 0;
@@ -103,7 +105,6 @@ public class OVRVelocityTracker : OVRGestureHandle
     /// </summary>
     private void DataTypeSetter()
     {
-       
         if (Input.GetKeyUp("1"))
         {
             currentBPMToRecord = BPMToRecord[0];
@@ -316,7 +317,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             prevCollisionTime = currOverallTime;
             Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
             Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
-            //performanceIndicator.CheckUserTiming(allowedTimingError, timeBetweenBeats, timeSincePrevCollision);
+            performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision);
         } 
     }
 

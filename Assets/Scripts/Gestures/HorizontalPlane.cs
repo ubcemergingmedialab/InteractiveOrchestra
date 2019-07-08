@@ -8,8 +8,6 @@ public class HorizontalPlane : MonoBehaviour {
     #region Variables 
     private bool visible = false;
     private Renderer planeRenderer;
-    public static List<Vector3> planePositions;
-    public TempoController tempoController; 
 
     #endregion
 
@@ -22,62 +20,6 @@ public class HorizontalPlane : MonoBehaviour {
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.enabled = visible;
     }
-
-    /// <summary>
-    /// If right controller's velocity is negative, save the position data
-    /// </summary>
-    void FixedUpdate() { 
-        // only track position when user is conducting
-       /* if (tempoController.getGestureString() != "PREP") // from VelocityTracker TrackAndStoreVelocity()
-        {
-            OVRInput.FixedUpdate();
-            Vector3 currentVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.GetActiveController());
-
-            Debug.Log("Velocity: " + currentVelocity);
-            // if Y component of velocity is negative,
-            if (currentVelocity.y <= 0)
-            {
-                // save position of controller
-                // TODO: write function that tracks time elapsed between current time and previous collision with plane
-                Vector3 currentPos = OVRInput.GetLocalControllerPosition(OVRInput.GetActiveController());
-                Debug.Log("Position: " + currentPos);
-                planePositions.Add(currentPos);
-
-                // testing planePositions list
-                foreach (Vector3 pp in planePositions)
-                {
-                    print(pp);
-                }
-            }
-        }*/
-    }
-
-    ///// <summary>
-    ///// If right controller's position is at y position of plane, save the position data
-    ///// </summary>
-    //void FixedUpdate()
-    //{
-    //    // only track position when user is conducting
-    //    if (tempoController.getGestureString() != "PREP") // from VelocityTracker TrackAndStoreVelocity()
-    //    {
-    //        OVRInput.FixedUpdate();
-    //        Vector3 currentPos = OVRInput.GetLocalControllerPosition(OVRInput.GetActiveController());
-    //        // if Y component of velocity is negative,
-    //        if (currentPos.y == transform.position.y)
-    //        {
-    //            // save position of controller
-    //            // TODO: write function that tracks time elapsed between current time and previous collision with plane 
-    //            Debug.Log("Position: " + currentPos);
-    //            planePositions.Add(currentPos);
-
-    //            // testing planePositions list
-    //            foreach (Vector3 pp in planePositions)
-    //            {
-    //                print(pp);
-    //            }
-    //        }
-    //    }
-    //}
     #endregion
 
     #region ClassFunctions
@@ -95,7 +37,7 @@ public class HorizontalPlane : MonoBehaviour {
     public void SpawnPlane(Vector3 controllerPosition)
     {
         gameObject.transform.position = controllerPosition;
-        ToggleView(); 
+        ToggleView();  
     } 
 
     #endregion

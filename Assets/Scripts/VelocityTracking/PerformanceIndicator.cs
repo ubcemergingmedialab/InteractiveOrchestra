@@ -5,15 +5,15 @@ using UnityEngine;
 public class PerformanceIndicator : MonoBehaviour {
 
     #region Variables 
-    Renderer performanceIndicatorRend; 
+    Renderer pIRenderer; 
     private float allowedTimingError;
-    public Material[] materials;
+    [SerializeField] private Material[] materials;
     #endregion
 
     // Use this for initialization
     void Start () {
-        performanceIndicatorRend = this.GetComponent<Renderer>();
-        performanceIndicatorRend.enabled = true; 
+        pIRenderer = GetComponent<Renderer>();
+        pIRenderer.enabled = true; 
     }
      
     /// <summary>
@@ -22,24 +22,28 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <param name="timeBetweenBeats"></param> 
     /// <param name="timeSincePrevCollision"></param>
     public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
-    { 
-        allowedTimingError = timeBetweenBeats * 0.2f;
-        Debug.Log("Allowed timing error: " + allowedTimingError);
+    {
+        Debug.Log("================");
+        allowedTimingError = timeBetweenBeats * 0.35f;
+        // Debug.Log("Allowed timing error: " + allowedTimingError);
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
         {
-            performanceIndicatorRend.sharedMaterial = materials[0];
-            Debug.Log("User is too slow!");
+            pIRenderer.material = materials[0];
+            //= materials[0];
+            Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
         }
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
             timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
         {
-            performanceIndicatorRend.sharedMaterial = materials[1];
+            pIRenderer.material = materials[1];
+            //pIRenderer.material.color = materials[1];
             Debug.Log("User is on time!"); 
         }
-        else
+        else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
         {
-            performanceIndicatorRend.sharedMaterial = materials[2];
-            Debug.Log("User is too fast!");
+            pIRenderer.material = materials[2];
+            //pIRenderer.material = materials[2];
+            Debug.Log("User is too fast !" + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
         } 
     } 
 }

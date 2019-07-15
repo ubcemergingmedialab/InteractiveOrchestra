@@ -12,30 +12,28 @@ Tool in development to aid orchestral conducting students in understanding how t
 | [Oculus Plugin](https://assetstore.unity.com/packages/tools/integration/oculus-integration-82022) | Allows Oculus functionality within Unity. |
 
 ## Included (Design)
+| Asset | Purpose |
+| ------ | ------ |
 | [Orchestra Practice Room 3D Model](https://3dwarehouse.sketchup.com/model/55a4e238148047373166bdf893060179/Orchestra-Room) | 3D model of orchestra practice room environment. |
-
 | [Mannequin Saxophone 3D Model](https://3dwarehouse.sketchup.com/model/da256d509d2e99fd1e54f6541acaa659/Musician-Sax) | 3D model of mannequin saxophonist for the orchestra. |
-
 | [Mannequin Upright Bass 3D Model](https://3dwarehouse.sketchup.com/model/a5aab341c771384c11a0817415275603/Musician-Upright-bass) | 3D model of mannequin bassist for the orchestra. |
-
 | [Mannequin Piano 3D Model](https://3dwarehouse.sketchup.com/model/c04160534b7d1a7eda6d676ff8ea001c/Musician-Piano) | 3D model of mannequin pianist for the orchestra. |
-
 | [Mannequin Violin 3D Model](https://3dwarehouse.sketchup.com/model/36b13c92d0d23f1433eddc4ad251356e/Musician-Violin) | 3D model of mannequin violinist for the orchestra. |
-
 | [Ceiling Tile Texture](https://3dtextures.me/2019/01/29/ceiling-gypsum-001/) | 3D texture for ceiling in the orchestra practice room environment. |
-
 | [O Canada Sheet Music](https://musescore.com/user/326626/scores/291086) | O Canada sheet music to display on music stand. |
-
 | [Wall Texture (Plastic Rough)](https://3dtextures.me/2019/02/15/plaster-rough-001/) | 3D wall texture for the orchestra practice room environment. |
 
 
 ## Excluded (Dev)
 The following assets are either necessary or recommended for the project to work as intended, and may be included in the project's final release. However, we cannot distribute them, and they must be acquired elsewhere.
+
 | Asset | Purpose | Optional? |
 | ------ | ------ | ------ |
 | [Wwise 2018.1.3](https://www.audiokinetic.com/download/) | Interactive audio software, used for slowing and speeding up the piece according to the user. | :x: |
 
 ## Excluded (Design)
+| Asset | Purpose | Optional? |
+| ------ | ------ | ------ |
 | [Wooden Floor Texture](https://meocloud.pt/link/71c6018b-da47-4c24-94e1-13d037b42461/Wood%20Floor_006_SD/) | 3D texture for wood flooring in the orchestra practice room environment. |
 
 ### Versioning

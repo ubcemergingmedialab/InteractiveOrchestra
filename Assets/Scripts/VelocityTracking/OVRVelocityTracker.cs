@@ -309,6 +309,8 @@ public class OVRVelocityTracker : OVRGestureHandle
         // if collision (from above) with already spawned base plane is occurring 
         if (previousYVelocity > BP1.y && controllerPosition.y <= BP1.y)
         {
+            // start playing audio if not already playing and plane has been spawned during prep beat gesture
+            tempoController.playPiece();
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 

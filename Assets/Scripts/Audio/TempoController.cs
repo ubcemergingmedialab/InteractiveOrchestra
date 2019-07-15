@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class TempoController : MonoBehaviour
 {
     #region Public variables
+    public bool isPrepComplete = false;
     public Slider audioSlider;
     public OVRConductorGesture conductor;
     public float threshold;
@@ -43,7 +44,7 @@ public class TempoController : MonoBehaviour
     private string[] gestures;
     private string gestureString = "PREP";
     private float[] beatLengthTracker;
-    private float gestureScore;
+    private float gestureScore; 
     #endregion
 
     #region Unity Methods
@@ -66,8 +67,7 @@ public class TempoController : MonoBehaviour
         beatLengthTracker = new float[beatsPerBar - 1];
         articulationIdentifier = articulation.ToString().Substring(0, 1);
         CurrBeat = 0;
-        gestures = new string[beatsPerBar];
-        
+        gestures = new string[beatsPerBar]; 
     }
 
     /// <summary>
@@ -173,13 +173,17 @@ public class TempoController : MonoBehaviour
 
 
     /// <summary>
-    /// Access Wwise functionality to play current piece.
+    /// Access Wwise functionality to play current piece if not already playing and the prep beat gesture has been completed
     /// </summary>
     public void playPiece()
     {
-        AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-        AkSoundEngine.SetRTPCValue(rtpcID, 75);
-        isPlaying = true;
+        Debug.Log("CURRENT PIECE IS PLAYING: " + isPlaying + " ////// PREP BEAT HAS BEEN COMPLETED: " + isPrepComplete);
+        if (!isPlaying && isPrepComplete)
+        {
+            AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
+            AkSoundEngine.SetRTPCValue(rtpcID, 75);
+            isPlaying = true;
+        }
     }
 
     /// <summary>

@@ -8,6 +8,7 @@ public class HorizontalPlane : MonoBehaviour {
     #region Variables 
     private bool visible = false;
     private Renderer planeRenderer;
+    [SerializeField] private TempoController tempoController;
 
     #endregion
 
@@ -34,10 +35,15 @@ public class HorizontalPlane : MonoBehaviour {
         planeRenderer.enabled = !visible;
     }
 
+    /// <summary>
+    /// Creates horizontal plane at (x,y,z) controllerPosition during initial prep beat 
+    /// </summary>
+    /// <param name="controllerPosition">x,y,z position of conducting baton controller</param>
     public void SpawnPlane(Vector3 controllerPosition)
     {
         gameObject.transform.position = controllerPosition;
-        ToggleView();  
+        ToggleView();
+        tempoController.isPrepComplete = true;
     } 
 
     #endregion

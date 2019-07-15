@@ -2,16 +2,16 @@
 ## Project Information
 Tool in development to aid orchestral conducting students in understanding how to remain on beat with their conducting.
 
-# External Assets
+## External Assets
 
-## Included (Dev)
+### Included (Dev)
 | Asset | Purpose |
 | ------ | ------ |
 | [VRTK](https://github.com/ExtendRealityLtd/VRTK) | Tool kit used for implementing VR functionality into a scene. Allows easy interchangeability between different VR hardware. |
 | [SteamVR](https://github.com/ValveSoftware/steamvr_unity_plugin) | Gives Unity access to SteamVR. | 
 | [Oculus Plugin](https://assetstore.unity.com/packages/tools/integration/oculus-integration-82022) | Allows Oculus functionality within Unity. |
 
-## Included (Design)
+### Included (Design)
 | Asset | Purpose |
 | ------ | ------ |
 | [Orchestra Practice Room 3D Model](https://3dwarehouse.sketchup.com/model/55a4e238148047373166bdf893060179/Orchestra-Room) | 3D model of orchestra practice room environment. |
@@ -24,31 +24,33 @@ Tool in development to aid orchestral conducting students in understanding how t
 | [Wall Texture (Plastic Rough)](https://3dtextures.me/2019/02/15/plaster-rough-001/) | 3D wall texture for the orchestra practice room environment. |
 
 
-## Excluded (Dev)
+### Excluded (Dev)
 The following assets are either necessary or recommended for the project to work as intended, and may be included in the project's final release. However, we cannot distribute them, and they must be acquired elsewhere.
 
 | Asset | Purpose | Optional? |
 | ------ | ------ | ------ |
+| [AirSig for HTC VIVE & Oculus Rift](https://assetstore.unity.com/packages/tools/input-management/3d-motion-gesture-and-signature-recognition-for-oculus-rift-101504) | Gesture recognition library used for defining the shape of each gesture component. Provides a score of correctness. | :heavy_check_mark: |
 | [Wwise 2018.1.3](https://www.audiokinetic.com/download/) | Interactive audio software, used for slowing and speeding up the piece according to the user. | :x: |
 
-## Excluded (Design)
+### Excluded (Design)
+
 | Asset | Purpose | Optional? |
 | ------ | ------ | ------ |
-| [Wooden Floor Texture](https://meocloud.pt/link/71c6018b-da47-4c24-94e1-13d037b42461/Wood%20Floor_006_SD/) | 3D texture for wood flooring in the orchestra practice room environment. |
+| [Wooden Floor Texture](https://meocloud.pt/link/71c6018b-da47-4c24-94e1-13d037b42461/Wood%20Floor_006_SD/) | 3D texture for wood flooring in the orchestra practice room environment. | :heavy_check_mark: |
 
-### Versioning
+## Versioning
 
 - Unity 2018.1.4f1 
 - Oculus Plugin 1.36.0
 - VRTK 3.3.0
 - SteamVR 1.2.3
 
-### Team
+## Team
 
-#### Faculty:
+### Faculty:
 Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities, Assistant Professor of Conducting and Ensembles at the UBC School of Music
 
-#### Current EML Student Team:
+### Current EML Student Team:
 
 - Rithvik Alluri - Developer
 - William Beltran - Technical Lead
@@ -58,6 +60,6 @@ Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities
 - Andrea Tang - Technical Lead
 - Shavonne Yu - Designer 
 
-### Documentation
+## Documentation
 For documentation, please visit the GitHub Wiki for this repository: 
 https://wiki.ubc.ca/Documentation:Interactive_Orchestra

@@ -486,6 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10518f7fe9649f4bb616ef437764091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPrepComplete: 0
   audioSlider: {fileID: 2071737640}
   conductor: {fileID: 1062714017}
   threshold: 0.7

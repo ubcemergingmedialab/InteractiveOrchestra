@@ -23,9 +23,8 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <param name="timeSincePrevCollision"></param>
     public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
     {
-        Debug.Log("================");
-        allowedTimingError = timeBetweenBeats * 0.35f;
-        // Debug.Log("Allowed timing error: " + allowedTimingError);
+        Debug.Log("================"); 
+        allowedTimingError = timeBetweenBeats * 0.25f; 
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
         {
             pIRenderer.material = materials[0];
@@ -35,15 +34,13 @@ public class PerformanceIndicator : MonoBehaviour {
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
             timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.material = materials[1];
-            //pIRenderer.material.color = materials[1];
+            pIRenderer.material = materials[1]; 
             Debug.Log("User is on time!"); 
         }
         else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
         {
-            pIRenderer.material = materials[2];
-            //pIRenderer.material = materials[2];
-            Debug.Log("User is too fast !" + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
+            pIRenderer.material = materials[2]; 
+            Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
         } 
     } 
 }

@@ -45,6 +45,18 @@ The following assets are either necessary or recommended for the project to work
 - VRTK 3.3.0
 - SteamVR 1.2.3
 
+## Getting Started
+
+1. Make note of Oculus controller: only the grip & the trigger functionalities will be used.
+2. Adjust headset for user's comfort.
+3. Ensure that the guide button (above the top left of music stand) is selected.
+    * Select by making contact with Oculus controller.
+4. Use grip functionality to pick up baton (resting at the base of the music stand) via baton grip.
+    * User can let go of the grip button after baton has been selected.
+5. Press & hold trigger to activate the trail system. The trail system indicates that your gestures are being tracked.
+    * Move baton tip along prep beat guide to an approximate speed of 80 beats per minute. This will activate the 4:4 legato guide for the user to follow.
+    * Motion baton tip along 4:4 legato static guide in a smooth motion.
+
 ## Team
 
 ### Faculty:

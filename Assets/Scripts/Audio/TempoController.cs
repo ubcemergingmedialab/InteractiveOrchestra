@@ -176,8 +176,7 @@ public class TempoController : MonoBehaviour
     /// Access Wwise functionality to play current piece if not already playing and the prep beat gesture has been completed
     /// </summary>
     public void playPiece()
-    {
-        Debug.Log("CURRENT PIECE IS PLAYING: " + isPlaying + " ////// PREP BEAT HAS BEEN COMPLETED: " + isPrepComplete);
+    { 
         if (!isPlaying && isPrepComplete)
         {
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);

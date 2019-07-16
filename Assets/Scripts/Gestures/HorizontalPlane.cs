@@ -7,9 +7,11 @@ public class HorizontalPlane : MonoBehaviour {
 
     #region Variables 
     private bool visible = false;
+    private bool flag;
     private Renderer planeRenderer;
     public static List<Vector3> planePositions;
-    public TempoController tempoController; 
+    public TempoController tempoController;
+    
 
     #endregion
 
@@ -21,7 +23,7 @@ public class HorizontalPlane : MonoBehaviour {
     { 
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.enabled = visible;
-    }
+}
 
     /// <summary>
     /// If right controller's velocity is negative, save the position data
@@ -95,8 +97,57 @@ public class HorizontalPlane : MonoBehaviour {
     public void SpawnPlane(Vector3 controllerPosition)
     {
         gameObject.transform.position = controllerPosition;
-        ToggleView(); 
-    } 
+        ToggleView();
+        flag = false;
+    }
+
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.25F);
+        ChangeColorToBlueOnCollision();
+    }
+
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.CompareTag("BatonSphere") || other.gameObject.CompareTag("BatonSphere_001"))
+    //    {
+    //        if (flag == false)
+    //        {
+    //            flag = true;
+    //        } else
+    //        {
+    //            ChangeColorToBlackOnCollision();
+    //            StartCoroutine(Timer());
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("BatonSphere"))
+        {
+            if (flag == false)
+            {
+                flag = true;
+            } else
+            {
+                ChangeColorToBlackOnCollision();
+                StartCoroutine(Timer());
+            }
+        }
+    }
+
+
+    public void ChangeColorToBlackOnCollision()
+    {
+        planeRenderer.material.color = Color.black;
+    }
+
+    public void ChangeColorToBlueOnCollision()
+    {
+        Color altColor = new Color32(92, 214, 255, 255);
+        planeRenderer.material.color = altColor;
+    }
 
     #endregion
 }

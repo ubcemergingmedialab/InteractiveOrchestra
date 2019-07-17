@@ -34,6 +34,9 @@ public class OVRVelocityTracker : OVRGestureHandle
     private Vector3 BP1;
     private Vector3 previousConductorSamplePoint;
 
+    // my edits
+    private Vector3 planeSpawnPosition;
+
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
@@ -167,6 +170,13 @@ public class OVRVelocityTracker : OVRGestureHandle
             Destroy(sphere);
         }
     }
+
+    //IEnumerator Timer()
+    //{
+    //    yield return new WaitForSeconds(0.25F);
+    //    horizontalPlane.ChangeColorToBlueOnCollision();
+    //}
+
     /// <summary>
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
@@ -189,24 +199,50 @@ public class OVRVelocityTracker : OVRGestureHandle
             Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
-            if(previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
+            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
-                horizontalPlane.SpawnPlane(conductorBaton.position);
+                //horizontalPlane.SpawnPlane(conductorBaton.position);
                 timeSincePrevCollision = GetTimeSincePrevCollisionWithBasePlane(currOverallTime);
-                horizontalPlane.SpawnPlane(conductorBaton.position);
+                //horizontalPlane.SpawnPlane(conductorBaton.position);
                 basePlaneCollisionPoint = controllerPosition;
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
                     horizontalPlane.SpawnPlane(conductorBaton.position);
+                    // =========================
+                    // See description below for plane color change
+                    //planeSpawnPosition = conductorBaton.position;
+                    //==========================
                     BP1 = controllerPosition;
                 }
                 else
                 {
                     horizontalPlane.SpawnPlane(previousBatonPosition);
+                    // ===========================
+                    // See description below for plane color change
+                    //planeSpawnPosition = previousBatonPosition;
+                    //============================
                     BP1 = previousControllerPosition;
                 }
                 planeHasBeenSpawned = true;
             }
+
+            // ======================================================
+            // Triggering base plane color change based on y-coordiates of plane and controller
+            //
+            //Debug.Log("conductorBaton.position.y: " + conductorBaton.position.y);
+            //Debug.Log("planeSpawnPosition.y: " + planeSpawnPosition.y);
+            //Debug.Log("controllerVelocity.y: " + controllerVelocity.y);
+
+            //if (planeHasBeenSpawned && (conductorBaton.position.y <= planeSpawnPosition.y))
+            //{
+            //    horizontalPlane.ChangeColorToBlackOnCollision();
+            //    StartCoroutine(Timer());
+            //}
+            //else
+            //{
+            //    horizontalPlane.ChangeColorToBlueOnCollision();
+            //}
+            // ======================================================
 
             float angleToBP1 = GetAngleToFirstCollisionWithBasePlane(BP1,controllerPosition);
             if (angleToBP1 == 90) angleToBP1 = -999;

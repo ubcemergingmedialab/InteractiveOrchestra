@@ -41,7 +41,8 @@ public class OVRGestureHandle : MonoBehaviour {
             {
                 //Debug.Log(OVRInput.GetLocalControllerVelocity(device));
                 //Debug.Assert(device != null);
-                velocityTracker.StoreConductorSample(gestureString, device);
+                velocityTracker.StoreConductorSample(gestureString, device); 
+                velocityTracker.GetTimeSincePrevCollisionWithBasePlane(device);
                // Debug.Log("Press");
                 track.Play();
                 tracking = true;

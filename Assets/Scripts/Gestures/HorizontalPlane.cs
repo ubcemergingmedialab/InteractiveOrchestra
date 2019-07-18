@@ -7,8 +7,10 @@ public class HorizontalPlane : MonoBehaviour {
 
     #region Variables 
     private bool visible = false;
+    private bool flag = false;
     private Renderer planeRenderer;
     [SerializeField] private TempoController tempoController;
+    public static List<Vector3> planePositions;
 
     #endregion
 
@@ -20,7 +22,8 @@ public class HorizontalPlane : MonoBehaviour {
     { 
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.enabled = visible;
-    }
+}
+
     #endregion
 
     #region ClassFunctions
@@ -44,7 +47,62 @@ public class HorizontalPlane : MonoBehaviour {
         gameObject.transform.position = controllerPosition;
         ToggleView();
         tempoController.isPrepComplete = true;
-    } 
+        flag = false;
+    }
 
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.25F);
+        ChangeColorToBlueOnCollision();
+    }
+
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.CompareTag("BatonSphere") || other.gameObject.CompareTag("BatonSphere_001"))
+    //    {
+    //        if (flag == false)
+    //        {
+    //            flag = true;
+    //        } else
+    //        {
+    //            ChangeColorToBlackOnCollision();
+    //            StartCoroutine(Timer());
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("COLLIDED");
+        if (other.gameObject.CompareTag("BatonSphere"))
+        {
+            Debug.Log("=============");
+            Debug.Log(flag);
+            if (flag == true) { Debug.Log("flag is null"); }
+            if (flag == null){ Debug.Log("flag is null"); }
+            if (flag == false)
+            {
+                Debug.Log("Flag set to true");
+                flag = true;
+            } else
+            {
+                Debug.Log("+++++++++++++++");
+                ChangeColorToBlackOnCollision();
+                StartCoroutine(Timer());
+            }
+        }
+    }
+
+
+    public void ChangeColorToBlackOnCollision()
+    {
+        planeRenderer.material.color = Color.black;
+    }
+
+    public void ChangeColorToBlueOnCollision()
+    {
+        Color altColor = new Color32(92, 214, 255, 255);
+        planeRenderer.material.color = altColor;
+    }
     #endregion
 }

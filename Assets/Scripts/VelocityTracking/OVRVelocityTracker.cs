@@ -312,7 +312,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
             // provide haptic feedback
-            // horizontalPlane.StartCoroutine(Haptics(1, 1, 0.2f));
+            horizontalPlane.PlaneFeedback();
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 

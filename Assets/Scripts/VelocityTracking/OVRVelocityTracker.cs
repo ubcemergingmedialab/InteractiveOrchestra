@@ -316,8 +316,8 @@ public class OVRVelocityTracker : OVRGestureHandle
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 
-            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
             performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision); 
+            performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
             isBeneathPlane = !isBeneathPlane;
         } 
         if (isBeneathPlane && controllerPosition.y > BP1.y)

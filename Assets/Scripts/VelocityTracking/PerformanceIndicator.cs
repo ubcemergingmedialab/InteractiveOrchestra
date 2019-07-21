@@ -7,6 +7,8 @@ public class PerformanceIndicator : MonoBehaviour {
     #region Variables 
     Renderer pIRenderer; 
     private float allowedTimingError;
+    private int userBPM;
+    private int beatCount;
     [SerializeField] private Material[] materials;
     #endregion
 
@@ -37,10 +39,37 @@ public class PerformanceIndicator : MonoBehaviour {
             pIRenderer.material = materials[1]; 
             Debug.Log("User is on time!"); 
         }
-        else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
+        else
+        // if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
         {
             pIRenderer.material = materials[2]; 
             Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
+        }
+    }
+
+    /// <summary>
+    /// Updates beat count, resets count every 4th beat
+    /// </summary>
+    public void UpdateBeatCount(float timeSincePrevCollision)
+    {
+        beatCount++;
+        if (beatCount == 5)
+        { 
+            beatCount = 1;
+            SetCurrentBPM(timeSincePrevCollision);
+            Debug.Log("beat count: " + beatCount);
         } 
-    } 
+         
+    }
+
+    /// <summary>
+    /// Updates the userBPM based on timeSincePrevCollision and song's BPM
+    /// </summary>
+    /// <param name="timeSincePrevCollision"></param>
+    private void SetCurrentBPM(float timeSincePrevCollision)
+    {
+        userBPM = (int) (60 / timeSincePrevCollision);
+        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+        Debug.Log("User BPM: " + userBPM);
+    }
 }

@@ -32,14 +32,19 @@ public class OVRVelocityTracker : OVRGestureHandle
     private float prevCollisionTime = 0;
     private float timeSincePrevCollision;
     private Vector3 BP1;
-    private Vector3 previousConductorSamplePoint;
+    private Vector3 previousConductorSamplePoint; 
+
+    // my edits
+    private Vector3 planeSpawnPosition;
 
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
     public int[] BPMToRecord = { 80, 100, 120 };
     private int currentBPMToRecord;
-   
+    private float timeBetweenBeats;
+    private bool isBeneathPlane = false;
+
     public Transform conductorBaton;
     public InHouseMetronome inHouseMetronome;
     public static List<ConductorSample> samples;
@@ -52,6 +57,7 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     [SerializeField] private HorizontalPlane horizontalPlane;
     [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour;
+    [SerializeField] private PerformanceIndicator performanceIndicator; 
     #endregion
 
     #region Unity Methods
@@ -67,7 +73,10 @@ public class OVRVelocityTracker : OVRGestureHandle
         planeHasBeenSpawned = false;
         dataShouldBeRecorded = true;
         currentGestureSize = gestureSize[0];
-        currentBPMToRecord = BPMToRecord[0];
+        currentBPMToRecord = BPMToRecord[1];                // BPM of 'O Canada' track
+        Debug.Log("Current BPM to record: " + currentBPMToRecord);
+        timeBetweenBeats = ((float)60 / currentBPMToRecord);       // ( 60 / 100 ) = 0.6 seconds
+        Debug.Log("Initializing time between beats: " + timeBetweenBeats);
         //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
         startTime = 0;
@@ -100,10 +109,10 @@ public class OVRVelocityTracker : OVRGestureHandle
     /// </summary>
     private void DataTypeSetter()
     {
-       
         if (Input.GetKeyUp("1"))
         {
             currentBPMToRecord = BPMToRecord[0];
+            timeBetweenBeats = (60 / currentBPMToRecord);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -112,6 +121,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (Input.GetKeyUp("2"))
         {
             currentBPMToRecord = BPMToRecord[1];
+            timeBetweenBeats = (60 / currentBPMToRecord);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -121,6 +131,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (Input.GetKeyUp("3"))
         {
             currentBPMToRecord = BPMToRecord[2];
+            timeBetweenBeats = (60 / currentBPMToRecord);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -167,6 +178,13 @@ public class OVRVelocityTracker : OVRGestureHandle
             Destroy(sphere);
         }
     }
+
+    //IEnumerator Timer()
+    //{
+    //    yield return new WaitForSeconds(0.25F);
+    //    horizontalPlane.ChangeColorToBlueOnCollision();
+    //}
+
     /// <summary>
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
@@ -174,7 +192,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     /// <param name="device"> Device corresponding to the baton </param>
     public void StoreConductorSample(string gestureString, OVRInput.Controller device)
     {
-        if (!dataShouldBeRecorded) return;
+        // if (!dataShouldBeRecorded) return;
         int SizeOfSamplesList = samples.Count;
         // We're starting a new list of Conductor Samples so we need to track the start time
         if (SizeOfSamplesList == 0) startTime = (Time.time*1000.0f)/1000.0f;
@@ -189,24 +207,50 @@ public class OVRVelocityTracker : OVRGestureHandle
             Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
-            if(previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
+            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
                 horizontalPlane.SpawnPlane(conductorBaton.position);
-                timeSincePrevCollision = GetTimeSincePrevCollisionWithBasePlane(currOverallTime);
-                horizontalPlane.SpawnPlane(conductorBaton.position);
-                basePlaneCollisionPoint = controllerPosition;
+                prevCollisionTime = currOverallTime;
+                //timeSincePrevCollision = GetTimeSincePrevCollisionWithBasePlane(currOverallTime);
+                basePlaneCollisionPoint = controllerPosition; 
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
                     horizontalPlane.SpawnPlane(conductorBaton.position);
+                    // =========================
+                    // See description below for plane color change
+                    //planeSpawnPosition = conductorBaton.position;
+                    //==========================
                     BP1 = controllerPosition;
                 }
                 else
                 {
                     horizontalPlane.SpawnPlane(previousBatonPosition);
+                    // ===========================
+                    // See description below for plane color change
+                    //planeSpawnPosition = previousBatonPosition;
+                    //============================
                     BP1 = previousControllerPosition;
-                }
+                } 
                 planeHasBeenSpawned = true;
             }
+
+            // ======================================================
+            // Triggering base plane color change based on y-coordiates of plane and controller
+            //
+            //Debug.Log("conductorBaton.position.y: " + conductorBaton.position.y);
+            //Debug.Log("planeSpawnPosition.y: " + planeSpawnPosition.y);
+            //Debug.Log("controllerVelocity.y: " + controllerVelocity.y);
+
+            //if (planeHasBeenSpawned && (conductorBaton.position.y <= planeSpawnPosition.y))
+            //{
+            //    horizontalPlane.ChangeColorToBlackOnCollision();
+            //    StartCoroutine(Timer());
+            //}
+            //else
+            //{
+            //    horizontalPlane.ChangeColorToBlueOnCollision();
+            //}
+            // ======================================================
 
             float angleToBP1 = GetAngleToFirstCollisionWithBasePlane(BP1,controllerPosition);
             if (angleToBP1 == 90) angleToBP1 = -999;
@@ -217,6 +261,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             // 2. The BP1 has not been degined
             // 3. Controller y velocity is positive 
             // These combinations of conditions allow for data points to only be recorded for the prep gesture
+
             if (controllerPosition.y > BP1.y || BP1 == Vector3.zero|| controllerVelocity.y>0 )
             {
                 ConductorSample newConductorSample = new ConductorSample(
@@ -239,8 +284,8 @@ public class OVRVelocityTracker : OVRGestureHandle
             }
             else
             {
-                Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
-                Debug.Log("BP1 y position = " + BP1.y);
+                // Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
+                // Debug.Log("BP1 y position = " + BP1.y);
                 if (samples[samples.Count - 1].position.y > BP1.y)
                 {
                     ConductorSample newConductorSample = new ConductorSample(
@@ -264,16 +309,17 @@ public class OVRVelocityTracker : OVRGestureHandle
                 }
                 else
                 {
-                    Debug.Log("Number of data points: " + samples.Count);
+                    // Debug.Log("Number of data points: " + samples.Count);
                     dataShouldBeRecorded = false;
                 }
             }
-            previousYVelocity = controllerVelocity.y;
+            previousYVelocity = controllerVelocity.y; 
             previousBatonPosition = conductorBaton.position;
             previousControllerPosition = controllerPosition;
             return;
         }
-
+        
+        
 
     }
 
@@ -290,17 +336,28 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     /// <summary>
     /// Calculates time elapsed since the last recorded collision with the base plane
+    /// Trigger on device must be pressed down for this function to be called (at every frame) from OVRGestureHandle.cs
     /// </summary>
-    /// <param name="currOverallTime"> Global time </param>
-    /// <returns>Time elapsed since previous collision</returns>
-    private float GetTimeSincePrevCollisionWithBasePlane(float currOverallTime)
-    { 
-        Debug.Log("Previous Collision occurred at: " + prevCollisionTime + " seconds");
-        timeSincePrevCollision = currOverallTime - prevCollisionTime;
-        prevCollisionTime = currOverallTime;
-        Debug.Log("Current collision occurred at: " + prevCollisionTime + " seconds");
-        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
-        return timeSincePrevCollision;
+    /// <param name="device"> Device corresponding to the baton </param> 
+    public void GetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
+    {
+        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
+        float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
+        if (!isBeneathPlane && controllerPosition.y <= BP1.y) 
+        {
+            // start playing audio if not already playing and plane has been spawned during prep beat gesture
+            tempoController.playPiece();
+            // calculate time since last recorded collision  
+            timeSincePrevCollision = currOverallTime - prevCollisionTime;
+            prevCollisionTime = currOverallTime; 
+            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
+            performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision); 
+            isBeneathPlane = !isBeneathPlane;
+        } 
+        if (isBeneathPlane && controllerPosition.y > BP1.y)
+        {
+            isBeneathPlane = !isBeneathPlane;
+        }
     }
 
     private float GetAngleToFirstCollisionWithBasePlane(Vector3 BP1, Vector3 currentPosition)

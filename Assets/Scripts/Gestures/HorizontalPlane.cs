@@ -7,9 +7,10 @@ public class HorizontalPlane : MonoBehaviour {
 
     #region Variables 
     private bool visible = false;
+    private bool flag = false;
     private Renderer planeRenderer;
+    [SerializeField] private TempoController tempoController;
     public static List<Vector3> planePositions;
-    public TempoController tempoController; 
 
     #endregion
 
@@ -21,63 +22,8 @@ public class HorizontalPlane : MonoBehaviour {
     { 
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.enabled = visible;
-    }
+}
 
-    /// <summary>
-    /// If right controller's velocity is negative, save the position data
-    /// </summary>
-    void FixedUpdate() { 
-        // only track position when user is conducting
-       /* if (tempoController.getGestureString() != "PREP") // from VelocityTracker TrackAndStoreVelocity()
-        {
-            OVRInput.FixedUpdate();
-            Vector3 currentVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.GetActiveController());
-
-            Debug.Log("Velocity: " + currentVelocity);
-            // if Y component of velocity is negative,
-            if (currentVelocity.y <= 0)
-            {
-                // save position of controller
-                // TODO: write function that tracks time elapsed between current time and previous collision with plane
-                Vector3 currentPos = OVRInput.GetLocalControllerPosition(OVRInput.GetActiveController());
-                Debug.Log("Position: " + currentPos);
-                planePositions.Add(currentPos);
-
-                // testing planePositions list
-                foreach (Vector3 pp in planePositions)
-                {
-                    print(pp);
-                }
-            }
-        }*/
-    }
-
-    ///// <summary>
-    ///// If right controller's position is at y position of plane, save the position data
-    ///// </summary>
-    //void FixedUpdate()
-    //{
-    //    // only track position when user is conducting
-    //    if (tempoController.getGestureString() != "PREP") // from VelocityTracker TrackAndStoreVelocity()
-    //    {
-    //        OVRInput.FixedUpdate();
-    //        Vector3 currentPos = OVRInput.GetLocalControllerPosition(OVRInput.GetActiveController());
-    //        // if Y component of velocity is negative,
-    //        if (currentPos.y == transform.position.y)
-    //        {
-    //            // save position of controller
-    //            // TODO: write function that tracks time elapsed between current time and previous collision with plane 
-    //            Debug.Log("Position: " + currentPos);
-    //            planePositions.Add(currentPos);
-
-    //            // testing planePositions list
-    //            foreach (Vector3 pp in planePositions)
-    //            {
-    //                print(pp);
-    //            }
-    //        }
-    //    }
-    //}
     #endregion
 
     #region ClassFunctions
@@ -92,11 +38,71 @@ public class HorizontalPlane : MonoBehaviour {
         planeRenderer.enabled = !visible;
     }
 
+    /// <summary>
+    /// Creates horizontal plane at (x,y,z) controllerPosition during initial prep beat 
+    /// </summary>
+    /// <param name="controllerPosition">x,y,z position of conducting baton controller</param>
     public void SpawnPlane(Vector3 controllerPosition)
     {
         gameObject.transform.position = controllerPosition;
-        ToggleView(); 
-    } 
+        ToggleView();
+        tempoController.isPrepComplete = true;
+        flag = false;
+    }
 
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.25F);
+        ChangeColorToBlueOnCollision();
+    }
+
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.CompareTag("BatonSphere") || other.gameObject.CompareTag("BatonSphere_001"))
+    //    {
+    //        if (flag == false)
+    //        {
+    //            flag = true;
+    //        } else
+    //        {
+    //            ChangeColorToBlackOnCollision();
+    //            StartCoroutine(Timer());
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("COLLIDED");
+        if (other.gameObject.CompareTag("BatonSphere"))
+        {
+            Debug.Log("=============");
+            Debug.Log(flag);
+            if (flag == true) { Debug.Log("flag is null"); }
+            if (flag == null){ Debug.Log("flag is null"); }
+            if (flag == false)
+            {
+                Debug.Log("Flag set to true");
+                flag = true;
+            } else
+            {
+                Debug.Log("+++++++++++++++");
+                ChangeColorToBlackOnCollision();
+                StartCoroutine(Timer());
+            }
+        }
+    }
+
+
+    public void ChangeColorToBlackOnCollision()
+    {
+        planeRenderer.material.color = Color.black;
+    }
+
+    public void ChangeColorToBlueOnCollision()
+    {
+        Color altColor = new Color32(92, 214, 255, 255);
+        planeRenderer.material.color = altColor;
+    }
     #endregion
 }

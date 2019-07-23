@@ -47,6 +47,26 @@ public class HorizontalPlane : MonoBehaviour {
         gameObject.transform.position = controllerPosition;
         ToggleView();
         tempoController.isPrepComplete = true;
+        PlaneFeedback();
+    } 
+
+    public void PlaneFeedback()
+    {
+        StartCoroutine(Haptics(0.5f, 0.5f, 0.1f));
+    }
+
+    /// <summary>
+    /// Provides haptic feedback (a short vibration) to the user upon plane collision
+    /// </summary>
+    IEnumerator Haptics(float frequency, float amplitude, float duration)
+    {
+        OVRInput.SetControllerVibration(frequency, amplitude, OVRInput.Controller.RTouch);
+
+        yield return new WaitForSeconds(duration);
+
+        OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
+    }
+    
         flag = false;
     }
 

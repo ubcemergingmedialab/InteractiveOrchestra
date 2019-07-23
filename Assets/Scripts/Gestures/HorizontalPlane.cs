@@ -48,6 +48,7 @@ public class HorizontalPlane : MonoBehaviour {
         ToggleView();
         tempoController.isPrepComplete = true;
         PlaneFeedback();
+        flag = false;
     } 
 
     public void PlaneFeedback()
@@ -67,9 +68,6 @@ public class HorizontalPlane : MonoBehaviour {
         OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
     }
     
-        flag = false;
-    }
-
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(0.25F);

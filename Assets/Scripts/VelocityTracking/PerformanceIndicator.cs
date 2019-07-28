@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PerformanceIndicator : MonoBehaviour {
 
@@ -10,12 +11,15 @@ public class PerformanceIndicator : MonoBehaviour {
     private int userBPM;
     private int beatCount;
     [SerializeField] private Material[] materials;
+    public Text BPMTextDisplay;
     #endregion
 
     // Use this for initialization
     void Start () {
         pIRenderer = GetComponent<Renderer>();
-        pIRenderer.enabled = true; 
+        pIRenderer.enabled = true;
+        userBPM = 0;
+        SetCurrentBPM(0.0f);
     }
      
     /// <summary>
@@ -70,6 +74,7 @@ public class PerformanceIndicator : MonoBehaviour {
     {
         userBPM = (int) (60 / timeSincePrevCollision);
         Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+        BPMTextDisplay.text = "User BPM: " + userBPM.ToString();
         Debug.Log("User BPM: " + userBPM);
     }
 }

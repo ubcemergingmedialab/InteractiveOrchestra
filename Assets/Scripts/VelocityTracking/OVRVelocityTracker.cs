@@ -241,7 +241,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                         currentBPMToRecord,                                         // Current BPM being collected
                         currentTrial
                         );
-                if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                // if(newConductorSample.trial == 1) InstantiateDebugSphere();
                 samples.Add(newConductorSample);
                 trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
                 
@@ -265,7 +265,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                         currentBPMToRecord,                                         // Current BPM being collected
                         currentTrial
                         );
-                    if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                    // if(newConductorSample.trial == 1) InstantiateDebugSphere();
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
 

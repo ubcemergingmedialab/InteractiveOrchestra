@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class OVRGestureHandle : MonoBehaviour {
 
     #region Variables
-    [SerializeField] private BPMPredictor BPMPred;
+    
     public TempoController tempoController;
 
     // Reference to the vive right hand controller for handing key pressing
@@ -40,8 +40,10 @@ public class OVRGestureHandle : MonoBehaviour {
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             if (triggerKeyValue > 0.8f)
             {
-                BPMPred.RecordConductorSample(device);
+                
+
                 velocityTracker.StoreConductorSample(gestureString, device); 
+
                 velocityTracker.GetTimeSincePrevCollisionWithBasePlane(device);
                 track.Play();
                 tracking = true;

@@ -18,6 +18,8 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     #region Variables
 
+    [SerializeField] private BPMPredictor BPMPred;
+
     private float ModelBarLength;
     private float DISTANCE_BETWEEN_MEASUREMENTS = 0.005f;
     private float startTime;
@@ -258,11 +260,11 @@ public class OVRVelocityTracker : OVRGestureHandle
             if (BP1 == Vector3.zero) totalDistanceCoveredSoFar = 0;
             // Three conditions under which we will add a data sample 
             // 1. The controller is located above the BP1 position
-            // 2. The BP1 has not been degined
+            // 2. The BP1 has not been defined
             // 3. Controller y velocity is positive 
             // These combinations of conditions allow for data points to only be recorded for the prep gesture
 
-            if (controllerPosition.y > BP1.y || BP1 == Vector3.zero|| controllerVelocity.y>0 )
+            if (controllerPosition.y > BP1.y || BP1 == Vector3.zero|| controllerVelocity.y > 0)
             {
                 ConductorSample newConductorSample = new ConductorSample(
                         controllerVelocity,                                         // Velocity vector
@@ -277,7 +279,8 @@ public class OVRVelocityTracker : OVRGestureHandle
                         currentBPMToRecord,                                         // Current BPM being collected
                         currentTrial
                         );
-                if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample);
+                //if (newConductorSample.trial == 1) InstantiateDebugSphere();
                 samples.Add(newConductorSample);
                 trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
                 
@@ -301,7 +304,8 @@ public class OVRVelocityTracker : OVRGestureHandle
                         currentBPMToRecord,                                         // Current BPM being collected
                         currentTrial
                         );
-                    if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                    //if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                    if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample);
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
 
@@ -539,6 +543,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             this.trial = trial;
 
         }
+        
 
     }
     #endregion

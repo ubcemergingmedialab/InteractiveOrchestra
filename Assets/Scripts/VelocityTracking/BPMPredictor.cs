@@ -16,11 +16,11 @@ public class BPMPredictor : MonoBehaviour {
     private bool m_RegionTwoStart = false;
 
 
-    private float[] m_PredictorWeights = new float[]{-1.18118476e-02f, -1.32763364e-02f, -2.65996807e-02f, -2.65996807e-02f,
-  8.19660675e-02f, -1.26190278e-01f, -4.42242101e-02f ,-1.63708474e-03f,
-  2.07700007e-03f, -7.34709437e-04f, 3.30528428e-02f ,-4.22880578e-02f,
-  1.45280780e-02f,  7.09113061e-02f , 1.34520906e-01f,  1.16857063e+00f,
- -1.37810550e+00f,  1.26620967e-01f};
+    private float[] m_PredictorWeights = new float[]{-1.45799194e-02f, -2.22294665e-02f, -2.20364604e-02f, -2.20364604e-02f,
+  7.92936317e-02f, -1.20978947e-01f, -4.16853150e-02f, -1.11992833e-03f,
+  1.07978592e-03f, -7.48575246e-07f,  4.02487543e-02f, -6.41190512e-02f,
+  1.60786634e-02f,  9.92423578e-02f,  1.03286836e-01f,  1.20085537e+00f,
+  1.74462356e-01f};
     private float m_DISTANCE_BETWEEN_MEASUREMENTS = 0.005f;
 
     private float m_startTime = 0;
@@ -93,8 +93,8 @@ public class BPMPredictor : MonoBehaviour {
                 // Distance
                 m_RegionOneDistance = conductorSample.distanceCoveredSoFar;
                 // Time
-                m_TimeEndRegionOne = m_prevConductorSample.timeRelativeToPrep;
-                m_TimeStartRegionTwo = conductorSample.timeRelativeToPrep;
+                m_TimeEndRegionOne = m_prevConductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
+                m_TimeStartRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
                 // Median Velocity
                 StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionOne = median,m_MedianVelocityRegionOneList));
                 StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionOne = median, m_MedianVelocityYRegionOneList));
@@ -127,7 +127,7 @@ public class BPMPredictor : MonoBehaviour {
                 m_TotalRegionDistance = conductorSample.distanceCoveredSoFar;
                 m_RegionTwoDistance = m_TotalRegionDistance - m_RegionOneDistance;
                 // Time
-                m_TimeEndRegionTwo = conductorSample.timeRelativeToPrep;
+                m_TimeEndRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
                 // Median Velocity
                 StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionTwo = median,m_MedianVelocityRegionTwoList));
                 StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionTwo = median, m_MedianVelocityYRegionTwoList));
@@ -206,6 +206,30 @@ public class BPMPredictor : MonoBehaviour {
             m_RegionTwoFinished = false;
             m_RegionOneStart = false;
             m_prevConductorSample = new OVRVelocityTracker.ConductorSample();
+
+            float timeBetweenCollisions = m_MedianVelocityRegionOne * m_PredictorWeights[0] +
+                m_MedianVelocityRegionTwo * m_PredictorWeights[1] +
+                m_MeanVelocityRegionOne * m_PredictorWeights[2] +
+                m_MeanVelocityRegionTwo * m_PredictorWeights[3] +
+
+                m_RegionOneDistance * m_PredictorWeights[4] +
+                m_RegionTwoDistance * m_PredictorWeights[5] +
+                m_TotalRegionDistance * m_PredictorWeights[6] +
+                m_MaxAngleRegionOne * m_PredictorWeights[7] +
+                m_MaxAngleRegionTwo * m_PredictorWeights[8] +
+                m_MinAngleRegionTwo * m_PredictorWeights[9] +
+
+                m_MedianVelocityYRegionOne * m_PredictorWeights[10] +
+                m_MedianVelocityYRegionTwo * m_PredictorWeights[11] +
+                m_MeanVelocityYRegionOne * m_PredictorWeights[12] +
+                m_MeanVelocityYRegionTwo * m_PredictorWeights[13] +
+
+                m_TimeEndRegionOne * m_PredictorWeights[14] +
+                m_TimeEndRegionTwo * m_PredictorWeights[15] +
+                m_TimeStartRegionTwo * m_PredictorWeights[16];
+            Debug.Log(timeBetweenCollisions);
+            m_MedianVelocityRegionOneList.Clear();
+            m_MedianVelocityRegionTwoList.Clear();
         }
     }
 

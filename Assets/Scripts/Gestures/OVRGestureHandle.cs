@@ -43,8 +43,8 @@ public class OVRGestureHandle : MonoBehaviour {
                 
 
                 velocityTracker.StoreConductorSample(gestureString, device); 
-
                 velocityTracker.GetTimeSincePrevCollisionWithBasePlane(device);
+               
                 track.Play();
                 tracking = true;
             }
@@ -54,6 +54,7 @@ public class OVRGestureHandle : MonoBehaviour {
                 //Debug.Log("let go");
                 velocityTracker.StoreCurrentTrial();
                 track.Stop();
+                velocityTracker.RemovePlane();
                 tracking = false;
             }
         }

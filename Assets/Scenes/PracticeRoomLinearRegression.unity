@@ -5779,6 +5779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1160751510}
   - component: {fileID: 1160751511}
+  - component: {fileID: 1160751512}
   m_Layer: 0
   m_Name: VelocityTracker
   m_TagString: Untagged
@@ -5814,12 +5815,26 @@ MonoBehaviour:
   track: {fileID: 0}
   rightHandControl: {fileID: 0}
   velocityTracker: {fileID: 0}
+  BPMPred: {fileID: 1160751512}
   BPMToRecord: 500000006400000078000000
   conductorBaton: {fileID: 1842921624}
   inHouseMetronome: {fileID: 842181017}
   horizontalPlane: {fileID: 1027854970}
   trialDisplayBehaviour: {fileID: 1353851153}
   performanceIndicator: {fileID: 1907699081}
+--- !u!114 &1160751512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1160751509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa9a72c9ce895e419b0cff316bf53a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_horizontalPlane: {fileID: 0}
+  m_conductorBaton: {fileID: 0}
 --- !u!1 &1170709042
 GameObject:
   m_ObjectHideFlags: 0

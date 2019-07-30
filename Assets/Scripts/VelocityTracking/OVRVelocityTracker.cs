@@ -279,7 +279,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                         currentBPMToRecord,                                         // Current BPM being collected
                         currentTrial
                         );
-                if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample);
+                if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample,tempoController);
                 //if (newConductorSample.trial == 1) InstantiateDebugSphere();
                 samples.Add(newConductorSample);
                 trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
@@ -305,7 +305,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                         currentTrial
                         );
                     //if(newConductorSample.trial == 1) InstantiateDebugSphere();
-                    if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample);
+                    if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample,tempoController);
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
 
@@ -430,6 +430,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             finalSamples.AddRange(samples);
            
         }
+        BPMPred.ResetBPMPredictor();
         samples.Clear();
         planeHasBeenSpawned = false;
         dataShouldBeRecorded = true;
@@ -437,6 +438,11 @@ public class OVRVelocityTracker : OVRGestureHandle
         previousBatonPosition = Vector3.zero;
         previousControllerPosition = Vector3.zero;
         BP1 = Vector3.zero;
+    }
+
+    public void RemovePlane()
+    {
+        horizontalPlane.GetComponent<Renderer>().enabled = false;
     }
 
 

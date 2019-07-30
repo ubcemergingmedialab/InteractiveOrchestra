@@ -180,7 +180,8 @@ public class TempoController : MonoBehaviour
         if (!isPlaying && isPrepComplete)
         {
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-            AkSoundEngine.SetRTPCValue(rtpcID, 75);
+            AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM/MasterBPM));
+            Debug.Log("Ratio: " + (localBPM / MasterBPM));
             isPlaying = true;
         }
     }
@@ -231,6 +232,11 @@ public class TempoController : MonoBehaviour
     public float getLocalBPM()
     {
         return localBPM;
+    }
+
+    public void setNewBPM(int newBPM)
+    {
+        localBPM = newBPM;
     }
     #endregion
 }

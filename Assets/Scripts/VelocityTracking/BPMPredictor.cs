@@ -15,6 +15,8 @@ public class BPMPredictor : MonoBehaviour {
     private bool m_RegionOneStart = false;
     private bool m_RegionTwoStart = false;
 
+    private bool m_BPMHasBeenPredicted = false;
+
 
     private float[] m_PredictorWeights = new float[]{-1.45799194e-02f, -2.22294665e-02f, -2.20364604e-02f, -2.20364604e-02f,
   7.92936317e-02f, -1.20978947e-01f, -4.16853150e-02f, -1.11992833e-03f,
@@ -71,80 +73,86 @@ public class BPMPredictor : MonoBehaviour {
     /// Record conductor sample components in prep gesture
     /// </summary>
     /// <param name="device"> Occulus controller </param>
-    internal void RecordConductorSample(OVRVelocityTracker.ConductorSample conductorSample)
+    internal void RecordConductorSample(OVRVelocityTracker.ConductorSample conductorSample, TempoController tp)
     {
-        //Debug.Log(m_prevConductorSample.velocityMagnitude);
-        if(m_prevConductorSample.velocityMagnitude == 0)
+        if (!m_BPMHasBeenPredicted)
         {
-            m_TimeStartRegionOne = conductorSample.timeRelativeToPrep;
-            m_RegionOneInitialYPosition = conductorSample.position.y;
-            Debug.Log("InitialTimeRecorded");
-        }
-        if(!m_RegionOneFinished)
-        {
-            m_MeanVelocityRegionOne += conductorSample.velocityMagnitude;
-            m_MeanVelocityYRegionOne += conductorSample.velocityVector.y;
-            m_MedianVelocityRegionOneList.Add(conductorSample.velocityMagnitude);
-            m_MedianVelocityYRegionOneList.Add(conductorSample.velocityVector.y);
-            m_MaxAngleRegionOne = Mathf.Max(m_MaxAngleRegionOne,conductorSample.angleToBP1);
-            if (m_prevConductorSample.position.y > conductorSample.position.y && m_prevConductorSample.position.y != 0)
+            //Debug.Log(m_prevConductorSample.velocityMagnitude);
+            Debug.Log(m_prevConductorSample.velocityMagnitude);
+            if (m_prevConductorSample.velocityMagnitude == 0)
             {
-                m_RegionOneFinished = true;
-                // Distance
-                m_RegionOneDistance = conductorSample.distanceCoveredSoFar;
-                // Time
-                m_TimeEndRegionOne = m_prevConductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
-                m_TimeStartRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
-                // Median Velocity
-                StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionOne = median,m_MedianVelocityRegionOneList));
-                StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionOne = median, m_MedianVelocityYRegionOneList));
-                // Mean velocity 
-                m_MeanVelocityRegionOne = m_MeanVelocityRegionOne / m_SizeOfRegionOne;
-                m_MeanVelocityYRegionOne = m_MeanVelocityYRegionOne / m_SizeOfRegionOne;
-                // Values for getting Region 2
-                m_RegionTwoThresholdDistance = (m_prevConductorSample.position.y - m_RegionOneInitialYPosition)/2;
-                m_MaxRegionOneYPosition = m_prevConductorSample.position.y;
+                m_TimeStartRegionOne = conductorSample.timeRelativeToPrep;
+                m_RegionOneInitialYPosition = conductorSample.position.y;
+                m_BPMHasBeenPredicted = false;
+                Debug.Log("InitialTimeRecorded");
+            }
+            if (!m_RegionOneFinished)
+            {
+                m_MeanVelocityRegionOne += conductorSample.velocityMagnitude;
+                m_MeanVelocityYRegionOne += conductorSample.velocityVector.y;
+                m_MedianVelocityRegionOneList.Add(conductorSample.velocityMagnitude);
+                m_MedianVelocityYRegionOneList.Add(conductorSample.velocityVector.y);
+                m_MaxAngleRegionOne = Mathf.Max(m_MaxAngleRegionOne, conductorSample.angleToBP1);
+                if (m_prevConductorSample.position.y > conductorSample.position.y && m_prevConductorSample.position.y != 0)
+                {
+                    m_RegionOneFinished = true;
+                    // Distance
+                    m_RegionOneDistance = conductorSample.distanceCoveredSoFar;
+                    // Time
+                    m_TimeEndRegionOne = m_prevConductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
+                    m_TimeStartRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
+                    // Median Velocity
+                    StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionOne = median, m_MedianVelocityRegionOneList));
+                    StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionOne = median, m_MedianVelocityYRegionOneList));
+                    // Mean velocity 
+                    m_MeanVelocityRegionOne = m_MeanVelocityRegionOne / m_SizeOfRegionOne;
+                    m_MeanVelocityYRegionOne = m_MeanVelocityYRegionOne / m_SizeOfRegionOne;
+                    // Values for getting Region 2
+                    m_RegionTwoThresholdDistance = (m_prevConductorSample.position.y - m_RegionOneInitialYPosition) / 2;
+                    m_MaxRegionOneYPosition = m_prevConductorSample.position.y;
+                    m_SizeOfRegionTwo++;
+                    m_SizeOfRegionOne--;
+                    Debug.Log("=====================Region One End==================");
+                }
+                m_totalElementsRecorded++;
+                m_SizeOfRegionOne++;
+                m_prevConductorSample = conductorSample;
+            }
+            else if (m_RegionOneFinished && !m_RegionTwoFinished)
+            {
+
+                m_MeanVelocityRegionTwo += conductorSample.velocityMagnitude;
+                m_MeanVelocityYRegionTwo += conductorSample.velocityVector.y;
+                m_MaxAngleRegionTwo = Mathf.Max(m_MaxAngleRegionTwo, conductorSample.angleToBP1);
+                m_MinAngleRegionTwo = Mathf.Min(m_MinAngleRegionTwo, conductorSample.angleToBP1);
+                m_MedianVelocityRegionTwoList.Add(conductorSample.velocityMagnitude);
+                m_MedianVelocityYRegionTwoList.Add(conductorSample.velocityVector.y);
+                if (Math.Abs(m_MaxRegionOneYPosition - conductorSample.position.y) > m_RegionTwoThresholdDistance)
+                {
+                    m_RegionTwoFinished = true;
+                    // Distance
+                    m_TotalRegionDistance = conductorSample.distanceCoveredSoFar;
+                    m_RegionTwoDistance = m_TotalRegionDistance - m_RegionOneDistance;
+                    // Time
+                    m_TimeEndRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
+                    // Median Velocity
+                    StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionTwo = median, m_MedianVelocityRegionTwoList));
+                    StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionTwo = median, m_MedianVelocityYRegionTwoList));
+                    // Mean velocity 
+                    m_MeanVelocityRegionTwo = m_MeanVelocityRegionTwo / m_SizeOfRegionTwo;
+                    m_MeanVelocityYRegionTwo = m_MeanVelocityYRegionTwo / m_SizeOfRegionTwo;
+                    Debug.Log("==========================Region Two End========================");
+                }
+
+                m_totalElementsRecorded++;
                 m_SizeOfRegionTwo++;
-                m_SizeOfRegionOne--;
-                Debug.Log("=====================Region One End==================");
+                m_prevConductorSample = conductorSample;
             }
-            m_totalElementsRecorded++;
-            m_SizeOfRegionOne++;
-        }
-        else if (m_RegionOneFinished && !m_RegionTwoFinished)
-        {
-
-            m_MeanVelocityRegionTwo += conductorSample.velocityMagnitude;
-            m_MeanVelocityYRegionTwo += conductorSample.velocityVector.y;
-            m_MaxAngleRegionTwo = Mathf.Max(m_MaxAngleRegionTwo, conductorSample.angleToBP1);
-            m_MinAngleRegionTwo = Mathf.Min(m_MinAngleRegionTwo, conductorSample.angleToBP1);
-            m_MedianVelocityRegionTwoList.Add(conductorSample.velocityMagnitude);
-            m_MedianVelocityYRegionTwoList.Add(conductorSample.velocityVector.y);
-            if (Math.Abs(m_MaxRegionOneYPosition - conductorSample.position.y) > m_RegionTwoThresholdDistance)
+            else
             {
-                m_RegionTwoFinished = true;
-                // Distance
-                m_TotalRegionDistance = conductorSample.distanceCoveredSoFar;
-                m_RegionTwoDistance = m_TotalRegionDistance - m_RegionOneDistance;
-                // Time
-                m_TimeEndRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
-                // Median Velocity
-                StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionTwo = median,m_MedianVelocityRegionTwoList));
-                StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionTwo = median, m_MedianVelocityYRegionTwoList));
-                // Mean velocity 
-                m_MeanVelocityRegionTwo = m_MeanVelocityRegionTwo / m_SizeOfRegionTwo;
-                m_MeanVelocityYRegionTwo = m_MeanVelocityYRegionTwo / m_SizeOfRegionTwo;
-                Debug.Log("==========================Region Two End========================");
+                CalculateBPM(tp);
             }
-
-            m_totalElementsRecorded++;
-            m_SizeOfRegionTwo++;
         }
-        else
-        {
-            CalculateBPM();
-        }
-        m_prevConductorSample = conductorSample;
     }
 
     private void AccumulateMean(float Region, float valueToAccumulate, List<float> listOfValues)
@@ -156,10 +164,9 @@ public class BPMPredictor : MonoBehaviour {
     /// <summary>
     /// Finally calculate the BPM given the data from the prep beat 
     /// </summary>
-    private void CalculateBPM()
+    private void CalculateBPM(TempoController tp)
     {
-        Debug.Log("BOOP DOOP");
-        if(m_MedianVelocityRegionTwo != 0 && m_MedianVelocityYRegionTwo!= 0)
+        if(m_MedianVelocityRegionTwo != 0 && m_MedianVelocityYRegionTwo!= 0 && !m_BPMHasBeenPredicted)
         {
             Debug.Log("===========================Results===========================");
             string printThis = String.Format("{0}\n" +
@@ -206,7 +213,12 @@ public class BPMPredictor : MonoBehaviour {
             m_RegionTwoFinished = false;
             m_RegionOneStart = false;
             m_prevConductorSample = new OVRVelocityTracker.ConductorSample();
+            Debug.Log(m_prevConductorSample.velocityMagnitude);
+            Debug.Log(m_prevConductorSample.distanceCoveredSoFar);
+            Debug.Log(m_prevConductorSample.velocityVector);
+            Debug.Log(m_prevConductorSample.timeRelativeToPrep);
 
+           
             float timeBetweenCollisions = m_MedianVelocityRegionOne * m_PredictorWeights[0] +
                 m_MedianVelocityRegionTwo * m_PredictorWeights[1] +
                 m_MeanVelocityRegionOne * m_PredictorWeights[2] +
@@ -227,10 +239,18 @@ public class BPMPredictor : MonoBehaviour {
                 m_TimeEndRegionOne * m_PredictorWeights[14] +
                 m_TimeEndRegionTwo * m_PredictorWeights[15] +
                 m_TimeStartRegionTwo * m_PredictorWeights[16];
-            Debug.Log(timeBetweenCollisions);
+            
             m_MedianVelocityRegionOneList.Clear();
             m_MedianVelocityRegionTwoList.Clear();
-        }
+            m_BPMHasBeenPredicted = true;
+
+            int BPM = (int)(60f/timeBetweenCollisions);
+            tp.setNewBPM(BPM);
+            Debug.Log(BPM);
+
+
+            
+}
     }
 
     /// <summary>
@@ -271,5 +291,46 @@ public class BPMPredictor : MonoBehaviour {
         }
         yield return null;
         median(regionValues[halfOfListIndex]);
+    }
+
+    public void ResetBPMPredictor()
+    {
+        Debug.Log("RESET!");
+        m_BPMHasBeenPredicted = false;
+        m_startTime = 0;
+        m_totalElementsRecorded = 0;
+        m_SizeOfRegionOne = 0;
+        m_SizeOfRegionTwo = 0;
+
+        m_MedianVelocityRegionOne = 0;
+        m_MedianVelocityRegionTwo = 0;
+
+        m_MeanVelocityRegionOne = 0;
+        m_MeanVelocityRegionTwo = 0;
+
+        m_RegionOneDistance = 0;
+        m_RegionTwoDistance = 0;
+        m_TotalRegionDistance = 0;
+        m_MaxAngleRegionOne = 0;
+        m_MaxAngleRegionTwo = 0;
+        m_MinAngleRegionTwo = 999;
+
+        m_MedianVelocityYRegionOne = 0;
+        m_MedianVelocityYRegionTwo = 0;
+        m_MeanVelocityYRegionOne = 0;
+        m_MeanVelocityYRegionTwo = 0;
+
+        m_TimeEndRegionOne = 0;
+        m_TimeEndRegionTwo = 0;
+        m_TimeStartRegionOne = 0;
+        m_TimeStartRegionTwo = 0;
+
+        m_RegionTwoThresholdDistance = 0;
+        m_RegionOneInitialYPosition = 0;
+        m_MaxRegionOneYPosition = 0;
+
+        m_SizeOfRegionOne = 0;
+        m_SizeOfRegionTwo = 0;
+        m_totalElementsRecorded = 0;
     }
 }

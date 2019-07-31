@@ -217,7 +217,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                 basePlaneCollisionPoint = controllerPosition; 
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
-                    horizontalPlane.SpawnPlane(conductorBaton.position);
+                    //horizontalPlane.SpawnPlane(conductorBaton.position);
                     // =========================
                     // See description below for plane color change
                     //planeSpawnPosition = conductorBaton.position;
@@ -226,7 +226,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                 }
                 else
                 {
-                    horizontalPlane.SpawnPlane(previousBatonPosition);
+                    //horizontalPlane.SpawnPlane(previousBatonPosition);
                     // ===========================
                     // See description below for plane color change
                     //planeSpawnPosition = previousBatonPosition;

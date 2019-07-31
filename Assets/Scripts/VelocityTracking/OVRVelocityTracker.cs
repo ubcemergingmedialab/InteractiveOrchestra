@@ -18,7 +18,7 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     #region Variables
 
-    [SerializeField] private BPMPredictor BPMPred;
+    //[SerializeField] private BPMPredictor BPMPred;
 
     private float ModelBarLength;
     private float DISTANCE_BETWEEN_MEASUREMENTS = 0.005f;
@@ -42,7 +42,7 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
-    public int[] BPMToRecord = { 80, 100, 120 };
+    public int[] BPMToRecord = { 93,80, 100, 120 };
     private int currentBPMToRecord;
     private float timeBetweenBeats;
     private bool isBeneathPlane = false;
@@ -76,9 +76,9 @@ public class OVRVelocityTracker : OVRGestureHandle
         dataShouldBeRecorded = true;
         currentGestureSize = gestureSize[0];
         currentBPMToRecord = BPMToRecord[1];                // BPM of 'O Canada' track
-        Debug.Log("Current BPM to record: " + currentBPMToRecord);
+        //Debug.Log("Current BPM to record: " + currentBPMToRecord);
         timeBetweenBeats = ((float)60 / currentBPMToRecord);       // ( 60 / 100 ) = 0.6 seconds
-        Debug.Log("Initializing time between beats: " + timeBetweenBeats);
+        //Debug.Log("Initializing time between beats: " + timeBetweenBeats);
         //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
         startTime = 0;
@@ -211,13 +211,14 @@ public class OVRVelocityTracker : OVRGestureHandle
 
             if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
-                horizontalPlane.SpawnPlane(conductorBaton.position);
+                //horizontalPlane.SpawnPlane(conductorBaton.position);
                 prevCollisionTime = currOverallTime;
                 //timeSincePrevCollision = GetTimeSincePrevCollisionWithBasePlane(currOverallTime);
                 basePlaneCollisionPoint = controllerPosition; 
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
-                    //horizontalPlane.SpawnPlane(conductorBaton.position);
+                    Debug.Log("Plane to be spawned from OVR Velocity Tracker on prev");
+                    horizontalPlane.SpawnPlane(conductorBaton.position);
                     // =========================
                     // See description below for plane color change
                     //planeSpawnPosition = conductorBaton.position;
@@ -226,7 +227,8 @@ public class OVRVelocityTracker : OVRGestureHandle
                 }
                 else
                 {
-                    //horizontalPlane.SpawnPlane(previousBatonPosition);
+                    Debug.Log("Plane to be spawned from OVR Velocity Tracker on curr");
+                    horizontalPlane.SpawnPlane(previousBatonPosition);
                     // ===========================
                     // See description below for plane color change
                     //planeSpawnPosition = previousBatonPosition;
@@ -347,8 +349,9 @@ public class OVRVelocityTracker : OVRGestureHandle
     {
         Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
-        if (!isBeneathPlane && controllerPosition.y <= BP1.y) 
+        if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
+            // BUG IS HERE ====================
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
             // provide haptic feedback
@@ -356,11 +359,12 @@ public class OVRVelocityTracker : OVRGestureHandle
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 
-            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
+            //Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
             performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision); 
             isBeneathPlane = !isBeneathPlane;
+            Debug.Log("======");
         } 
-        if (isBeneathPlane && controllerPosition.y > BP1.y)
+        else if (isBeneathPlane && controllerPosition.y > BP1.y)
         {
             isBeneathPlane = !isBeneathPlane;
         }
@@ -398,7 +402,8 @@ public class OVRVelocityTracker : OVRGestureHandle
 
         catch(ArgumentOutOfRangeException e)
         {
-            Debug.Log("There's nothing in the samples list");
+
+            //Debug.Log("There's nothing in the samples list");
             return 0;
         }
 

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class OVRGestureHandle : MonoBehaviour {
 
     #region Variables
-    
+    [SerializeField] public BPMPredictor BPMPred;
     public TempoController tempoController;
 
     // Reference to the vive right hand controller for handing key pressing

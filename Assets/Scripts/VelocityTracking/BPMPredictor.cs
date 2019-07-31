@@ -78,7 +78,7 @@ public class BPMPredictor : MonoBehaviour {
         if (!m_BPMHasBeenPredicted)
         {
             //Debug.Log(m_prevConductorSample.velocityMagnitude);
-            Debug.Log("PrevVel:" + m_prevConductorSample.velocityMagnitude);
+            //Debug.Log("PrevVel: " + m_prevConductorSample.velocityMagnitude);
             if (m_prevConductorSample.velocityMagnitude == 0)
             {
                 m_TimeStartRegionOne = conductorSample.timeRelativeToPrep;
@@ -203,15 +203,12 @@ public class BPMPredictor : MonoBehaviour {
                 m_TimeEndRegionTwo,
                 m_TimeStartRegionOne,
                 m_TimeStartRegionTwo);
+
             Debug.Log(printThis);
-            m_RegionOneFinished = false;
-            m_RegionTwoFinished = false;
-            m_RegionOneStart = false;
-            m_prevConductorSample = new OVRVelocityTracker.ConductorSample();
-            Debug.Log(m_prevConductorSample.velocityMagnitude);
-            Debug.Log(m_prevConductorSample.distanceCoveredSoFar);
-            Debug.Log(m_prevConductorSample.velocityVector);
-            Debug.Log(m_prevConductorSample.timeRelativeToPrep);
+            //Debug.Log(m_prevConductorSample.velocityMagnitude);
+            //Debug.Log(m_prevConductorSample.distanceCoveredSoFar);
+            //Debug.Log(m_prevConductorSample.velocityVector);
+            //Debug.Log(m_prevConductorSample.timeRelativeToPrep);
 
            
             float timeBetweenCollisions = m_MedianVelocityRegionOne * m_PredictorWeights[0] +
@@ -235,13 +232,11 @@ public class BPMPredictor : MonoBehaviour {
                 m_TimeEndRegionTwo * m_PredictorWeights[15] +
                 m_TimeStartRegionTwo * m_PredictorWeights[16];
             
-            m_MedianVelocityRegionOneList.Clear();
-            m_MedianVelocityRegionTwoList.Clear();
             m_BPMHasBeenPredicted = true;
 
             int BPM = (int)(60f/timeBetweenCollisions);
             tp.setNewBPM(BPM);
-            Debug.Log(BPM);
+            Debug.Log("New BPM: " + BPM);
         }
     }
 
@@ -323,5 +318,15 @@ public class BPMPredictor : MonoBehaviour {
         m_SizeOfRegionOne = 0;
         m_SizeOfRegionTwo = 0;
         m_totalElementsRecorded = 0;
+
+        m_RegionOneFinished = false;
+        m_RegionTwoFinished = false;
+        m_RegionOneStart = false;
+
+
+        m_MedianVelocityRegionOneList.Clear();
+        m_MedianVelocityRegionTwoList.Clear();
+
+        m_prevConductorSample = new OVRVelocityTracker.ConductorSample();
     }
 }

@@ -5811,11 +5811,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8759bb0015ed64294b78ec1fd9b141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BPMPred: {fileID: 1160751512}
   tempoController: {fileID: 397853883}
   track: {fileID: 0}
   rightHandControl: {fileID: 0}
   velocityTracker: {fileID: 0}
-  BPMPred: {fileID: 1160751512}
   BPMToRecord: 500000006400000078000000
   conductorBaton: {fileID: 1842921624}
   inHouseMetronome: {fileID: 842181017}
@@ -6927,7 +6927,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &1555479734
 GameObject:
   m_ObjectHideFlags: 0
@@ -8619,7 +8619,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &1861180836
 GameObject:
   m_ObjectHideFlags: 0

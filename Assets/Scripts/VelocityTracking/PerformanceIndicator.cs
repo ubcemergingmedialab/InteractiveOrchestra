@@ -29,18 +29,18 @@ public class PerformanceIndicator : MonoBehaviour {
         {
             pIRenderer.material = materials[0];
             //= materials[0];
-            Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
+            //Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
         }
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
             timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
         {
             pIRenderer.material = materials[1]; 
-            Debug.Log("User is on time!"); 
+           // Debug.Log("User is on time!"); 
         }
         else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
         {
             pIRenderer.material = materials[2]; 
-            Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
+           // Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
         } 
     } 
 }

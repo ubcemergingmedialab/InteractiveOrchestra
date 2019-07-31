@@ -44,6 +44,7 @@ public class HorizontalPlane : MonoBehaviour {
     /// <param name="controllerPosition">x,y,z position of conducting baton controller</param>
     public void SpawnPlane(Vector3 controllerPosition)
     {
+        Debug.Log("Spawn plane was called! ");
         gameObject.transform.position = controllerPosition;
         ToggleView();
         tempoController.isPrepComplete = true;
@@ -62,9 +63,9 @@ public class HorizontalPlane : MonoBehaviour {
     IEnumerator Haptics(float frequency, float amplitude, float duration)
     {
         OVRInput.SetControllerVibration(frequency, amplitude, OVRInput.Controller.RTouch);
-
+        Debug.Log("Print 1");
         yield return new WaitForSeconds(duration);
-
+        Debug.Log("Print 2");
         OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
     }
     
@@ -91,20 +92,24 @@ public class HorizontalPlane : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("COLLIDED");
+        //Debug.Log("COLLIDED");
         if (other.gameObject.CompareTag("BatonSphere"))
         {
-            Debug.Log("=============");
-            Debug.Log(flag);
-            if (flag == true) { Debug.Log("flag is null"); }
-            if (flag == null){ Debug.Log("flag is null"); }
+            //Debug.Log("=============");
+            //Debug.Log(flag);
+            if (flag == true) {
+                //Debug.Log("flag is null"); 
+            }
+            if (flag == null){
+                //Debug.Log("flag is null");
+            }
             if (flag == false)
             {
-                Debug.Log("Flag set to true");
+                //Debug.Log("Flag set to true");
                 flag = true;
             } else
             {
-                Debug.Log("+++++++++++++++");
+                //Debug.Log("+++++++++++++++");
                 ChangeColorToBlackOnCollision();
                 StartCoroutine(Timer());
             }

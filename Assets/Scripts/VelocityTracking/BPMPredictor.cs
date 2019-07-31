@@ -18,11 +18,11 @@ public class BPMPredictor : MonoBehaviour {
     private bool m_BPMHasBeenPredicted = false;
 
 
-    private float[] m_PredictorWeights = new float[]{-1.45799194e-02f, -2.22294665e-02f, -2.20364604e-02f, -2.20364604e-02f,
-  7.92936317e-02f, -1.20978947e-01f, -4.16853150e-02f, -1.11992833e-03f,
-  1.07978592e-03f, -7.48575246e-07f,  4.02487543e-02f, -6.41190512e-02f,
-  1.60786634e-02f,  9.92423578e-02f,  1.03286836e-01f,  1.20085537e+00f,
-  1.74462356e-01f};
+    private float[] m_PredictorWeights = new float[]{-4.57478767e-02f,  1.74408086e-02f, -4.65637032e-02f, -4.65637032e-02f,
+  7.57208029e-02f, -8.39595146e-02f, -8.23871177e-03f, -1.40348235e-03f,
+  8.32269185e-04f,  9.32913799e-05f,  5.57131179e-02f, -3.68119487e-02f,
+  2.15619653e-02f,  7.04169271e-02f,  5.49040206e-02f,  1.18360582e+00f,
+  1.60565817e-01f};
     private float m_DISTANCE_BETWEEN_MEASUREMENTS = 0.005f;
 
     private float m_startTime = 0;
@@ -78,7 +78,7 @@ public class BPMPredictor : MonoBehaviour {
         if (!m_BPMHasBeenPredicted)
         {
             //Debug.Log(m_prevConductorSample.velocityMagnitude);
-            Debug.Log(m_prevConductorSample.velocityMagnitude);
+            Debug.Log("PrevVel:" + m_prevConductorSample.velocityMagnitude);
             if (m_prevConductorSample.velocityMagnitude == 0)
             {
                 m_TimeStartRegionOne = conductorSample.timeRelativeToPrep;
@@ -155,12 +155,7 @@ public class BPMPredictor : MonoBehaviour {
         }
     }
 
-    private void AccumulateMean(float Region, float valueToAccumulate, List<float> listOfValues)
-    {
-        Region = Region + valueToAccumulate;
-        listOfValues.Add(valueToAccumulate);
-    }
-
+   
     /// <summary>
     /// Finally calculate the BPM given the data from the prep beat 
     /// </summary>
@@ -247,10 +242,7 @@ public class BPMPredictor : MonoBehaviour {
             int BPM = (int)(60f/timeBetweenCollisions);
             tp.setNewBPM(BPM);
             Debug.Log(BPM);
-
-
-            
-}
+        }
     }
 
     /// <summary>
@@ -295,7 +287,6 @@ public class BPMPredictor : MonoBehaviour {
 
     public void ResetBPMPredictor()
     {
-        Debug.Log("RESET!");
         m_BPMHasBeenPredicted = false;
         m_startTime = 0;
         m_totalElementsRecorded = 0;

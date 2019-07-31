@@ -38,8 +38,8 @@ public class OVRVelocityTracker : OVRGestureHandle
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
     public int[] BPMToRecord = { 80, 100, 120 };
-    private int currentBPMToRecord;
-    private float timeBetweenBeats;
+    public int currentBPMToRecord;
+    public float timeBetweenBeats;
     private bool isBeneathPlane = false;
 
     public Transform conductorBaton;

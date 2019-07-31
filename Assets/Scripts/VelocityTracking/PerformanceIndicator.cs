@@ -74,7 +74,7 @@ public class PerformanceIndicator : MonoBehaviour {
     {
         userBPM = (int) (60 / timeSincePrevCollision);
         Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
-        BPMTextDisplay.text = "User BPM: " + userBPM.ToString();
+        BPMTextDisplay.text = userBPM.ToString();
         Debug.Log("User BPM: " + userBPM);
     }
 }

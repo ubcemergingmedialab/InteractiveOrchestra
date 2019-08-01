@@ -12,6 +12,7 @@ public class PerformanceIndicator : MonoBehaviour {
     private int beatCount;
     [SerializeField] private Material[] materials;
     public Text BPMTextDisplay;
+    private OVRVelocityTracker velocityTracker;
     #endregion
 
     // Use this for initialization
@@ -72,9 +73,12 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <param name="timeSincePrevCollision"></param>
     private void SetCurrentBPM(float timeSincePrevCollision)
     {
-        userBPM = (int) (60 / timeSincePrevCollision);
-        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+        if (velocityTracker.planeHasBeenSpawned)
+        {
+            userBPM = (int)(60 / timeSincePrevCollision);
+            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+            Debug.Log("User BPM: " + userBPM);
+        }
         BPMTextDisplay.text = userBPM.ToString();
-        Debug.Log("User BPM: " + userBPM);
     }
 }

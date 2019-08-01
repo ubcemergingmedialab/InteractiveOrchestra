@@ -8,6 +8,7 @@ public class ParticleSystemState : MonoBehaviour {
     public Vector3 speed;
 
 	// Use this for initialization
+    // TODO: start rotation at song play
 	void Start () {
 
         speed.Set(0, velocityTracker.currentBPMToRecord, 0);

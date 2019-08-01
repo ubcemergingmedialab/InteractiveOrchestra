@@ -25,7 +25,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     private Vector3 previousBatonPosition;
     private Vector3 previousControllerPosition;
     private bool dataHasBeenRecorded;
-    private bool planeHasBeenSpawned;
+    public bool planeHasBeenSpawned;
     private bool dataShouldBeRecorded;
     private int currentTrial;
     private Vector3 basePlaneCollisionPoint;

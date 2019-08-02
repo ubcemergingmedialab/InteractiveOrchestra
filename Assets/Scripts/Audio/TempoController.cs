@@ -180,21 +180,21 @@ public class TempoController : MonoBehaviour
         Debug.Log("Piece Starts");
         if (!isPlaying && isPrepComplete)
         {
-            if(localBPM > 130)
+            if(localBPM > 120)
             {
                 Debug.Log("Too fast!");
+                localBPM = 120;
             }
-            else if(localBPM < 80)
+            if(localBPM < 80)
             {
                 Debug.Log("Too slow");
+                localBPM = 80;
             }
-            else
-            {
                 AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
                 AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM / MasterBPM));
                 //Debug.Log("Ratio: " + (localBPM / MasterBPM));
                 isPlaying = true;
-            }
+            
 
         }
     }

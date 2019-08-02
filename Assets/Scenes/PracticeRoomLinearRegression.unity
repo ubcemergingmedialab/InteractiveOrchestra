@@ -3736,6 +3736,7 @@ GameObject:
   - component: {fileID: 842181016}
   - component: {fileID: 842181018}
   - component: {fileID: 842181017}
+  - component: {fileID: 842181019}
   m_Layer: 0
   m_Name: Metronome
   m_TagString: Untagged
@@ -3866,6 +3867,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &842181019
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 842181015}
+  m_Enabled: 1
 --- !u!1 &842611708
 GameObject:
   m_ObjectHideFlags: 0

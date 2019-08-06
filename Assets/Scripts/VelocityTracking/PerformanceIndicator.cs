@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class PerformanceIndicator : MonoBehaviour {
 
     #region Variables 
-    Renderer pIRenderer; 
+    SpriteRenderer pIRenderer; 
     private float allowedTimingError;
     private int userBPM;
     private int beatCount;
-    [SerializeField] private Material[] materials;
+    [SerializeField] private Material[] materials; // Miss, OK, Perfect
     public Text BPMTextDisplay;
     private OVRVelocityTracker velocityTracker;
     #endregion
 
     // Use this for initialization
     void Start () {
-        pIRenderer = GetComponent<Renderer>();
+        pIRenderer = GetComponent<SpriteRenderer>();
         pIRenderer.enabled = true;
         userBPM = 0;
         SetCurrentBPM(0.0f);
@@ -34,8 +34,7 @@ public class PerformanceIndicator : MonoBehaviour {
         allowedTimingError = timeBetweenBeats * 0.25f; 
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.material = materials[0];
-            //= materials[0];
+            pIRenderer.material = materials[0]; 
             Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
         }
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
@@ -44,8 +43,7 @@ public class PerformanceIndicator : MonoBehaviour {
             pIRenderer.material = materials[1]; 
             Debug.Log("User is on time!"); 
         }
-        else
-        // if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
+        else 
         {
             pIRenderer.material = materials[2]; 
             Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);

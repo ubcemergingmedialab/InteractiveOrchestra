@@ -10,8 +10,8 @@ public class PerformanceIndicator : MonoBehaviour {
     private float allowedTimingError;
     private int userBPM;
     private int beatCount;
-    [SerializeField] private Material[] materials; // Miss, OK, Perfect
-    public Text BPMTextDisplay;
+    [SerializeField] private Sprite[] sprites; // Miss, OK, Perfect
+    [SerializeField] public Text BPMTextDisplay;
     private OVRVelocityTracker velocityTracker;
     #endregion
 
@@ -34,18 +34,18 @@ public class PerformanceIndicator : MonoBehaviour {
         allowedTimingError = timeBetweenBeats * 0.25f; 
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.material = materials[0]; 
+            pIRenderer.sprite = sprites[0]; 
             Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
         }
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
             timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.material = materials[1]; 
+            pIRenderer.sprite = sprites[1]; 
             Debug.Log("User is on time!"); 
         }
         else 
         {
-            pIRenderer.material = materials[2]; 
+            pIRenderer.sprite = sprites[2]; 
             Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
         }
     }
@@ -66,7 +66,7 @@ public class PerformanceIndicator : MonoBehaviour {
     }
 
     /// <summary>
-    /// Updates the userBPM based on timeSincePrevCollision and song's BPM
+    /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
     /// </summary>
     /// <param name="timeSincePrevCollision"></param>
     private void SetCurrentBPM(float timeSincePrevCollision)

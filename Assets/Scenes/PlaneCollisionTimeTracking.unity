@@ -1366,6 +1366,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114014138907778856, guid: eb1ffa265950a5a4e98ef263352fed2a,
         type: 2}
+      propertyPath: sprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114014138907778856, guid: eb1ffa265950a5a4e98ef263352fed2a,
+        type: 2}
       propertyPath: materials.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1443,11 +1448,11 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1ec34d8962c1c754db563fcd7700d3d2, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 23755281679015658, guid: eb1ffa265950a5a4e98ef263352fed2a,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114014138907778856, guid: eb1ffa265950a5a4e98ef263352fed2a,
         type: 2}
@@ -1464,8 +1469,27 @@ Prefab:
       propertyPath: userBPMTextDisplay
       value: 
       objectReference: {fileID: 2026644126}
+    - target: {fileID: 114014138907778856, guid: eb1ffa265950a5a4e98ef263352fed2a,
+        type: 2}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: f6507640cfde3cf408cb3015f43aad68,
+        type: 3}
+    - target: {fileID: 114014138907778856, guid: eb1ffa265950a5a4e98ef263352fed2a,
+        type: 2}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3bacedcc36fe491429744d5cb82f38ae,
+        type: 3}
+    - target: {fileID: 114014138907778856, guid: eb1ffa265950a5a4e98ef263352fed2a,
+        type: 2}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2f3eb7f7b9b887a489e57bca32ae620f,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 33718364452831216, guid: eb1ffa265950a5a4e98ef263352fed2a, type: 2}
+    - {fileID: 23755281679015658, guid: eb1ffa265950a5a4e98ef263352fed2a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: eb1ffa265950a5a4e98ef263352fed2a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &283804749
@@ -1604,7 +1628,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: af5956454b838dd46a50ff8ed6dbb51d, type: 2}
+  - {fileID: 2100000, guid: 1ec34d8962c1c754db563fcd7700d3d2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1899,7 +1923,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: af5956454b838dd46a50ff8ed6dbb51d, type: 2}
+  - {fileID: 2100000, guid: 3f93a3b68dcb50847ac486c03b7e93ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3945,8 +3969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f82632e6d93aab14db1ef3bd2cc18fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityTracker: {fileID: 0}
-  speed: {x: 0, y: 0, z: 100}
 --- !u!199 &926405045
 ParticleSystemRenderer:
   serializedVersion: 5
@@ -11392,8 +11414,8 @@ GameObject:
   - component: {fileID: 1341809199}
   - component: {fileID: 1341809202}
   - component: {fileID: 1341809201}
-  - component: {fileID: 1341809200}
   - component: {fileID: 1341809204}
+  - component: {fileID: 1341809200}
   m_Layer: 5
   m_Name: BPMCanvas
   m_TagString: Untagged

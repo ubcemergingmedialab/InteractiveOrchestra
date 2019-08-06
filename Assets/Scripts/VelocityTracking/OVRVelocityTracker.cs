@@ -42,7 +42,8 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
-    public int[] BPMToRecord = { 93,80, 100, 120 };
+    public int[] BPMToRecord = {60, 100, 140 };
+    public int[] NewBPMToRecord = {60, 100, 140 };
     private int currentBPMToRecord;
     private float timeBetweenBeats;
     private bool isBeneathPlane = false;
@@ -59,7 +60,9 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     [SerializeField] private HorizontalPlane horizontalPlane;
     [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour;
-    [SerializeField] private PerformanceIndicator performanceIndicator; 
+    [SerializeField] private PerformanceIndicator performanceIndicator;
+
+    public bool RestrictRecordingData { get; private set; }
     #endregion
 
     #region Unity Methods
@@ -115,6 +118,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         {
             currentBPMToRecord = BPMToRecord[0];
             timeBetweenBeats = (60 / currentBPMToRecord);
+            Debug.Log(BPMToRecord[0]);
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             currentTrial = 1;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
@@ -262,61 +266,65 @@ public class OVRVelocityTracker : OVRGestureHandle
             if (BP1 == Vector3.zero) totalDistanceCoveredSoFar = 0;
             // Three conditions under which we will add a data sample 
             // 1. The controller is located above the BP1 position
-            // 2. The BP1 has not been defined
+            // 2. The BP1 has  been defined
             // 3. Controller y velocity is positive 
             // These combinations of conditions allow for data points to only be recorded for the prep gesture
-
-            if (controllerPosition.y > BP1.y || BP1 == Vector3.zero|| controllerVelocity.y > 0)
+            if (!RestrictRecordingData)
             {
-                ConductorSample newConductorSample = new ConductorSample(
-                        controllerVelocity,                                         // Velocity vector
-                        controllerPosition,                                         // Position
-                        controllerVelocity.magnitude,                               // Velocity magnitude
-                        currRelativeTimeInPrepBeat,                                 // Local time within prep
-                        currOverallTime,                                            // Global time 
-                        controllerAcceleration,                                     // Acceleration magnitude
-                        angleToBP1,                                                 // Angle to BP1. TODO find angle
-                        totalDistanceCoveredSoFar,                                  // Total distance covered so far
-                        currentGestureSize,                                         // Gesture size currently measuring.
-                        currentBPMToRecord,                                         // Current BPM being collected
-                        currentTrial
-                        );
-                if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample,tempoController);
-                //if (newConductorSample.trial == 1) InstantiateDebugSphere();
-                samples.Add(newConductorSample);
-                trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
-                
-            }
-            else
-            {
-                // Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
-                // Debug.Log("BP1 y position = " + BP1.y);
-                if (samples[samples.Count - 1].position.y > BP1.y)
+                if (controllerPosition.y > BP1.y || BP1 == Vector3.zero || controllerVelocity.y < 0)
                 {
                     ConductorSample newConductorSample = new ConductorSample(
-                        controllerVelocity,                                         // Velocity vector
-                        controllerPosition,                                         // Position
-                        controllerVelocity.magnitude,                               // Velocity magnitude
-                        currRelativeTimeInPrepBeat,                                 // Local time within prep
-                        currOverallTime,                                            // Global time 
-                        controllerAcceleration,                                     // Acceleration magnitude
-                        angleToBP1,                                                 // Angle to BP1. TODO find angle
-                        totalDistanceCoveredSoFar,                                  // Total distance covered so far
-                        currentGestureSize,                                         // Gesture size currently measuring.
-                        currentBPMToRecord,                                         // Current BPM being collected
-                        currentTrial
-                        );
-                    //if(newConductorSample.trial == 1) InstantiateDebugSphere();
-                    if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample,tempoController);
+                            controllerVelocity,                                         // Velocity vector
+                            controllerPosition,                                         // Position
+                            controllerVelocity.magnitude,                               // Velocity magnitude
+                            currRelativeTimeInPrepBeat,                                 // Local time within prep
+                            currOverallTime,                                            // Global time 
+                            controllerAcceleration,                                     // Acceleration magnitude
+                            angleToBP1,                                                 // Angle to BP1. TODO find angle
+                            totalDistanceCoveredSoFar,                                  // Total distance covered so far
+                            currentGestureSize,                                         // Gesture size currently measuring.
+                            currentBPMToRecord,                                         // Current BPM being collected
+                            currentTrial
+                            );
+                    if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
+                    if (newConductorSample.trial == 1) InstantiateDebugSphere();
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
+                    if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)
+                    {
+                        RestrictRecordingData = true;
+                    }
 
-                  
                 }
                 else
                 {
-                    // Debug.Log("Number of data points: " + samples.Count);
-                    dataShouldBeRecorded = false;
+                    // Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
+                    // Debug.Log("BP1 y position = " + BP1.y);
+                    if (samples[samples.Count - 1].position.y > BP1.y)
+                    {
+                        ConductorSample newConductorSample = new ConductorSample(
+                            controllerVelocity,                                         // Velocity vector
+                            controllerPosition,                                         // Position
+                            controllerVelocity.magnitude,                               // Velocity magnitude
+                            currRelativeTimeInPrepBeat,                                 // Local time within prep
+                            currOverallTime,                                            // Global time 
+                            controllerAcceleration,                                     // Acceleration magnitude
+                            angleToBP1,                                                 // Angle to BP1. TODO find angle
+                            totalDistanceCoveredSoFar,                                  // Total distance covered so far
+                            currentGestureSize,                                         // Gesture size currently measuring.
+                            currentBPMToRecord,                                         // Current BPM being collected
+                            currentTrial
+                            );
+                        //if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                        if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
+                        samples.Add(newConductorSample);
+                        trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
+                    }
+                    else
+                    {
+                        // Debug.Log("Number of data points: " + samples.Count);
+                        dataShouldBeRecorded = false;
+                    }
                 }
             }
             previousYVelocity = controllerVelocity.y; 
@@ -443,6 +451,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         previousBatonPosition = Vector3.zero;
         previousControllerPosition = Vector3.zero;
         BP1 = Vector3.zero;
+        RestrictRecordingData = false;
     }
 
     public void RemovePlane()

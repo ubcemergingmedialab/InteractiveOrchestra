@@ -24,10 +24,14 @@ public class PerformanceIndicator : MonoBehaviour {
     }
      
     /// <summary>
-    /// Checks whether user's gestures are in time with audio BPM, providing user feedback by changing its color
+    /// At every beat, checks whether user's gestures are in time with audio BPM, 
+    /// providing user feedback by changing rendered BPM display
     /// </summary> 
     /// <param name="timeBetweenBeats"></param> 
     /// <param name="timeSincePrevCollision"></param>
+
+    // TODO: edit if-statements
+
     public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
     {
         Debug.Log("================"); 

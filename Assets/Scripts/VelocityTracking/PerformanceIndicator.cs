@@ -6,21 +6,26 @@ using UnityEngine.UI;
 public class PerformanceIndicator : MonoBehaviour {
 
     #region Variables 
-    SpriteRenderer pIRenderer; 
+
+    Renderer pIRenderer;
     private float allowedTimingError;
     private int userBPM;
     private int beatCount;
-    [SerializeField] private Sprite[] sprites; // Miss, OK, Perfect
+
+    [SerializeField] private Material[] materials; // Miss, OK, Perfect
     [SerializeField] public Text BPMTextDisplay;
+    [SerializeField] private ParticleSystem BPMGuide;
+
     private OVRVelocityTracker velocityTracker;
+
     #endregion
 
     // Use this for initialization
     void Start () {
-        pIRenderer = GetComponent<SpriteRenderer>();
+        pIRenderer = GetComponent<Renderer>();
         pIRenderer.enabled = true;
         userBPM = 0;
-        SetCurrentBPM(0.0f);
+        SetCurrentUserBPM(0.0f);
     }
      
     /// <summary>
@@ -30,26 +35,29 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <param name="timeBetweenBeats"></param> 
     /// <param name="timeSincePrevCollision"></param>
 
-    // TODO: edit if-statements
+    // TODO: edit allowedTimingError to reflect +/- area between BPM Display's white circles
 
     public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
     {
         Debug.Log("================"); 
         allowedTimingError = timeBetweenBeats * 0.25f; 
+        // MISS
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.sprite = sprites[0]; 
+            pIRenderer.material = materials[0]; 
             Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
         }
+        // OK
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
             timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.sprite = sprites[1]; 
+            pIRenderer.material = materials[1]; 
             Debug.Log("User is on time!"); 
         }
+        // PERFECT
         else 
         {
-            pIRenderer.sprite = sprites[2]; 
+            pIRenderer.material = materials[2]; 
             Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
         }
     }
@@ -63,7 +71,7 @@ public class PerformanceIndicator : MonoBehaviour {
         if (beatCount == 5)
         { 
             beatCount = 1;
-            SetCurrentBPM(timeSincePrevCollision);
+            SetCurrentUserBPM(timeSincePrevCollision);
             Debug.Log("beat count: " + beatCount);
         } 
          
@@ -73,7 +81,7 @@ public class PerformanceIndicator : MonoBehaviour {
     /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
     /// </summary>
     /// <param name="timeSincePrevCollision"></param>
-    private void SetCurrentBPM(float timeSincePrevCollision)
+    private void SetCurrentUserBPM(float timeSincePrevCollision)
     {
         if (velocityTracker.planeHasBeenSpawned)
         {

@@ -42,7 +42,7 @@ public class OVRVelocityTracker : OVRGestureHandle
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
-    public int[] BPMToRecord = {60, 100, 140 };
+    public int[] BPMToRecord = {80, 100, 120 };
     public int[] NewBPMToRecord = {60, 100, 140 };
     private int currentBPMToRecord;
     private float timeBetweenBeats;

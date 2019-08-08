@@ -359,7 +359,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
-            // BUG IS HERE ====================
+            
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
             // provide haptic feedback

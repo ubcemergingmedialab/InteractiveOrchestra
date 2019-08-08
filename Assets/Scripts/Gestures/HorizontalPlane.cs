@@ -8,6 +8,7 @@ public class HorizontalPlane : MonoBehaviour {
     #region Variables 
     private bool visible = false;
     private bool flag = false;
+    private bool planeIsEnabled = false;
     private Renderer planeRenderer;
     [SerializeField] private TempoController tempoController;
     public static List<Vector3> planePositions;
@@ -21,7 +22,7 @@ public class HorizontalPlane : MonoBehaviour {
     void Awake()
     { 
         planeRenderer = GetComponent<Renderer>();
-        planeRenderer.enabled = visible;
+        planeRenderer.enabled = visible && planeIsEnabled;
 }
 
     #endregion
@@ -35,7 +36,9 @@ public class HorizontalPlane : MonoBehaviour {
     void ToggleView()
     {
         //visible = !visible;
-        planeRenderer.enabled = !visible;
+        Debug.Log(planeIsEnabled);
+        Debug.Log(!visible);
+        planeRenderer.enabled = !visible && planeIsEnabled;
     }
 
     /// <summary>
@@ -126,6 +129,11 @@ public class HorizontalPlane : MonoBehaviour {
     {
         Color altColor = new Color32(92, 214, 255, 255);
         planeRenderer.material.color = altColor;
+    }
+
+    public void ToggleEnablePlane()
+    {
+        planeIsEnabled = !planeIsEnabled;
     }
     #endregion
 }

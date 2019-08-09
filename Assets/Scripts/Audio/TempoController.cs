@@ -13,7 +13,8 @@ public class TempoController : MonoBehaviour
     #region Public variables
     public bool isPrepComplete = false;
     public Slider audioSlider;
-    public OVRConductorGesture conductor;
+    public PerformanceIndicator performanceIndicator;
+    public OVRConductorGesture conductor; 
     public float threshold;
     public string rtpcID;
     public int[] timeSignature = { 4, 4 };
@@ -182,6 +183,7 @@ public class TempoController : MonoBehaviour
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
             AkSoundEngine.SetRTPCValue(rtpcID, 75);
             isPlaying = true;
+            performanceIndicator.PlayGuide();
         }
     }
 

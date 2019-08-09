@@ -29,7 +29,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     private bool dataShouldBeRecorded;
     private int currentTrial;
     private Vector3 basePlaneCollisionPoint;
-    private float prevCollisionTime = 0;
+    private float prevCollisionTime;
     private float timeSincePrevCollision;
     private Vector3 BP1;
     private Vector3 previousConductorSamplePoint; 
@@ -77,6 +77,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
         startTime = 0;
+        prevCollisionTime = 0;
         BP1 = new Vector3(0, 0, 0);
         previousBatonPosition = Vector3.zero;
         previousControllerPosition = Vector3.zero;
@@ -316,7 +317,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 
-            performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision); 
+            performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision);  
             performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
             isBeneathPlane = !isBeneathPlane;
         } 

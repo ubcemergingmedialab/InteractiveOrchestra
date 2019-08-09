@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class PerformanceIndicator : MonoBehaviour {
 
-    #region Variables 
+    #region Variables  
+    SpriteRenderer pIRenderer;
+    [SerializeField] public Sprite BPM_OK;
+    [SerializeField] public Sprite BPM_Miss;
+    [SerializeField] public Sprite BPM_Perfect;
 
-    Renderer pIRenderer;
     private float allowedTimingError;
     private int userBPM;
     private int beatCount;
 
-    [SerializeField] private Material[] materials; // Miss, OK, Perfect
-    [SerializeField] public Text BPMTextDisplay;
+    
+    [SerializeField] private Text BPMTextDisplay;
     [SerializeField] private ParticleSystem BPMGuide;
 
     private OVRVelocityTracker velocityTracker;
@@ -22,10 +25,9 @@ public class PerformanceIndicator : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        pIRenderer = GetComponent<Renderer>();
+        pIRenderer = GetComponent<SpriteRenderer>();
         pIRenderer.enabled = true;
-        userBPM = 0;
-        SetCurrentUserBPM(0.0f);
+        BPMTextDisplay.text = "0"; 
     }
      
     /// <summary>
@@ -44,20 +46,20 @@ public class PerformanceIndicator : MonoBehaviour {
         // MISS
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.material = materials[0]; 
+            pIRenderer.sprite = BPM_Miss; 
             Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
         }
         // OK
         else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
             timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
         {
-            pIRenderer.material = materials[1]; 
+            pIRenderer.sprite = BPM_OK;
             Debug.Log("User is on time!"); 
         }
         // PERFECT
         else 
         {
-            pIRenderer.material = materials[2]; 
+            pIRenderer.sprite = BPM_Perfect;
             Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
         }
     }
@@ -83,12 +85,17 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <param name="timeSincePrevCollision"></param>
     private void SetCurrentUserBPM(float timeSincePrevCollision)
     {
-        if (velocityTracker.planeHasBeenSpawned)
-        {
-            userBPM = (int)(60 / timeSincePrevCollision);
-            Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
-            Debug.Log("User BPM: " + userBPM);
-        }
+        userBPM = (int)(60 / timeSincePrevCollision);
+        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+        Debug.Log("User BPM: " + userBPM);
         BPMTextDisplay.text = userBPM.ToString();
+    }
+
+    /// <summary>
+    /// Starts particle system that acts as BPM guide for user upon song play
+    /// </summary>
+    public void PlayGuide()
+    {
+        BPMGuide.Play();
     }
 }

@@ -7,14 +7,13 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: ShinyWhiteHighlighted
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 3da8144b0f9c40941a74caa8191f4eda, type: 3}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -63,7 +62,16 @@ Material:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distance1: 0
+    - _Distance2: 0
+    - _Distance3: 0
+    - _Distance4: 0
+    - _Distance5: 0
+    - _Distance6: 0
+    - _Distance7: 0
+    - _Distance8: 0
     - _DstBlend: 10
+    - _Frequency: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.71
     - _GlossyReflections: 1
@@ -71,11 +79,37 @@ Material:
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Scale: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _Speed: -5.5
     - _SrcBlend: 1
     - _UVSec: 0
+    - _WaveAmplitude1: 0
+    - _WaveAmplitude2: 0
+    - _WaveAmplitude3: 0
+    - _WaveAmplitude4: 0
+    - _WaveAmplitude5: 0
+    - _WaveAmplitude6: 0
+    - _WaveAmplitude7: 0
+    - _WaveAmplitude8: 0
     - _ZWrite: 0
+    - _xImpact1: 0
+    - _xImpact2: 0
+    - _xImpact3: 0
+    - _xImpact4: 0
+    - _xImpact5: 0
+    - _xImpact6: 0
+    - _xImpact7: 0
+    - _xImpact8: 0
+    - _zImpact1: 0
+    - _zImpact2: 0
+    - _zImpact3: 0
+    - _zImpact4: 0
+    - _zImpact5: 0
+    - _zImpact6: 0
+    - _zImpact7: 0
+    - _zImpact8: 0
     m_Colors:
     - _Color: {r: 0.3602941, g: 0.8411764, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

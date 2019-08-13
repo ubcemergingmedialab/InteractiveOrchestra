@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23448997718248638}
   - component: {fileID: 64340928481679934}
   - component: {fileID: 114231403648056250}
+  - component: {fileID: 114176683618327516}
   m_Layer: 0
   m_Name: BasePlane
   m_TagString: Untagged
@@ -37,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487088195919180}
   m_LocalRotation: {x: 0, y: 0.32556805, z: 0, w: 0.9455186}
-  m_LocalPosition: {x: 34.26, y: 11.79, z: 106.77}
-  m_LocalScale: {x: 0.02, y: 1, z: 0.7}
+  m_LocalPosition: {x: 35.83, y: 11.88, z: 106.37}
+  m_LocalScale: {x: 0.33015016, y: 1.1489292, z: 0.40316054}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -99,6 +100,24 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114176683618327516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1487088195919180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79709bd6ca2d01d4da88eda406a8cd6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceX: 0
+  distanceZ: 0
+  waveAmplitude: []
+  magnitudeDivider: 0
+  impactPos: []
+  distance: []
+  speedWaveSpread: 0
 --- !u!114 &114231403648056250
 MonoBehaviour:
   m_ObjectHideFlags: 1

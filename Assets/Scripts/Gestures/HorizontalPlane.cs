@@ -7,8 +7,11 @@ public class HorizontalPlane : MonoBehaviour {
 
     #region Variables 
     private bool visible = false;
+    private bool flag = false;
+    private bool planeIsEnabled = false;
     private Renderer planeRenderer;
     [SerializeField] private TempoController tempoController;
+    public static List<Vector3> planePositions;
 
     #endregion
 
@@ -19,8 +22,9 @@ public class HorizontalPlane : MonoBehaviour {
     void Awake()
     { 
         planeRenderer = GetComponent<Renderer>();
-        planeRenderer.enabled = visible;
-    }
+        planeRenderer.enabled = visible && planeIsEnabled;
+}
+
     #endregion
 
     #region ClassFunctions
@@ -32,7 +36,9 @@ public class HorizontalPlane : MonoBehaviour {
     void ToggleView()
     {
         //visible = !visible;
-        planeRenderer.enabled = !visible;
+        Debug.Log(planeIsEnabled);
+        Debug.Log(!visible);
+        planeRenderer.enabled = !visible && planeIsEnabled;
     }
 
     /// <summary>
@@ -41,10 +47,12 @@ public class HorizontalPlane : MonoBehaviour {
     /// <param name="controllerPosition">x,y,z position of conducting baton controller</param>
     public void SpawnPlane(Vector3 controllerPosition)
     {
+        Debug.Log("Spawn plane was called! ");
         gameObject.transform.position = controllerPosition;
         ToggleView();
         tempoController.isPrepComplete = true;
         PlaneFeedback();
+        flag = false;
     } 
 
     public void PlaneFeedback()
@@ -58,11 +66,74 @@ public class HorizontalPlane : MonoBehaviour {
     IEnumerator Haptics(float frequency, float amplitude, float duration)
     {
         OVRInput.SetControllerVibration(frequency, amplitude, OVRInput.Controller.RTouch);
-
+        Debug.Log("Print 1");
         yield return new WaitForSeconds(duration);
-
+        Debug.Log("Print 2");
         OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
     }
     
+    IEnumerator Timer()
+    {
+        yield return new WaitForSeconds(0.25F);
+        ChangeColorToBlueOnCollision();
+    }
+
+    //private void OnCollisionEnter(Collision other)
+    //{
+    //    if (other.gameObject.CompareTag("BatonSphere") || other.gameObject.CompareTag("BatonSphere_001"))
+    //    {
+    //        if (flag == false)
+    //        {
+    //            flag = true;
+    //        } else
+    //        {
+    //            ChangeColorToBlackOnCollision();
+    //            StartCoroutine(Timer());
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("COLLIDED");
+        if (other.gameObject.CompareTag("BatonSphere"))
+        {
+            //Debug.Log("=============");
+            //Debug.Log(flag);
+            if (flag == true) {
+                //Debug.Log("flag is null"); 
+            }
+            if (flag == null){
+                //Debug.Log("flag is null");
+            }
+            if (flag == false)
+            {
+                //Debug.Log("Flag set to true");
+                flag = true;
+            } else
+            {
+                //Debug.Log("+++++++++++++++");
+                ChangeColorToBlackOnCollision();
+                StartCoroutine(Timer());
+            }
+        }
+    }
+
+
+    public void ChangeColorToBlackOnCollision()
+    {
+        planeRenderer.material.color = Color.black;
+    }
+
+    public void ChangeColorToBlueOnCollision()
+    {
+        Color altColor = new Color32(92, 214, 255, 255);
+        planeRenderer.material.color = altColor;
+    }
+
+    public void ToggleEnablePlane()
+    {
+        planeIsEnabled = !planeIsEnabled;
+    }
     #endregion
 }

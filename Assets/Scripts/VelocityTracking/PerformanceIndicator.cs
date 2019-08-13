@@ -40,15 +40,15 @@ public class PerformanceIndicator : MonoBehaviour {
         Debug.Log("================"); 
         // MISS 
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError || timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
-        {
+        { 
             pIRenderer.sprite = BPM_Miss; 
-            Debug.Log("User timing is poor!");
+            Debug.Log("User timing is poor!"); 
         }
         // PERFECT timing
         else if (timeSincePrevCollision == timeBetweenBeats)
-        {
+        { 
             pIRenderer.sprite = BPM_Perfect;
-            Debug.Log("User is in perfect time!");
+            Debug.Log("User is in perfect time!"); 
         }
         // OK timing
         else

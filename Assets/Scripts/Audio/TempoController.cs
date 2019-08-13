@@ -84,7 +84,7 @@ public class TempoController : MonoBehaviour
                 {
                     if (!isPlaying)
                     {
-                        playPiece();
+                        //playPiece();
                     }
                     eventStartTime = Time.time;
                     numBeats++;
@@ -177,13 +177,25 @@ public class TempoController : MonoBehaviour
     /// Access Wwise functionality to play current piece if not already playing and the prep beat gesture has been completed
     /// </summary>
     public void playPiece()
-    { 
+    {
+        Debug.Log("Piece Starts");
         if (!isPlaying && isPrepComplete)
         {
-            AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-            AkSoundEngine.SetRTPCValue(rtpcID, 75);
-            isPlaying = true;
-            performanceIndicator.PlayGuide();
+            if(localBPM > 120)
+            {
+                Debug.Log("Too fast!");
+                localBPM = 120;
+            }
+            if(localBPM < 80)
+            {
+                Debug.Log("Too slow");
+                localBPM = 80;
+            }
+                AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
+                AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM / MasterBPM));
+                //Debug.Log("Ratio: " + (localBPM / MasterBPM));
+                isPlaying = true;
+                performanceIndicator.PlayGuide();
         }
     }
 
@@ -237,6 +249,11 @@ public class TempoController : MonoBehaviour
     public float getLocalBPM()
     {
         return localBPM;
+    }
+
+    public void setNewBPM(int newBPM)
+    {
+        localBPM = newBPM;
     }
     #endregion
 }

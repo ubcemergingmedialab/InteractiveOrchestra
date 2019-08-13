@@ -10,8 +10,7 @@ public class PerformanceIndicator : MonoBehaviour {
     [SerializeField] public Sprite BPM_OK;
     [SerializeField] public Sprite BPM_Miss;
     [SerializeField] public Sprite BPM_Perfect;
-
-    private float allowedTimingError;
+    
     private int userBPM;
     private int beatCount;
 
@@ -27,7 +26,7 @@ public class PerformanceIndicator : MonoBehaviour {
     void Start () {
         pIRenderer = GetComponent<SpriteRenderer>();
         pIRenderer.enabled = true;
-        BPMTextDisplay.text = "0"; 
+        BPMTextDisplay.text = "0";  
     }
      
     /// <summary>
@@ -35,32 +34,27 @@ public class PerformanceIndicator : MonoBehaviour {
     /// providing user feedback by changing rendered BPM display
     /// </summary> 
     /// <param name="timeBetweenBeats"></param> 
-    /// <param name="timeSincePrevCollision"></param>
-
-    // TODO: edit allowedTimingError to reflect +/- area between BPM Display's white circles
-
-    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
+    /// <param name="timeSincePrevCollision"></param> 
+    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision, float allowedTimingError)
     {
         Debug.Log("================"); 
-        allowedTimingError = timeBetweenBeats * 0.25f; 
-        // MISS
-        if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
+        // MISS 
+        if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError || timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
         {
             pIRenderer.sprite = BPM_Miss; 
-            Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
+            Debug.Log("User timing is poor!");
         }
-        // OK
-        else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
-            timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
-        {
-            pIRenderer.sprite = BPM_OK;
-            Debug.Log("User is on time!"); 
-        }
-        // PERFECT
-        else 
+        // PERFECT timing
+        else if (timeSincePrevCollision == timeBetweenBeats)
         {
             pIRenderer.sprite = BPM_Perfect;
-            Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
+            Debug.Log("User is in perfect time!");
+        }
+        // OK timing
+        else
+        {
+            pIRenderer.sprite = BPM_OK;
+            Debug.Log("User timing is ok!");
         }
     }
 

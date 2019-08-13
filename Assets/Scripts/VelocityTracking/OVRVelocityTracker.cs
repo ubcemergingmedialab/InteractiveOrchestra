@@ -40,6 +40,7 @@ public class OVRVelocityTracker : OVRGestureHandle
     public int[] BPMToRecord = { 80, 100, 120 };
     public int currentBPMToRecord;
     public float timeBetweenBeats;
+    private float allowedTimingError;
     private bool isBeneathPlane = false;
 
     public Transform conductorBaton;
@@ -72,7 +73,8 @@ public class OVRVelocityTracker : OVRGestureHandle
         currentGestureSize = gestureSize[0];
         currentBPMToRecord = BPMToRecord[1];                // BPM of 'O Canada' track
         Debug.Log("Current BPM to record: " + currentBPMToRecord);
-        timeBetweenBeats = ((float)60 / currentBPMToRecord);       // ( 60 / 100 ) = 0.6 seconds
+        timeBetweenBeats = ((float)60 / currentBPMToRecord);       // ( 60 / 100 ) = 0.6 seconds 
+        allowedTimingError = timeBetweenBeats * 0.25f; 
         Debug.Log("Initializing time between beats: " + timeBetweenBeats);
         //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
@@ -317,7 +319,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 
-            performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision);  
+            performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision, allowedTimingError);  
             performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
             isBeneathPlane = !isBeneathPlane;
         } 

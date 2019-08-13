@@ -40,7 +40,7 @@ public class TempoController : MonoBehaviour
 
     #region Conductor Gesture Variables
     private bool gestureCaptured;
-    private bool isPlaying = false;
+    public bool isPlaying = false;
     private string[] gestures;
     private string gestureString = "PREP";
     private float[] beatLengthTracker;
@@ -60,7 +60,7 @@ public class TempoController : MonoBehaviour
         ulong GameObjectID = AkSoundEngine.GetAkGameObjectID(gameObject);
         this.numBeats = 0;
         audioSlider.minValue = 0;
-        audioSlider.maxValue = 110; 
+        audioSlider.maxValue = 1; 
         audioSlider.value = 0;
         beatsPerBar = timeSignature[0];
         am = GetComponent<AudioMaster>();
@@ -128,7 +128,10 @@ public class TempoController : MonoBehaviour
 
     #region Class Methods
 
-
+    public bool getIsPiecePlaying()
+    {
+        return this.isPlaying;
+    }
 
     /// <summary>
     /// Calculates the localBPM of the user given a list of beat lengths. 
@@ -179,6 +182,7 @@ public class TempoController : MonoBehaviour
     { 
         if (!isPlaying && isPrepComplete)
         {
+
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
             AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM/MasterBPM));
             Debug.Log("Ratio: " + (localBPM / MasterBPM));
@@ -197,7 +201,7 @@ public class TempoController : MonoBehaviour
         conductor.Reset();
 
         audioSlider.minValue = 0;
-        audioSlider.maxValue = 110; // hard-coded for now
+        audioSlider.maxValue = 1; // hard-coded for now
         audioSlider.value = 0;
 
         isPlaying = false;

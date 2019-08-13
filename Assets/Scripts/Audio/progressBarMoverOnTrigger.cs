@@ -6,15 +6,18 @@ using UnityEngine.UI;
 public class progressBarMoverOnTrigger : MonoBehaviour {
     [SerializeField]
     private Slider progressBarSlider;
-    private static float songLength = 69.0f;
+    private static float songLength;
     private float timeStarter;
-    private bool mPressed = false;
+    private bool mPressed;
     private float valueToAdd;
+    private bool isPiecePlaying;
 
 	// Use this for initialization
 	void Start () {
-       //  progressBarSlider = GameObject.Find("Slider").GetComponent<Slider>();
-
+        //  progressBarSlider = GameObject.Find("Slider").GetComponent<Slider>();
+        mPressed = false;
+        songLength = 69.0f;
+        // isPiecePlaying = HorizontalPlane.getTempoController().getIsPiecePlaying();
 	}
 	
 	// Update is called once per frame

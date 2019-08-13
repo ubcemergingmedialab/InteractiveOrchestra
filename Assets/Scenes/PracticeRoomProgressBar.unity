@@ -1878,6 +1878,7 @@ MonoBehaviour:
   rtpcID: PieceVelocity
   timeSignature: 0400000004000000
   articulation: 0
+  isPlaying: 0
 --- !u!54 &397853884
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5300,7 +5301,7 @@ Prefab:
     - target: {fileID: 224312036940562140, guid: 09eaf501cc2adb04298d93b76ef391cd,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -2509.8
+      value: -2509.7983
       objectReference: {fileID: 0}
     - target: {fileID: 224312036940562140, guid: 09eaf501cc2adb04298d93b76ef391cd,
         type: 2}
@@ -5461,6 +5462,26 @@ Prefab:
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114701293355587762, guid: 09eaf501cc2adb04298d93b76ef391cd,
+        type: 2}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224665318081399266, guid: 09eaf501cc2adb04298d93b76ef391cd,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 224665318081399266, guid: 09eaf501cc2adb04298d93b76ef391cd,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 224471127593507960, guid: 09eaf501cc2adb04298d93b76ef391cd,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 235
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09eaf501cc2adb04298d93b76ef391cd, type: 2}

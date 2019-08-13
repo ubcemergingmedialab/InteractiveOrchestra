@@ -60,9 +60,9 @@ public class TempoController : MonoBehaviour
         }
         ulong GameObjectID = AkSoundEngine.GetAkGameObjectID(gameObject);
         this.numBeats = 0;
-        audioSlider.minValue = 0;
-        audioSlider.maxValue = 110; 
-        audioSlider.value = 0;
+        //audioSlider.minValue = 0;
+        //audioSlider.maxValue = 110; 
+        //audioSlider.value = 0;
         beatsPerBar = timeSignature[0];
         am = GetComponent<AudioMaster>();
         beatLengthTracker = new float[beatsPerBar - 1];
@@ -192,14 +192,18 @@ public class TempoController : MonoBehaviour
     /// </summary>
     public void stopPiece()
     {
+        if(am == null)
+        {
+            Debug.Log("What???????");
+        }
         am.StopEvent("PieceBegins",0);
         this.numBeats = 0;
         CurrBeat = 0;
         conductor.Reset();
 
-        audioSlider.minValue = 0;
-        audioSlider.maxValue = 110; // hard-coded for now
-        audioSlider.value = 0;
+        //audioSlider.minValue = 0;
+        //audioSlider.maxValue = 110; // hard-coded for now
+        //audioSlider.value = 0;
 
         isPlaying = false;
     }
@@ -209,7 +213,7 @@ public class TempoController : MonoBehaviour
     /// </summary>
     private void updateSlider()
     {
-        audioSlider.value = numBeats;
+        // audioSlider.value = numBeats;
     }
 
     /// <returns>Return current gesture string (Eg. 44L1, 44L2, etc)</returns>

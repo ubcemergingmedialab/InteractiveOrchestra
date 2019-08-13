@@ -92,4 +92,12 @@ public class PerformanceIndicator : MonoBehaviour {
     {
         BPMGuide.Play();
     }
+
+    /// <summary>
+    /// Stops particle system that acts as BPM guide when user lets go of baton
+    /// </summary>
+    public void StopGuide()
+    {
+        BPMGuide.Stop();
+    }
 }

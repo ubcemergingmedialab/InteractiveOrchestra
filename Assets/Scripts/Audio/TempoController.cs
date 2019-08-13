@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class TempoController : MonoBehaviour
 {
     #region Public variables
+    public bool isPrepComplete = false;
     public Slider audioSlider;
     public OVRConductorGesture conductor;
     public float threshold;
@@ -43,7 +44,7 @@ public class TempoController : MonoBehaviour
     private string[] gestures;
     private string gestureString = "PREP";
     private float[] beatLengthTracker;
-    private float gestureScore;
+    private float gestureScore; 
     #endregion
 
     #region Unity Methods
@@ -66,8 +67,7 @@ public class TempoController : MonoBehaviour
         beatLengthTracker = new float[beatsPerBar - 1];
         articulationIdentifier = articulation.ToString().Substring(0, 1);
         CurrBeat = 0;
-        gestures = new string[beatsPerBar];
-        
+        gestures = new string[beatsPerBar]; 
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class TempoController : MonoBehaviour
                 {
                     if (!isPlaying)
                     {
-                        playPiece();
+                        //playPiece();
                     }
                     eventStartTime = Time.time;
                     numBeats++;
@@ -173,13 +173,30 @@ public class TempoController : MonoBehaviour
 
 
     /// <summary>
-    /// Access Wwise functionality to play current piece.
+    /// Access Wwise functionality to play current piece if not already playing and the prep beat gesture has been completed
     /// </summary>
     public void playPiece()
     {
-        AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-        AkSoundEngine.SetRTPCValue(rtpcID, 75);
-        isPlaying = true;
+        Debug.Log("Piece Starts");
+        if (!isPlaying && isPrepComplete)
+        {
+            if(localBPM > 120)
+            {
+                Debug.Log("Too fast!");
+                localBPM = 120;
+            }
+            if(localBPM < 80)
+            {
+                Debug.Log("Too slow");
+                localBPM = 80;
+            }
+                AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
+                AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM / MasterBPM));
+                //Debug.Log("Ratio: " + (localBPM / MasterBPM));
+                isPlaying = true;
+            
+
+        }
     }
 
     /// <summary>
@@ -228,6 +245,11 @@ public class TempoController : MonoBehaviour
     public float getLocalBPM()
     {
         return localBPM;
+    }
+
+    public void setNewBPM(int newBPM)
+    {
+        localBPM = newBPM;
     }
     #endregion
 }

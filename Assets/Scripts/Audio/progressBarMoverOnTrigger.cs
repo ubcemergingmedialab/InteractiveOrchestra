@@ -11,6 +11,8 @@ public class progressBarMoverOnTrigger : MonoBehaviour {
     private bool mPressed;
     private float valueToAdd;
     private bool isPiecePlaying;
+    [SerializeField]
+    private Text timeText;
 
 	// Use this for initialization
 	void Start () {
@@ -38,10 +40,13 @@ public class progressBarMoverOnTrigger : MonoBehaviour {
         {
             if (progressBarSlider.value != 1)
             {
-                Debug.Log("Slider value: " + progressBarSlider.value.ToString());
+                // Debug.Log("Slider value: " + progressBarSlider.value.ToString());
                 valueToAdd = (Time.time - timeStarter) / songLength;
                 progressBarSlider.value = valueToAdd;
-                Debug.Log("Slider value: " + progressBarSlider.value.ToString());
+                float minutes = Mathf.Floor((Time.time - timeStarter) / 60);
+                float seconds = Mathf.RoundToInt((Time.time - timeStarter)%60);
+                timeText.text = minutes.ToString("00") + ": " + seconds.ToString("00");
+                // Debug.Log("Slider value: " + progressBarSlider.value.ToString());
             }
         }
 		

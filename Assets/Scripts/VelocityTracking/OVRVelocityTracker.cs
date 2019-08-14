@@ -367,10 +367,10 @@ public class OVRVelocityTracker : OVRGestureHandle
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime; 
-            //Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
+            // Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
             performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision); 
             isBeneathPlane = !isBeneathPlane;
-            Debug.Log("Piece has been cued");
+
             MusicStart();
         } 
         else if (isBeneathPlane && controllerPosition.y > BP1.y)

@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4514218513820330}
   - component: {fileID: 111837102892831638}
   - component: {fileID: 95034061011518118}
-  - component: {fileID: 199796003183958624}
-  - component: {fileID: 198330394628561838}
   - component: {fileID: 114203696451050574}
+  - component: {fileID: 199331680820920288}
+  - component: {fileID: 198863070408743418}
+  - component: {fileID: 114413538029843126}
   m_Layer: 0
   m_Name: ConductorFollower
   m_TagString: Untagged
@@ -52,8 +53,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336639936596218}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 108.01, y: 12.84, z: 31.97}
+  m_LocalRotation: {x: -0.28182387, y: -0.026811033, z: 0.008277759, w: 0.9590558}
+  m_LocalPosition: {x: 105.70001, y: 16.050007, z: 44.30001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4514218513820330}
@@ -118,9 +119,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1eb38892960ed34daa30d27cbf9e019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  particleSystem: {fileID: 198330394628561838}
---- !u!198 &198330394628561838
+  animator: {fileID: 95034061011518118}
+  particleSystem: {fileID: 198863070408743418}
+--- !u!114 &114413538029843126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1268057720968720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1eb38892960ed34daa30d27cbf9e019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 95034061011518118}
+  particleSystem: {fileID: 198863070408743418}
+--- !u!198 &198863070408743418
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1329,8 +1343,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.17519331, b: 1, a: 1}
-        key1: {r: 0.23137254, g: 0.3178517, b: 1, a: 0.64705884}
+        key0: {r: 1, g: 0.7214559, b: 0, a: 1}
+        key1: {r: 1, g: 0.61769533, b: 0.23137254, a: 0.64705884}
         key2: {r: 1, g: 0.93703777, b: 0.6650944, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4651,7 +4665,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &199796003183958624
+--- !u!199 &199331680820920288
 ParticleSystemRenderer:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -4667,7 +4681,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4691,7 +4705,7 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 0.03
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

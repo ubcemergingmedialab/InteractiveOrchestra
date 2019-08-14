@@ -35,8 +35,6 @@ public class OVRVelocityTracker : OVRGestureHandle
     private float timeSincePrevCollision;
     private Vector3 BP1;
     private Vector3 previousConductorSamplePoint; 
-
-    // my edits
     private Vector3 planeSpawnPosition;
 
     public delegate void VelocityTracker();
@@ -85,7 +83,6 @@ public class OVRVelocityTracker : OVRGestureHandle
         //Debug.Log("Current BPM to record: " + currentBPMToRecord);
         timeBetweenBeats = ((float)60 / currentBPMToRecord);       // ( 60 / 100 ) = 0.6 seconds
         //Debug.Log("Initializing time between beats: " + timeBetweenBeats);
-        //dataUpdater = new ControllerDataUpdater();
         currentTrial = 1;
         startTime = 0;
         BP1 = new Vector3(0, 0, 0);
@@ -290,7 +287,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                             currentTrial
                             );
                     if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
-                    if (newConductorSample.trial == 1) InstantiateDebugSphere();
+                    //if (newConductorSample.trial == 1) InstantiateDebugSphere();
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
                     if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)

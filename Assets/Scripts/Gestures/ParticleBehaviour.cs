@@ -50,4 +50,9 @@ public class ParticleBehaviour : MonoBehaviour {
     {
         animator.speed = localBPM/100;
     }
+
+    public void ToggleGestureActivation()
+    {
+        particleSystem.enableEmission = !particleSystem.enableEmission;
+    }
 }

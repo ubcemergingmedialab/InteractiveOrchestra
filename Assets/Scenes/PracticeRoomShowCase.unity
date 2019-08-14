@@ -524,7 +524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1632990763}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &66074116
 GameObject:
@@ -883,7 +883,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4759825696111096, guid: 5ecb3b5e6b6be4143ba122aab89ab9c3, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4759825696111096, guid: 5ecb3b5e6b6be4143ba122aab89ab9c3, type: 2}
       propertyPath: m_LocalScale.x
@@ -1294,7 +1294,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1148528840}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 24.042002, y: -49.978, z: 0}
 --- !u!108 &119981991
 Light:
@@ -2829,7 +2829,7 @@ Transform:
   - {fileID: 115916556}
   - {fileID: 749972166}
   m_Father: {fileID: 1632990763}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 142.78001}
 --- !u!114 &413976541
 MonoBehaviour:
@@ -3981,7 +3981,7 @@ Transform:
   m_LocalScale: {x: 0.02, y: 1, z: 0.7}
   m_Children: []
   m_Father: {fileID: 1632990763}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 38, z: 0}
 --- !u!54 &579738918
 Rigidbody:
@@ -6523,7 +6523,7 @@ Transform:
   m_LocalScale: {x: 25, y: 0.015530192, z: 25}
   m_Children: []
   m_Father: {fileID: 1632990763}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 37.595, z: 0}
 --- !u!65 &1088619729
 BoxCollider:
@@ -11525,10 +11525,9 @@ Transform:
   - {fileID: 2046087577}
   - {fileID: 2043479410}
   - {fileID: 1525270240}
-  - {fileID: 1920756963}
   - {fileID: 119981990}
   m_Father: {fileID: 1632990763}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1148921945
 GameObject:
@@ -11615,7 +11614,7 @@ Canvas:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1148921945}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
@@ -13126,6 +13125,7 @@ Transform:
   m_Children:
   - {fileID: 504509255}
   - {fileID: 1965113637}
+  - {fileID: 1920756963}
   - {fileID: 1148528840}
   - {fileID: 60807642}
   - {fileID: 413976540}
@@ -14047,6 +14047,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 256918968}
         m_MethodName: isGuideDisplayed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1121977723}
+        m_MethodName: ToggleGestureActivation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15625,7 +15636,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1632990763}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1893942013
 MonoBehaviour:
@@ -15900,7 +15911,7 @@ GameObject:
   - component: {fileID: 1920756965}
   - component: {fileID: 1920756964}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15914,16 +15925,16 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1920756962}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.40401143}
+  m_LocalPosition: {x: 0, y: 0, z: 0.09599304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1865984315}
-  m_Father: {fileID: 1148528840}
-  m_RootOrder: 3
+  m_Father: {fileID: 1632990763}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 569.60846, y: 265.8264}
+  m_AnchoredPosition: {x: 569.60846, y: 265.22638}
   m_SizeDelta: {x: 1138, y: 526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920756964

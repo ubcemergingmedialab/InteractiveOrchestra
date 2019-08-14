@@ -39,6 +39,9 @@ public class OVRVelocityTracker : OVRGestureHandle
     // my edits
     private Vector3 planeSpawnPosition;
 
+    public delegate void VelocityTracker();
+
+    public static event VelocityTracker MusicStart;
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
@@ -332,9 +335,6 @@ public class OVRVelocityTracker : OVRGestureHandle
             previousControllerPosition = controllerPosition;
             return;
         }
-        
-        
-
     }
 
     /// <summary>
@@ -359,9 +359,9 @@ public class OVRVelocityTracker : OVRGestureHandle
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
-            
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
+
             // provide haptic feedback
             horizontalPlane.PlaneFeedback();
             // calculate time since last recorded collision  
@@ -370,7 +370,8 @@ public class OVRVelocityTracker : OVRGestureHandle
             //Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds"); 
             performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision); 
             isBeneathPlane = !isBeneathPlane;
-            Debug.Log("======");
+            Debug.Log("Piece has been cued");
+            MusicStart();
         } 
         else if (isBeneathPlane && controllerPosition.y > BP1.y)
         {

@@ -36,19 +36,28 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
+        time: 0.5
+        value: {x: -0.9486078, y: -0.75656295, z: 0}
+        inSlope: {x: -3.275764, y: 0, z: 0}
+        outSlope: {x: -3.275764, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
         time: 0.53333336
-        value: {x: -1.0465933, y: -1.245238, z: 0}
-        inSlope: {x: -2.567645, y: -1.1322064, z: 0}
-        outSlope: {x: -2.567645, y: -1.1322064, z: 0}
+        value: {x: -1.0465935, y: -0.74591744, z: 0}
+        inSlope: {x: -2.567641, y: 0.65406543, z: 0}
+        outSlope: {x: -2.567641, y: 0.65406543, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.55
-        value: {x: -1.0858414, y: -1.2548387, z: 0}
-        inSlope: {x: -2.133179, y: 0, z: 0}
-        outSlope: {x: -2.133179, y: 0, z: 0}
+        value: {x: -1.0858414, y: -0.73203546, z: 0}
+        inSlope: {x: -2.133179, y: 1.0156053, z: 0}
+        outSlope: {x: -2.133179, y: 1.0156053, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -218,8 +227,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.55
-        value: -1.2548387
+        time: 0.5
+        value: -0.75656295
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -328,4 +337,18 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.2
+    functionName: AwakeParticles
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.4666667
+    functionName: KillParticles
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

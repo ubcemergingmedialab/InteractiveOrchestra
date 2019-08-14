@@ -19,6 +19,7 @@
 				</Property>
 				<Property Name="General\LatestLanguage" Type="int32" Value="684519430"/>
 				<Property Name="General\LatestPlatform" Type="string" Value="Mac"/>
+				<Property Name="General\SourceControlPluginID" Type="string" Value="{C403A906-0C19-4ED5-808E-748707065301}"/>
 				<Property Name="GenerateSoundBanks\x64_SelectedLanguages" Type="string" Value="BvDMKA=="/>
 				<Property Name="GenerateSoundBanks\x64_SelectedPlatforms" Type="string" Value="nk9wQCOhFkqjANeFcFy2fQ=="/>
 				<Property Name="GenerateSoundBanks\x64_SelectedSoundBanks" Type="string" Value="vGPgo4WUh0KxC1VI4IzMiw=="/>
@@ -63,7 +64,7 @@
 				<Property Name="ProjectExplorer\x64_Expanded_6_1" Type="string" Value="lCfzS5/XX0WXzdYOR1L3iA=="/>
 				<Property Name="ProjectExplorer\x64_Expanded_7_1" Type="string" Value=""/>
 				<Property Name="ProjectExplorer\x64_Expanded_8_1" Type="string" Value=""/>
-				<Property Name="RTPC\GameParameterSimValue\{0922165A-C6B8-4010-8116-BC48803C8525}" Type="Real64" Value="100.080971340095"/>
+				<Property Name="RTPC\GameParameterSimValue\{0922165A-C6B8-4010-8116-BC48803C8525}" Type="Real64" Value="100.289957755978"/>
 				<Property Name="SoundBank Manager\x64_Expand States" Type="string" Value="lCfzS5/XX0WXzdYOR1L3iA=="/>
 				<Property Name="SoundBankHeaderFilePath" Type="string" Value="GeneratedSoundBanks\"/>
 				<Property Name="SoundBankPaths" Type="string">

@@ -29,8 +29,8 @@ public class TempoController : MonoBehaviour
     private AudioMaster am;
     private AkAmbient amb;
     private float eventStartTime;
-    private float MasterBPM = 93f;
-    private float localBPM = 93f;
+    private float MasterBPM = 100f; 
+    private float localBPM = 100f;
     private float velocity = 75;
     private int numBeats;
     private int CurrBeat = 0;
@@ -199,7 +199,7 @@ public class TempoController : MonoBehaviour
             }
             PlayPiece(localBPM);
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-            AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM / MasterBPM));
+            AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
             //Debug.Log("Ratio: " + (localBPM / MasterBPM));
             isPlaying = true;
 

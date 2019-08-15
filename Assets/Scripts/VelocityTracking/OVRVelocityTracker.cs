@@ -35,10 +35,11 @@ public class OVRVelocityTracker : OVRGestureHandle
     private float timeSincePrevCollision;
     private Vector3 BP1;
     private Vector3 previousConductorSamplePoint; 
-
-    // my edits
     private Vector3 planeSpawnPosition;
 
+    public delegate void VelocityTracker();
+
+    public static event VelocityTracker MusicStart;
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
@@ -85,6 +86,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         allowedTimingError = timeBetweenBeats * 0.25f; 
         Debug.Log("Initializing time between beats: " + timeBetweenBeats);
         //dataUpdater = new ControllerDataUpdater();
+
         currentTrial = 1;
         startTime = 0;
         prevCollisionTime = 0;
@@ -290,7 +292,7 @@ public class OVRVelocityTracker : OVRGestureHandle
                             currentTrial
                             );
                     if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
-                    if (newConductorSample.trial == 1) InstantiateDebugSphere();
+                    //if (newConductorSample.trial == 1) InstantiateDebugSphere();
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
                     if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)
@@ -335,9 +337,6 @@ public class OVRVelocityTracker : OVRGestureHandle
             previousControllerPosition = controllerPosition;
             return;
         }
-        
-        
-
     }
 
     /// <summary>
@@ -362,9 +361,9 @@ public class OVRVelocityTracker : OVRGestureHandle
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
-            
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
+
             // provide haptic feedback
             horizontalPlane.PlaneFeedback();
             // calculate time since last recorded collision  
@@ -373,7 +372,8 @@ public class OVRVelocityTracker : OVRGestureHandle
             performanceIndicator.CheckUserTiming(timeBetweenBeats, timeSincePrevCollision, allowedTimingError);  
             performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
             isBeneathPlane = !isBeneathPlane;
-            Debug.Log("======");
+
+            MusicStart();
         } 
         else if (isBeneathPlane && controllerPosition.y > BP1.y)
         {

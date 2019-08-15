@@ -112,7 +112,7 @@ public class BPMPredictor : MonoBehaviour {
                     m_MaxRegionOneYPosition = m_prevConductorSample.position.y;
                     m_SizeOfRegionTwo++;
                     m_SizeOfRegionOne--;
-                    Debug.Log("=====================Region One End==================");
+                    
                 }
                 m_totalElementsRecorded++;
                 m_SizeOfRegionOne++;
@@ -141,7 +141,7 @@ public class BPMPredictor : MonoBehaviour {
                     // Mean velocity 
                     m_MeanVelocityRegionTwo = m_MeanVelocityRegionTwo / m_SizeOfRegionTwo;
                     m_MeanVelocityYRegionTwo = m_MeanVelocityYRegionTwo / m_SizeOfRegionTwo;
-                    Debug.Log("==========================Region Two End========================");
+                    
                 }
 
                 m_totalElementsRecorded++;
@@ -163,7 +163,7 @@ public class BPMPredictor : MonoBehaviour {
     {
         if(m_MedianVelocityRegionTwo != 0 && m_MedianVelocityYRegionTwo!= 0 && !m_BPMHasBeenPredicted)
         {
-            Debug.Log("===========================Results===========================");
+            
             string printThis = String.Format("{0}\n" +
                 "{1}\n" +
                 "{2}\n" +
@@ -204,7 +204,7 @@ public class BPMPredictor : MonoBehaviour {
                 m_TimeStartRegionOne,
                 m_TimeStartRegionTwo);
 
-            Debug.Log(printThis);
+           
             //Debug.Log(m_prevConductorSample.velocityMagnitude);
             //Debug.Log(m_prevConductorSample.distanceCoveredSoFar);
             //Debug.Log(m_prevConductorSample.velocityVector);

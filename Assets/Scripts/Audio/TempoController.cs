@@ -30,13 +30,18 @@ public class TempoController : MonoBehaviour
     private AudioMaster am;
     private AkAmbient amb;
     private float eventStartTime;
-    private float MasterBPM = 93f;
-    private float localBPM = 93f;
+    private float MasterBPM = 100f; 
+    private float localBPM = 100f;
     private float velocity = 75;
     private int numBeats;
     private int CurrBeat = 0;
     private int beatsPerBar;
     private string articulationIdentifier;
+
+    public delegate void TempoControllerDelegate(float localBPM);
+
+    public static event TempoControllerDelegate PlayPiece;
+
     #endregion
 
     #region Conductor Gesture Variables
@@ -181,21 +186,24 @@ public class TempoController : MonoBehaviour
         Debug.Log("Piece Starts");
         if (!isPlaying && isPrepComplete)
         {
-            if(localBPM > 120)
+            if(localBPM > 110)
             {
-                Debug.Log("Too fast!");
                 localBPM = 120;
             }
-            if(localBPM < 80)
+            else if(localBPM < 90)
             {
-                Debug.Log("Too slow");
                 localBPM = 80;
             }
-                AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-                AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM / MasterBPM));
-                //Debug.Log("Ratio: " + (localBPM / MasterBPM));
-                isPlaying = true;
-                performanceIndicator.PlayGuide();
+            else
+            {
+                localBPM = 100;
+            }
+            PlayPiece(localBPM);
+            AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
+            AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
+            //Debug.Log("Ratio: " + (localBPM / MasterBPM));
+            isPlaying = true;
+            performanceIndicator.PlayGuide();
         }
     }
 

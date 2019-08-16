@@ -162,6 +162,7 @@ public class TempoController : MonoBehaviour
                 localBPM = 100;
             }
             PlayPiece(localBPM);
+            performanceIndicator.SetTargetBPM();
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
             AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
             //Debug.Log("Ratio: " + (localBPM / MasterBPM));

@@ -23,7 +23,8 @@ public class PerformanceIndicator : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
+        TempoController.PlayPiece += PlayGuide;
         pIRenderer = GetComponent<SpriteRenderer>();
         pIRenderer.enabled = true;
         BPMTextDisplay.text = "0";  
@@ -88,7 +89,7 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <summary>
     /// Starts particle system that acts as BPM guide for user upon song play
     /// </summary>
-    public void PlayGuide()
+    public void PlayGuide(float localBPM)
     {
         BPMGuide.Play();
     }

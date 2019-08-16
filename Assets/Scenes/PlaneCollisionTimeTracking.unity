@@ -11535,6 +11535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472190527}
   - component: {fileID: 1472190526}
+  - component: {fileID: 1472190528}
   m_Layer: 0
   m_Name: VelocityTracker
   m_TagString: Untagged
@@ -11553,12 +11554,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8759bb0015ed64294b78ec1fd9b141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BPMPred: {fileID: 1472190528}
   tempoController: {fileID: 90385586}
   track: {fileID: 0}
   rightHandControl: {fileID: 1845416248}
   velocityTracker: {fileID: 1472190526}
   planeHasBeenSpawned: 0
   BPMToRecord: 500000006400000078000000
+  NewBPMToRecord: 3c000000640000008c000000
   currentBPMToRecord: 0
   timeBetweenBeats: 0
   conductorBaton: {fileID: 1999785403}
@@ -11579,6 +11582,19 @@ Transform:
   m_Father: {fileID: 1884640002}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1472190528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472190525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa9a72c9ce895e419b0cff316bf53a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_horizontalPlane: {fileID: 0}
+  m_conductorBaton: {fileID: 0}
 --- !u!1 &1486048256
 GameObject:
   m_ObjectHideFlags: 0

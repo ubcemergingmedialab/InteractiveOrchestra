@@ -203,7 +203,7 @@ public class TempoController : MonoBehaviour
             AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
             //Debug.Log("Ratio: " + (localBPM / MasterBPM));
             isPlaying = true;
-            performanceIndicator.PlayGuide();
+            //performanceIndicator.PlayGuide();
         }
     }
 

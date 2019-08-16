@@ -36,13 +36,12 @@ public class OVRConductorGesture : OVRGestureHandle
     /// </summary>
     void FixedUpdate()
     {
-        
         UpdateUIandHandleControl(gestureString);
         // We noticed there was a delay in the piece playing when we called this in TempoController so we made the change to start the piece here
         // tempoController.playPiece();
         if (showGuide)
             {
-                prep.SetActive(false);
+                //prep.SetActive(false);
                 gestureGuide.SetActive(true);
             }
         

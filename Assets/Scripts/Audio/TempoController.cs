@@ -41,6 +41,8 @@ public class TempoController : MonoBehaviour
     public delegate void TempoControllerDelegate(float localBPM);
 
     public static event TempoControllerDelegate PlayPiece;
+    public static event TempoControllerDelegate PieceStop;
+
 
     #endregion
 
@@ -89,6 +91,7 @@ public class TempoController : MonoBehaviour
         }
         if(timeSincePieceStart > 30)
         {
+            PieceStop(1);
             stopPiece();
         }
         updateSlider();
@@ -149,11 +152,11 @@ public class TempoController : MonoBehaviour
         Debug.Log("Piece Starts");
         if (!isPlaying && isPrepComplete)
         {
-            if(localBPM > 110)
+            if(localBPM > 115)
             {
                 localBPM = 120;
             }
-            else if(localBPM < 90)
+            else if(localBPM < 85)
             {
                 localBPM = 80;
             }

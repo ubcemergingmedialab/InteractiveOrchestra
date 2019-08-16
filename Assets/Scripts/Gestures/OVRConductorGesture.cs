@@ -41,7 +41,7 @@ public class OVRConductorGesture : OVRGestureHandle
         // tempoController.playPiece();
         if (showGuide)
             {
-                //prep.SetActive(false);
+                prep.SetActive(false);
                 gestureGuide.SetActive(true);
             }
         

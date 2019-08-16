@@ -10,16 +10,18 @@ public class PerformanceIndicator : MonoBehaviour {
     [SerializeField] public Sprite BPM_OK;
     [SerializeField] public Sprite BPM_Miss;
     [SerializeField] public Sprite BPM_Perfect;
-    
-    private int userBPM;
-    private int beatCount;
 
-    
-    [SerializeField] private Text BPMTextDisplay;
+    private int userBPM, targetBPM;
+    private int beatCount; 
+    private float timeBetweenBeats;
+    private float allowedTimingError;  
+
+    [SerializeField] private Text UserBPMTextDisplay, TargetBPMTextDisplay;
     [SerializeField] private ParticleSystem BPMGuide;
 
-    private OVRVelocityTracker velocityTracker;
-
+    [SerializeField] private OVRVelocityTracker velocityTracker;
+    [SerializeField] private TempoController tempoController;
+     
     #endregion
 
     // Use this for initialization
@@ -27,7 +29,17 @@ public class PerformanceIndicator : MonoBehaviour {
         TempoController.PlayPiece += PlayGuide;
         pIRenderer = GetComponent<SpriteRenderer>();
         pIRenderer.enabled = true;
-        BPMTextDisplay.text = "0";  
+        UserBPMTextDisplay.text = "0";
+        TargetBPMTextDisplay.text = "0";
+    }
+
+    /// <summary>
+    /// Sets parameters needed to assess accuracy of user's timing, based on the targetBPM
+    /// </summary>
+    private void SetPerformanceMetrics()
+    {
+        timeBetweenBeats = (60 / targetBPM);
+        allowedTimingError = timeBetweenBeats * 0.25f;
     }
      
     /// <summary>
@@ -36,7 +48,7 @@ public class PerformanceIndicator : MonoBehaviour {
     /// </summary> 
     /// <param name="timeBetweenBeats"></param> 
     /// <param name="timeSincePrevCollision"></param> 
-    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision, float allowedTimingError)
+    public void CheckUserTiming (float timeSincePrevCollision)
     {
         Debug.Log("================"); 
         // MISS 
@@ -68,7 +80,7 @@ public class PerformanceIndicator : MonoBehaviour {
         if (beatCount == 5)
         { 
             beatCount = 1;
-            SetCurrentUserBPM(timeSincePrevCollision);
+            SetUserBPM(timeSincePrevCollision);
             Debug.Log("beat count: " + beatCount);
         } 
          
@@ -78,17 +90,28 @@ public class PerformanceIndicator : MonoBehaviour {
     /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
     /// </summary>
     /// <param name="timeSincePrevCollision"></param>
-    private void SetCurrentUserBPM(float timeSincePrevCollision)
+    private void SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
         Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
         Debug.Log("User BPM: " + userBPM);
-        BPMTextDisplay.text = userBPM.ToString();
+        UserBPMTextDisplay.text = userBPM.ToString();
+    }
+
+    /// <summary>
+    /// Updates and displays the targetBPM based on local BPM set by BPM Predictor
+    /// </summary>
+    public void SetTargetBPM()
+    {
+        targetBPM = (int)tempoController.getLocalBPM();
+        TargetBPMTextDisplay.text = targetBPM.ToString();
+        SetGuideSpeed();
+        SetPerformanceMetrics();
     }
 
     /// <summary>
     /// Starts particle system that acts as BPM guide for user upon song play
-    /// </summary>
+    /// </summary> 
     public void PlayGuide(float localBPM)
     {
         BPMGuide.Play();
@@ -100,5 +123,33 @@ public class PerformanceIndicator : MonoBehaviour {
     public void StopGuide()
     {
         BPMGuide.Stop();
+        ResetBPMDisplay();
+    }
+
+    /// <summary>
+    /// Resets BPM text displays to 0
+    /// </summary>
+    private void ResetBPMDisplay()
+    {
+        targetBPM = 0;
+        userBPM = 0;
+        UserBPMTextDisplay.text = userBPM.ToString();
+        TargetBPMTextDisplay.text = targetBPM.ToString();
+    }
+
+    /// <summary>
+    /// Manipulates speed of BPM Guide based on targetBPM
+    /// </summary>
+    private void SetGuideSpeed()
+    {
+        var main = BPMGuide.main;
+        if (targetBPM == 80)
+            main.simulationSpeed = 1.33f;
+        if (targetBPM == 100)
+            main.simulationSpeed = 1.67f;
+        if (targetBPM == 120)
+            main.simulationSpeed = 2f;
+
+        Debug.Log("Target BPM: " + targetBPM);
     }
 }

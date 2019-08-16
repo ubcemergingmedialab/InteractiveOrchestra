@@ -255,7 +255,8 @@ MonoBehaviour:
   BPM_OK: {fileID: 21300000, guid: f6507640cfde3cf408cb3015f43aad68, type: 3}
   BPM_Miss: {fileID: 21300000, guid: 3bacedcc36fe491429744d5cb82f38ae, type: 3}
   BPM_Perfect: {fileID: 21300000, guid: 2f3eb7f7b9b887a489e57bca32ae620f, type: 3}
-  BPMTextDisplay: {fileID: 114207755777685054}
+  UserBPMTextDisplay: {fileID: 0}
+  TargetBPMTextDisplay: {fileID: 0}
   BPMGuide: {fileID: 198311148680435068}
 --- !u!198 &198311148680435068
 ParticleSystem:

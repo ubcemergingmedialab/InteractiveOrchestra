@@ -1,46 +1,103 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PerformanceIndicator : MonoBehaviour {
 
-    #region Variables 
-    Renderer pIRenderer; 
-    private float allowedTimingError;
-    [SerializeField] private Material[] materials;
+    #region Variables  
+    SpriteRenderer pIRenderer;
+    [SerializeField] public Sprite BPM_OK;
+    [SerializeField] public Sprite BPM_Miss;
+    [SerializeField] public Sprite BPM_Perfect;
+    
+    private int userBPM;
+    private int beatCount;
+
+    
+    [SerializeField] private Text BPMTextDisplay;
+    [SerializeField] private ParticleSystem BPMGuide;
+
+    private OVRVelocityTracker velocityTracker;
+
     #endregion
 
     // Use this for initialization
     void Start () {
-        pIRenderer = GetComponent<Renderer>();
-        pIRenderer.enabled = true; 
+        pIRenderer = GetComponent<SpriteRenderer>();
+        pIRenderer.enabled = true;
+        BPMTextDisplay.text = "0";  
     }
      
     /// <summary>
-    /// Checks whether user's gestures are in time with audio BPM, providing user feedback by changing its color
+    /// At every beat, checks whether user's gestures are in time with audio BPM, 
+    /// providing user feedback by changing rendered BPM display
     /// </summary> 
     /// <param name="timeBetweenBeats"></param> 
-    /// <param name="timeSincePrevCollision"></param>
-    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision)
+    /// <param name="timeSincePrevCollision"></param> 
+    public void CheckUserTiming (float timeBetweenBeats, float timeSincePrevCollision, float allowedTimingError)
     {
         Debug.Log("================"); 
-        allowedTimingError = timeBetweenBeats * 0.25f; 
-        if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError)
-        {
-            pIRenderer.material = materials[0];
-            //= materials[0];
-            //Debug.Log("User is too slow! " + timeSincePrevCollision + " > " + timeBetweenBeats + " + " + allowedTimingError);
+        // MISS 
+        if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError || timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
+        { 
+            pIRenderer.sprite = BPM_Miss; 
+            Debug.Log("User timing is poor!"); 
         }
-        else if (timeBetweenBeats - allowedTimingError <= timeSincePrevCollision && 
-            timeSincePrevCollision <= timeBetweenBeats + allowedTimingError)
-        {
-            pIRenderer.material = materials[1]; 
-           // Debug.Log("User is on time!"); 
+        // PERFECT timing
+        else if (timeSincePrevCollision == timeBetweenBeats)
+        { 
+            pIRenderer.sprite = BPM_Perfect;
+            Debug.Log("User is in perfect time!"); 
         }
-        else if (timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
+        // OK timing
+        else
         {
-            pIRenderer.material = materials[2]; 
-           // Debug.Log("User is too fast! " + timeSincePrevCollision + " < " + timeBetweenBeats + " - " + allowedTimingError);
+            pIRenderer.sprite = BPM_OK;
+            Debug.Log("User timing is ok!");
+        }
+    }
+
+    /// <summary>
+    /// Updates beat count, resets count every 4th beat
+    /// </summary>
+    public void UpdateBeatCount(float timeSincePrevCollision)
+    {
+        beatCount++;
+        if (beatCount == 5)
+        { 
+            beatCount = 1;
+            SetCurrentUserBPM(timeSincePrevCollision);
+            Debug.Log("beat count: " + beatCount);
         } 
-    } 
+         
+    }
+
+    /// <summary>
+    /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
+    /// </summary>
+    /// <param name="timeSincePrevCollision"></param>
+    private void SetCurrentUserBPM(float timeSincePrevCollision)
+    {
+        userBPM = (int)(60 / timeSincePrevCollision);
+        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
+        Debug.Log("User BPM: " + userBPM);
+        BPMTextDisplay.text = userBPM.ToString();
+    }
+
+    /// <summary>
+    /// Starts particle system that acts as BPM guide for user upon song play
+    /// </summary>
+    public void PlayGuide()
+    {
+        BPMGuide.Play();
+    }
+
+    /// <summary>
+    /// Stops particle system that acts as BPM guide when user lets go of baton
+    /// </summary>
+    public void StopGuide()
+    {
+        BPMGuide.Stop();
+    }
 }

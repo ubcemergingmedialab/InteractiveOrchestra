@@ -9,8 +9,8 @@ using UnityEngine;
 public class OVRConductorGesture : OVRGestureHandle
 {
     #region Variables
-    public GameObject prep;
-    public GameObject gestureGuide;
+    //public GameObject prep;
+    //public GameObject gestureGuide;
     string gestureString;
     bool showGuide;
     string[] gestures = { "44L1", "44L2", "44L3", "44L4" };
@@ -41,8 +41,8 @@ public class OVRConductorGesture : OVRGestureHandle
         // tempoController.playPiece();
         if (showGuide)
             {
-                prep.SetActive(false);
-                gestureGuide.SetActive(true);
+                //prep.SetActive(false);
+                //gestureGuide.SetActive(true);
             }
         
     }
@@ -59,8 +59,8 @@ public class OVRConductorGesture : OVRGestureHandle
 
         if (showGuide)
         {
-            prep.SetActive(true);
-            gestureGuide.SetActive(false);
+           // prep.SetActive(true);
+           // gestureGuide.SetActive(false);
         }
         tempoController.setGestureCaptured(false);
     }

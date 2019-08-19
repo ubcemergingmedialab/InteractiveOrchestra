@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class HorizontalPlane : MonoBehaviour {
 
-    #region Variables 
+    #region Variables
+    [SerializeField] private ParticleSystem rippleTemplate;
+    private ParticleSystem rippleInPlay;
     private bool visible = false;
     private bool flag = false;
     private bool planeIsEnabled = false;
     private Renderer planeRenderer;
     [SerializeField] private TempoController tempoController;
     public static List<Vector3> planePositions;
-
     #endregion
 
     #region UnityFunctions
@@ -20,7 +21,7 @@ public class HorizontalPlane : MonoBehaviour {
     /// Initializes position of plane and list of planePositions
     /// </summary>
     void Awake()
-    { 
+    {
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.enabled = visible && planeIsEnabled;
 }
@@ -42,22 +43,39 @@ public class HorizontalPlane : MonoBehaviour {
     }
 
     /// <summary>
-    /// Creates horizontal plane at (x,y,z) controllerPosition during initial prep beat 
+    /// Creates horizontal plane at (x,y,z) controllerPosition during initial prep beat
     /// </summary>
     /// <param name="controllerPosition">x,y,z position of conducting baton controller</param>
     public void SpawnPlane(Vector3 controllerPosition)
     {
-        Debug.Log("Spawn plane was called! ");
         gameObject.transform.position = controllerPosition;
         ToggleView();
         tempoController.isPrepComplete = true;
-        PlaneFeedback();
+        PlaneFeedback(controllerPosition,true);
         flag = false;
-    } 
+    }
 
-    public void PlaneFeedback()
+    public void PlaneFeedback(Vector3 positionOfController, bool isInitialRipple)
     {
+        ActivateRipple(positionOfController,isInitialRipple);
         StartCoroutine(Haptics(0.5f, 0.5f, 0.1f));
+    }
+
+    private void ActivateRipple(Vector3 position,bool isInitialRipple)
+    {
+        if (isInitialRipple)
+        {
+            Vector3 factor = new Vector3(0f, 0.2f, 0f);
+            rippleInPlay = Instantiate(rippleTemplate, position + factor, Quaternion.Euler(new Vector3(-90, 0, 0)));
+        }
+        else
+        {
+            Debug.Log("Ripple Moves");
+            rippleInPlay.gameObject.SetActive(true);
+            rippleInPlay.transform.position = position;
+            rippleInPlay.time = 0;
+            rippleInPlay.Play();
+        }
     }
 
     /// <summary>
@@ -71,7 +89,7 @@ public class HorizontalPlane : MonoBehaviour {
         Debug.Log("Print 2");
         OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
     }
-    
+
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(0.25F);
@@ -101,7 +119,7 @@ public class HorizontalPlane : MonoBehaviour {
             //Debug.Log("=============");
             //Debug.Log(flag);
             if (flag == true) {
-                //Debug.Log("flag is null"); 
+                //Debug.Log("flag is null");
             }
             if (flag == null){
                 //Debug.Log("flag is null");
@@ -113,8 +131,10 @@ public class HorizontalPlane : MonoBehaviour {
             } else
             {
                 //Debug.Log("+++++++++++++++");
-                ChangeColorToBlackOnCollision();
-                StartCoroutine(Timer());
+                //Vector3 factor = new Vector3(0f,0.2f,0f);
+          		//Instantiate(ripples, other.transform.position + factor, Quaternion.Euler(new Vector3(-90, 0, 0)));
+                //ChangeColorToBlackOnCollision();
+                //StartCoroutine(Timer());
             }
         }
     }

@@ -36,9 +36,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487088195919180}
-  m_LocalRotation: {x: 0, y: 0.32556805, z: 0, w: 0.9455186}
-  m_LocalPosition: {x: 34.26, y: 11.79, z: 106.77}
-  m_LocalScale: {x: 0.02, y: 1, z: 0.7}
+  m_LocalRotation: {x: -0.20405437, y: 0.6620547, z: -0.1945485, w: 0.6944036}
+  m_LocalPosition: {x: 103.31302, y: 14.384609, z: 43.798054}
+  m_LocalScale: {x: 0.20436926, y: 1.1489291, z: 0.24131222}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6729a932de5127b419aacfd9be7dde0d, type: 2}
+  - {fileID: 2100000, guid: 3947a58abc0d641a18b90858af52dd02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,4 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b452e0bb0331ccf4fae27dbf53b55515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rippleTemplate: {fileID: 198335484153182494, guid: fbfb6be298ea9426eb24115a67277797,
+    type: 2}
   tempoController: {fileID: 0}

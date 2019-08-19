@@ -167,10 +167,6 @@ public class OVRVelocityTracker : OVRGestureHandle
             DestroySpheres();
         }
     }
-    #endregion
-
-    #region Class Methods
-
 
     /// <summary>
     /// Destroy the spheres used to represent the current gesture
@@ -358,7 +354,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             tempoController.playPiece();
 
             // provide haptic feedback
-            horizontalPlane.PlaneFeedback();
+            horizontalPlane.PlaneFeedback(conductorBaton.position,false);
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;

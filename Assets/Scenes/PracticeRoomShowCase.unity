@@ -1238,8 +1238,6 @@ MonoBehaviour:
   track: {fileID: 164788554}
   rightHandControl: {fileID: 949539178}
   velocityTracker: {fileID: 180399927}
-  prep: {fileID: 0}
-  gestureGuide: {fileID: 0}
 --- !u!4 &256918969
 Transform:
   m_ObjectHideFlags: 0
@@ -8028,7 +8026,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1146084282}
   m_LocalRotation: {x: -0.28182387, y: -0.026811033, z: 0.008277759, w: 0.9590558}
-  m_LocalPosition: {x: 105.72008, y: 17.790024, z: 42.84001}
+  m_LocalPosition: {x: 105.72, y: 17.07, z: 43.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1121977719}

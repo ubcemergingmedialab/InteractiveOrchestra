@@ -14,21 +14,25 @@ public class EndScreenBehaviour : MonoBehaviour
     private void Awake()
     {
         TempoController.PieceStop += TriggerEndMenu;
-       // GetComponent<Renderer>().enabled = false;
     }
 
+    /// <summary>
+    /// Event that spawns the end Menu
+    /// </summary>
+    /// <param name="dummyParam"> Don't worry about it </param>
     public void TriggerEndMenu(float dummyParam)
     {
-
-       // GetComponent<Renderer>().enabled = true;
         animator.SetBool("ExperienceEnded",true);
         GestureRelatedObjects.SetActive(false);
     }
 
+    /// <summary>
+    /// Sets animation bool to false to reverse end screen animation
+    /// </summary>
     public void TurnOffMenu()
     {
-       // GetComponent<Renderer>().enabled = false;
         animator.SetBool("ExperienceEnded", false);
+        OVRGestureHandle.songOver = false;
     }
 }
 

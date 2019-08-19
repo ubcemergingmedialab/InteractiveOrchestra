@@ -55,12 +55,22 @@ public class HorizontalPlane : MonoBehaviour {
         flag = false;
     }
 
+    /// <summary>
+    /// Calls the haptic feedback and ripple feedback
+    /// </summary>
+    /// <param name="positionOfController"> Position of baton in world space</param>
+    /// <param name="isInitialRipple"> Determines whether we're creating ripple or moving it </param>
     public void PlaneFeedback(Vector3 positionOfController, bool isInitialRipple)
     {
         ActivateRipple(positionOfController,isInitialRipple);
         StartCoroutine(Haptics(0.5f, 0.5f, 0.1f));
     }
 
+    /// <summary>
+    /// Spawns or moves ripple to position var
+    /// </summary>
+    /// <param name="position"> Position to place ripple</param>
+    /// <param name="isInitialRipple"> True instantiates a new ripple, false moves ripple around </param>
     private void ActivateRipple(Vector3 position,bool isInitialRipple)
     {
         if (isInitialRipple)
@@ -70,7 +80,6 @@ public class HorizontalPlane : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Ripple Moves");
             rippleInPlay.gameObject.SetActive(true);
             rippleInPlay.transform.position = position;
             rippleInPlay.time = 0;

@@ -9,7 +9,6 @@ public class OVRGestureHandle : MonoBehaviour {
     #region Variables
     [SerializeField] public BPMPredictor BPMPred;
     public TempoController tempoController;
-
     // Reference to the vive right hand controller for handing key pressing
     // public SteamVR_TrackedObject rightHandControl;
     public ParticleSystem track;
@@ -19,10 +18,11 @@ public class OVRGestureHandle : MonoBehaviour {
     public OVRVelocityTracker velocityTracker;
 
     private bool tracking = false;
+
+    public static bool songOver = false;
     #endregion
 
     #region Class Functions
-
 
     /// <summary>
     /// Checks for the existence of a right controller, used for displaying particles. 
@@ -33,25 +33,18 @@ public class OVRGestureHandle : MonoBehaviour {
         }
         if (-1 != (int)rightHandControl.index)
         {
-            //Debug.Log("Tracking Velocity");
             var device = OVRInput.GetActiveController();
-            
 
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             if (triggerKeyValue > 0.8f)
             {
-                
-
                 velocityTracker.StoreConductorSample(gestureString, device); 
                 velocityTracker.GetTimeSincePrevCollisionWithBasePlane(device);
-               
                 track.Play();
                 tracking = true;
             }
             else if (triggerKeyValue < 0.1f && tracking)
             {
-                // TODO: Method that stops recording and changes the trial. 
-                //Debug.Log("let go");
                 velocityTracker.StoreCurrentTrial();
                 track.Stop();
                 velocityTracker.RemovePlane();
@@ -59,5 +52,18 @@ public class OVRGestureHandle : MonoBehaviour {
             }
         }
     }
+
+    public void StopParticles(float dummyParam)
+    {
+        track.Stop();
+        songOver = true;
+    }
+
+    private void Awake()
+    {
+        TempoController.PieceStop += StopParticles;
+    }
+
     #endregion
+
 }

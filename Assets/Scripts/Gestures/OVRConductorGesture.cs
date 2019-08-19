@@ -9,14 +9,13 @@ using UnityEngine;
 public class OVRConductorGesture : OVRGestureHandle
 {
     #region Variables
-    //public GameObject prep;
-    //public GameObject gestureGuide;
+    public GameObject prep;
+    public GameObject gestureGuide;
     string gestureString;
     bool showGuide;
     string[] gestures = { "44L1", "44L2", "44L3", "44L4" };
     // Callback for receiving signature/gesture progression or identification results
     #endregion
-
 
     #region Unity functions
     /// <summary>
@@ -36,15 +35,7 @@ public class OVRConductorGesture : OVRGestureHandle
     /// </summary>
     void FixedUpdate()
     {
-        UpdateUIandHandleControl(gestureString);
-        // We noticed there was a delay in the piece playing when we called this in TempoController so we made the change to start the piece here
-        // tempoController.playPiece();
-        if (showGuide)
-            {
-                //prep.SetActive(false);
-                //gestureGuide.SetActive(true);
-            }
-        
+        UpdateUIandHandleControl(gestureString);   
     }
     #endregion
 
@@ -56,12 +47,6 @@ public class OVRConductorGesture : OVRGestureHandle
     /// </summary>
     public void Reset()
     {
-
-        if (showGuide)
-        {
-           // prep.SetActive(true);
-           // gestureGuide.SetActive(false);
-        }
         tempoController.setGestureCaptured(false);
     }
 

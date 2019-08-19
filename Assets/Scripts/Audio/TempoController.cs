@@ -87,7 +87,6 @@ public class TempoController : MonoBehaviour
         if(timeSincePieceStart>= 0)
         {
             timeSincePieceStart += Time.deltaTime;
-            Debug.Log(timeSincePieceStart);
         }
         if(timeSincePieceStart > 30)
         {
@@ -143,7 +142,6 @@ public class TempoController : MonoBehaviour
            gestureScore += score;
     }
 
-
     /// <summary>
     /// Access Wwise functionality to play current piece if not already playing and the prep beat gesture has been completed
     /// </summary>
@@ -168,10 +166,8 @@ public class TempoController : MonoBehaviour
             performanceIndicator.SetTargetBPM();
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
             AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
-            //Debug.Log("Ratio: " + (localBPM / MasterBPM));
             isPlaying = true;
             timeSincePieceStart = 0f;
-            //performanceIndicator.PlayGuide();
         }
     }
 
@@ -189,10 +185,6 @@ public class TempoController : MonoBehaviour
         CurrBeat = 0;
         timeSincePieceStart = -1f;
         conductor.Reset();
-
-        //audioSlider.minValue = 0;
-        //audioSlider.maxValue = 110; // hard-coded for now
-        //audioSlider.value = 0;
 
         isPlaying = false;
     }

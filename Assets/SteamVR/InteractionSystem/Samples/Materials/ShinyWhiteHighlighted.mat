@@ -8,13 +8,12 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: ShinyWhiteHighlighted
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -40,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7ebd72557d873024e8afa355e92d435f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -71,13 +70,13 @@ Material:
     - _Distance6: 0
     - _Distance7: 0
     - _Distance8: 0
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _Frequency: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.71
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _Mode: 3
+    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Scale: 0.1
@@ -94,7 +93,7 @@ Material:
     - _WaveAmplitude6: 0
     - _WaveAmplitude7: 0
     - _WaveAmplitude8: 0
-    - _ZWrite: 0
+    - _ZWrite: 1
     - _xImpact1: 0
     - _xImpact2: 0
     - _xImpact3: 0

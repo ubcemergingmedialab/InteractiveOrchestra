@@ -7,6 +7,9 @@
 					<PropertyList>
 						<Property Name="EndPosition" Type="Real64" Value="68913.8043240426"/>
 						<Property Name="PlaybackSpeed" Type="Real64">
+							<ValueList>
+								<Value>1.2</Value>
+							</ValueList>
 							<RTPCList>
 								<RTPC Name="" ID="{4BC93439-DA26-41E4-BEB3-F1C90802AB03}" ShortID="7494091">
 									<ReferenceList>
@@ -25,8 +28,23 @@
 												<Flags>5</Flags>
 											</Point>
 											<Point>
+												<XPos>80</XPos>
+												<YPos>0.8</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>100</XPos>
+												<YPos>1</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
+												<XPos>120</XPos>
+												<YPos>1.2</YPos>
+												<Flags>0</Flags>
+											</Point>
+											<Point>
 												<XPos>200</XPos>
-												<YPos>2.25758</YPos>
+												<YPos>1.51895</YPos>
 												<Flags>37</Flags>
 											</Point>
 										</PointList>
@@ -34,7 +52,7 @@
 								</RTPC>
 							</RTPCList>
 						</Property>
-						<Property Name="Tempo" Type="Real64" Value="93"/>
+						<Property Name="Tempo" Type="Real64" Value="100"/>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">

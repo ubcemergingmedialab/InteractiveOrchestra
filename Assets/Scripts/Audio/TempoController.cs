@@ -13,7 +13,8 @@ public class TempoController : MonoBehaviour
     #region Public variables
     public bool isPrepComplete = false;
     public Slider audioSlider;
-    public OVRConductorGesture conductor;
+    public PerformanceIndicator performanceIndicator;
+    public OVRConductorGesture conductor; 
     public float threshold;
     public string rtpcID;
     public int[] timeSignature = { 4, 4 };
@@ -29,18 +30,26 @@ public class TempoController : MonoBehaviour
     private AudioMaster am;
     private AkAmbient amb;
     private float eventStartTime;
-    private float MasterBPM = 93f;
-    private float localBPM = 93f;
+    private float MasterBPM = 100f; 
+    private float localBPM = 100f;
     private float velocity = 75;
     private int numBeats;
     private int CurrBeat = 0;
     private int beatsPerBar;
     private string articulationIdentifier;
+
+    public delegate void TempoControllerDelegate(float localBPM);
+
+    public static event TempoControllerDelegate PlayPiece;
+    public static event TempoControllerDelegate PieceStop;
+
+
     #endregion
 
     #region Conductor Gesture Variables
     private bool gestureCaptured;
     public bool isPlaying = false;
+    private float timeSincePieceStart = -1f;
     private string[] gestures;
     private string gestureString = "PREP";
     private float[] beatLengthTracker;
@@ -75,52 +84,14 @@ public class TempoController : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if (gestureCaptured)
+        if(timeSincePieceStart>= 0)
         {
-            if (gestureString == gestures[CurrBeat])
-            {
-                if (CurrBeat == 0)
-                {
-                    if (!isPlaying)
-                    {
-                        playPiece();
-                    }
-                    eventStartTime = Time.time;
-                    numBeats++;
-                }
-                else
-                {
-                    beatLengthTracker[CurrBeat] = Time.time - eventStartTime;
-                    numBeats++;
-                    CurrBeat++;
-                }
-            }
-            
-            int barsCrossed = numBeats / beatsPerBar;
-            if (numBeats % this.beatsPerBar == 0)
-            {
-                float avgScore = gestureScore / beatsPerBar;
-                this.calculateBPM(beatLengthTracker);
-                if(avgScore < threshold)
-                {
-                    if (velocity > 25f)
-                    {
-                        velocity -= 20 * avgScore;
-                        Debug.Log("Should be slowing down now " + velocity);
-                        AkSoundEngine.SetRTPCValue(rtpcID, velocity);
-                    }
-                }
-                else
-                {
-                    if (velocity < 75f)
-                    {
-                        velocity += 40 * avgScore;
-                    }
-                    AkSoundEngine.SetRTPCValue(rtpcID, velocity);
-                }
-                CurrBeat = 0;
-            }
-            gestureCaptured = false;
+            timeSincePieceStart += Time.deltaTime;
+        }
+        if(timeSincePieceStart > 30)
+        {
+            PieceStop(1);
+            stopPiece();
         }
         updateSlider();
     }
@@ -174,19 +145,32 @@ public class TempoController : MonoBehaviour
            gestureScore += score;
     }
 
-
     /// <summary>
     /// Access Wwise functionality to play current piece if not already playing and the prep beat gesture has been completed
     /// </summary>
     public void playPiece()
-    { 
+    {
+        Debug.Log("Piece Starts");
         if (!isPlaying && isPrepComplete)
         {
-
+            if(localBPM > 115)
+            {
+                localBPM = 120;
+            }
+            else if(localBPM < 85)
+            {
+                localBPM = 80;
+            }
+            else
+            {
+                localBPM = 100;
+            }
+            PlayPiece(localBPM);
+            performanceIndicator.SetTargetBPM();
             AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-            AkSoundEngine.SetRTPCValue(rtpcID, 75 * (localBPM/MasterBPM));
-            Debug.Log("Ratio: " + (localBPM / MasterBPM));
+            AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
             isPlaying = true;
+            timeSincePieceStart = 0f;
         }
     }
 
@@ -195,9 +179,14 @@ public class TempoController : MonoBehaviour
     /// </summary>
     public void stopPiece()
     {
+        if(am == null)
+        {
+            Debug.Log("What???????");
+        }
         am.StopEvent("PieceBegins",0);
         this.numBeats = 0;
         CurrBeat = 0;
+        timeSincePieceStart = -1f;
         conductor.Reset();
 
         audioSlider.minValue = 0;
@@ -212,7 +201,7 @@ public class TempoController : MonoBehaviour
     /// </summary>
     private void updateSlider()
     {
-        audioSlider.value = numBeats;
+        // audioSlider.value = numBeats;
     }
 
     /// <returns>Return current gesture string (Eg. 44L1, 44L2, etc)</returns>
@@ -242,5 +231,6 @@ public class TempoController : MonoBehaviour
     {
         localBPM = newBPM;
     }
+    
     #endregion
 }

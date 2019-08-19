@@ -5036,7 +5036,14 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114231403648056250, guid: 078c7b8c42bec934ba985f0a2479178d,
+        type: 2}
+      propertyPath: ripples
+      value: 
+      objectReference: {fileID: 1534255255846802, guid: a8bf2dd96ce5d4281bd28c1a2aeb0f11,
+        type: 2}
+    m_RemovedComponents:
+    - {fileID: 114176683618327516, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1027854969 stripped
@@ -5505,65 +5512,35 @@ Prefab:
         type: 2}
       propertyPath: actualBoundaries
       value: 
-      objectReference: {fileID: 1124799741}
+      objectReference: {fileID: 0}
     - target: {fileID: 114958193156375880, guid: 64f0e705038e6bf43a7937ace8475494,
         type: 2}
       propertyPath: actualHeadset
       value: 
-      objectReference: {fileID: 1124799740}
+      objectReference: {fileID: 0}
     - target: {fileID: 114958193156375880, guid: 64f0e705038e6bf43a7937ace8475494,
         type: 2}
       propertyPath: actualLeftController
       value: 
-      objectReference: {fileID: 1124799739}
+      objectReference: {fileID: 0}
     - target: {fileID: 114958193156375880, guid: 64f0e705038e6bf43a7937ace8475494,
         type: 2}
       propertyPath: actualRightController
       value: 
-      objectReference: {fileID: 1124799738}
+      objectReference: {fileID: 0}
     - target: {fileID: 114958193156375880, guid: 64f0e705038e6bf43a7937ace8475494,
         type: 2}
       propertyPath: modelAliasLeftController
       value: 
-      objectReference: {fileID: 1124799737}
+      objectReference: {fileID: 0}
     - target: {fileID: 114958193156375880, guid: 64f0e705038e6bf43a7937ace8475494,
         type: 2}
       propertyPath: modelAliasRightController
       value: 
-      objectReference: {fileID: 1124799736}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64f0e705038e6bf43a7937ace8475494, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1124799736 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1546257981025830, guid: 64f0e705038e6bf43a7937ace8475494,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124799735}
---- !u!1 &1124799737 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1171602032803956, guid: 64f0e705038e6bf43a7937ace8475494,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124799735}
---- !u!1 &1124799738 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1955644546685358, guid: 64f0e705038e6bf43a7937ace8475494,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124799735}
---- !u!1 &1124799739 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1016229817767886, guid: 64f0e705038e6bf43a7937ace8475494,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124799735}
---- !u!1 &1124799740 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1945071702062276, guid: 64f0e705038e6bf43a7937ace8475494,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124799735}
---- !u!1 &1124799741 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1116181448949332, guid: 64f0e705038e6bf43a7937ace8475494,
-    type: 2}
-  m_PrefabInternal: {fileID: 1124799735}
 --- !u!1 &1136272878
 GameObject:
   m_ObjectHideFlags: 0
@@ -5811,12 +5788,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8759bb0015ed64294b78ec1fd9b141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BPMPred: {fileID: 1160751512}
   tempoController: {fileID: 397853883}
   track: {fileID: 0}
   rightHandControl: {fileID: 0}
   velocityTracker: {fileID: 0}
-  BPMPred: {fileID: 1160751512}
   BPMToRecord: 500000006400000078000000
+  NewBPMToRecord: 3c000000640000008c000000
   conductorBaton: {fileID: 1842921624}
   inHouseMetronome: {fileID: 842181017}
   horizontalPlane: {fileID: 1027854970}

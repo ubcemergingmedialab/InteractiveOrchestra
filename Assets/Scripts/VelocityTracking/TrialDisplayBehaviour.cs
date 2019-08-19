@@ -26,7 +26,7 @@ public class TrialDisplayBehaviour : MonoBehaviour {
     /// </summary>
     public void displayRecordScreen()
     {
-        textComponent.text = "Data has been recorded!"+"\n" + "Thank you Dr. Girard";
+        textComponent.text = "Data has been recorded!"+"\n" + "Thank you Jaelem";
 
     }
 

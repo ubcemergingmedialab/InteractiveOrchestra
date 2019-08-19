@@ -29,6 +29,13 @@ public class HorizontalPlane : MonoBehaviour {
     #endregion
 
     #region ClassFunctions
+
+    public TempoController getTempoController()
+    {
+        return this.tempoController;
+    }
+
+
     // TODO: test PlaneButton
 
     /// <summary>

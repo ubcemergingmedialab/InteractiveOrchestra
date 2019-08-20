@@ -48,7 +48,7 @@ public class PerformanceIndicator : MonoBehaviour {
     /// </summary> 
     /// <param name="timeBetweenBeats"></param> 
     /// <param name="timeSincePrevCollision"></param> 
-    public void CheckUserTiming (float timeSincePrevCollision)
+    public void CheckUserTiming ()
     {
         int BPMDiff = Mathf.Abs((int)(userBPM - targetBPM));
         if (BPMDiff < 3)

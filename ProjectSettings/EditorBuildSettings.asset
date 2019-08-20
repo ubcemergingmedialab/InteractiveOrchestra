@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PracticeRoom.unity
     guid: 0d18766a678768a4eac957e324acd324
   - enabled: 0
-    path: Assets/Scenes/PracticeRoomDataRestrictions.unity
-    guid: a2bac0b4ee345f743ab57734a4ba6197
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/PracticeRoomShowCase.unity
+    guid: 5bce833b60a50f145a6c9b1f7de2a4be
   m_configObjects: {}

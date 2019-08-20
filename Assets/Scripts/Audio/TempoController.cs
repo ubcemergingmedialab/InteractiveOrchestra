@@ -40,8 +40,13 @@ public class TempoController : MonoBehaviour
 
     public delegate void TempoControllerDelegate(float localBPM);
 
+    public delegate void TempoControllerDelegateUpdate();
+
     public static event TempoControllerDelegate PlayPiece;
     public static event TempoControllerDelegate PieceStop;
+    public static event TempoControllerDelegate PieceInterrupt;
+
+    public static event TempoControllerDelegateUpdate TempoOnUpdate;
 
 
     #endregion
@@ -68,9 +73,6 @@ public class TempoController : MonoBehaviour
         }
         ulong GameObjectID = AkSoundEngine.GetAkGameObjectID(gameObject);
         this.numBeats = 0;
-        audioSlider.minValue = 0;
-        audioSlider.maxValue = 1; 
-        audioSlider.value = 0;
         beatsPerBar = timeSignature[0];
         am = GetComponent<AudioMaster>();
         beatLengthTracker = new float[beatsPerBar - 1];
@@ -79,16 +81,15 @@ public class TempoController : MonoBehaviour
         gestures = new string[beatsPerBar]; 
     }
 
-    /// <summary>
-    /// Calculates average time between beats to determine the localBPM of the user. 
-    /// </summary>
+   
     void FixedUpdate()
     {
-        if(timeSincePieceStart>= 0)
+        if (TempoOnUpdate != null) TempoOnUpdate();
+        if (timeSincePieceStart >= 0)
         {
             timeSincePieceStart += Time.deltaTime;
         }
-        if(timeSincePieceStart > 30)
+        if (timeSincePieceStart > 30)
         {
             PieceStop(1);
             stopPiece();
@@ -188,11 +189,7 @@ public class TempoController : MonoBehaviour
         CurrBeat = 0;
         timeSincePieceStart = -1f;
         conductor.Reset();
-
-        audioSlider.minValue = 0;
-        audioSlider.maxValue = 1; // hard-coded for now
-        audioSlider.value = 0;
-
+        if(PieceStop != null) PieceInterrupt(1);
         isPlaying = false;
     }
 

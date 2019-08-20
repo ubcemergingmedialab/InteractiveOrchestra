@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class BPMPredictor : MonoBehaviour {
 
-
-    [SerializeField] private HorizontalPlane m_horizontalPlane;
-
     private OVRVelocityTracker.ConductorSample m_prevConductorSample;
     private bool m_planeHasBeenSpawned = false;
     private bool m_RegionTwoFinished = false;

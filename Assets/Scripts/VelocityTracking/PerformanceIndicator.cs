@@ -24,7 +24,7 @@ public class PerformanceIndicator : MonoBehaviour {
      
     #endregion
 
-    // Use this for initialization
+    /// Use this for initialization
     void Awake () {
         TempoController.PlayPiece += PlayGuide;
         pIRenderer = GetComponent<SpriteRenderer>();
@@ -50,25 +50,45 @@ public class PerformanceIndicator : MonoBehaviour {
     /// <param name="timeSincePrevCollision"></param> 
     public void CheckUserTiming (float timeSincePrevCollision)
     {
-        Debug.Log("================"); 
-        // MISS 
+        int BPMDiff = Mathf.Abs((int)(userBPM - targetBPM));
+        if (BPMDiff < 3)
+        {
+            Debug.Log("TargetBPM: " + targetBPM);
+            Debug.Log("UserBPM: " + userBPM);
+            Debug.Log("Perfect");
+            pIRenderer.sprite = BPM_Perfect;
+        }
+        // PERFECT timing
+        else if (BPMDiff < 10)
+        {
+            Debug.Log("TargetBPM: " + targetBPM);
+            Debug.Log("UserBPM: " + userBPM);
+            Debug.Log("OK");
+            pIRenderer.sprite = BPM_OK;
+        }
+        // OK timing
+        else
+        {
+            Debug.Log("TargetBPM: " + targetBPM);
+            Debug.Log("UserBPM: " + userBPM);
+            Debug.Log("Miss");
+            pIRenderer.sprite = BPM_Miss;
+        }
+        /*
         if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError || timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
         { 
             pIRenderer.sprite = BPM_Miss; 
-            Debug.Log("User timing is poor!"); 
         }
         // PERFECT timing
         else if (timeSincePrevCollision == timeBetweenBeats)
         { 
             pIRenderer.sprite = BPM_Perfect;
-            Debug.Log("User is in perfect time!"); 
         }
         // OK timing
         else
         {
             pIRenderer.sprite = BPM_OK;
-            Debug.Log("User timing is ok!");
-        }
+        }*/
     }
 
     /// <summary>
@@ -76,13 +96,13 @@ public class PerformanceIndicator : MonoBehaviour {
     /// </summary>
     public void UpdateBeatCount(float timeSincePrevCollision)
     {
-        beatCount++;
-        if (beatCount == 5)
-        { 
+        //beatCount++;
+        //if (beatCount == 5)
+        //{ 
             beatCount = 1;
             SetUserBPM(timeSincePrevCollision);
-            Debug.Log("beat count: " + beatCount);
-        } 
+            Debug.Log("Time since prev collision: " + timeSincePrevCollision);
+        //} 
          
     }
 

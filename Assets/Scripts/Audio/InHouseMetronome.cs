@@ -17,6 +17,7 @@ public class InHouseMetronome : MonoBehaviour {
     private double sampleRate = 0.0F;
     private int accent;
     private bool running = false;
+    private bool isActive = false;
 
     private AudioSource metronome;
     private bool playing = false;
@@ -79,10 +80,32 @@ public class InHouseMetronome : MonoBehaviour {
             n++;
         }
     }
+    public void PlayMetronome(float BPM){
+        playing = true;
+        bpm = BPM;
+    }
+
+    public void StopMetronome(float dummyParam)
+    {
+        playing = false;
+    }
 
     public void TogglePlay()
     {
-        playing = !playing;
+        if (!isActive)
+        {
+            TempoController.PlayPiece += PlayMetronome;
+            TempoController.PieceStop += StopMetronome;
+            TempoController.PieceInterrupt += StopMetronome;
+            isActive = true;
+        }
+        else
+        {
+            TempoController.PlayPiece -= PlayMetronome;
+            TempoController.PieceStop -= StopMetronome;
+            TempoController.PieceInterrupt -= StopMetronome;
+            isActive = false;
+        }
     }
 
     public void SetNewBPM(double newBPM)

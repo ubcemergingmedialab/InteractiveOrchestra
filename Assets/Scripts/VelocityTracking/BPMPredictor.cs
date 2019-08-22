@@ -81,7 +81,6 @@ public class BPMPredictor : MonoBehaviour {
                 m_TimeStartRegionOne = conductorSample.timeRelativeToPrep;
                 m_RegionOneInitialYPosition = conductorSample.position.y;
                 m_BPMHasBeenPredicted = false;
-                Debug.Log("InitialTimeRecorded");
             }
             if (!m_RegionOneFinished)
             {
@@ -233,7 +232,6 @@ public class BPMPredictor : MonoBehaviour {
 
             int BPM = (int)(60f/timeBetweenCollisions);
             tp.setNewBPM(BPM);
-            Debug.Log("New BPM: " + BPM);
         }
     }
 

@@ -53,25 +53,16 @@ public class PerformanceIndicator : MonoBehaviour {
         int BPMDiff = Mathf.Abs((int)(userBPM - targetBPM));
         if (BPMDiff < 3)
         {
-            Debug.Log("TargetBPM: " + targetBPM);
-            Debug.Log("UserBPM: " + userBPM);
-            Debug.Log("Perfect");
             pIRenderer.sprite = BPM_Perfect;
         }
         // PERFECT timing
         else if (BPMDiff < 10)
         {
-            Debug.Log("TargetBPM: " + targetBPM);
-            Debug.Log("UserBPM: " + userBPM);
-            Debug.Log("OK");
             pIRenderer.sprite = BPM_OK;
         }
         // OK timing
         else
         {
-            Debug.Log("TargetBPM: " + targetBPM);
-            Debug.Log("UserBPM: " + userBPM);
-            Debug.Log("Miss");
             pIRenderer.sprite = BPM_Miss;
         }
         /*
@@ -101,7 +92,6 @@ public class PerformanceIndicator : MonoBehaviour {
         //{ 
             beatCount = 1;
             SetUserBPM(timeSincePrevCollision);
-            Debug.Log("Time since prev collision: " + timeSincePrevCollision);
         //} 
          
     }
@@ -113,8 +103,6 @@ public class PerformanceIndicator : MonoBehaviour {
     private void SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
-        Debug.Log("Time elapsed since previous collision: " + timeSincePrevCollision + " seconds");
-        Debug.Log("User BPM: " + userBPM);
         UserBPMTextDisplay.text = userBPM.ToString();
     }
 
@@ -169,7 +157,6 @@ public class PerformanceIndicator : MonoBehaviour {
             main.simulationSpeed = 1.67f;
         if (targetBPM == 120)
             main.simulationSpeed = 2f;
-
-        Debug.Log("Target BPM: " + targetBPM);
+        
     }
 }

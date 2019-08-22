@@ -351,6 +351,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
+            Debug.Log("I SHOULD ONLY SEE ONE OF THESE ");
             tempoController.playPiece();
 
             // provide haptic feedback

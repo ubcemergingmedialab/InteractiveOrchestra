@@ -37,7 +37,6 @@ public class SliderBehaviour : MonoBehaviour {
     {
         slider.value += (Time.deltaTime)/30;
         int timeInSong = (int)(slider.value * 30);
-        Debug.Log(timeInSong);
         string displayTimeString = timeInSong + "";
         if (timeInSong < 10)
         {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
+using VRTK.Controllables.PhysicsBased;
 
 /// <summary>
 /// Sets up the gesture profile to be used for the gesture tracking and to calculate the accuracy score.
@@ -14,6 +14,7 @@ public class OVRConductorGesture : OVRGestureHandle
     string gestureString;
     bool showGuide;
     string[] gestures = { "44L1", "44L2", "44L3", "44L4" };
+    //[SerializeField] private VRTK_PhysicsSlider vRTK_PhysicsSlider;
     // Callback for receiving signature/gesture progression or identification results
     #endregion
 

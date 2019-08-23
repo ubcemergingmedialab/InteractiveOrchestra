@@ -183,14 +183,14 @@ public class TempoController : MonoBehaviour
     IEnumerator BeginOrchestraPiece(float localBPM)
     {
         Debug.Log("Before Wait");
+        isPlaying = true;
+        performanceIndicator.SetTargetBPM();
+        timeSincePieceStart = 0f;
+        PlayPiece(localBPM);
         yield return new WaitForSeconds(OrchestraDelay.Instance.GetCurrentOrchDelay() * 0.001f);
         Debug.Log("Piece Now Play");
-        PlayPiece(localBPM);
-        performanceIndicator.SetTargetBPM();
         AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
         AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
-        isPlaying = true;
-        timeSincePieceStart = 0f;
         yield return null; 
     }
 

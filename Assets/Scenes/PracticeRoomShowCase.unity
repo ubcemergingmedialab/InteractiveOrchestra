@@ -3373,7 +3373,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 817838125}
-  m_Text: 100 ms
+  m_Text: 0 ms
   m_OffsetZ: 29.8
   m_CharacterSize: 47.4
   m_LineSpacing: 1.89
@@ -3386,7 +3386,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: 6921a454aa104cf47a67f59c64acaa17, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4280009469
 --- !u!23 &817838128
 MeshRenderer:
   m_ObjectHideFlags: 0

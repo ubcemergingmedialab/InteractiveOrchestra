@@ -360,7 +360,7 @@ public class OVRVelocityTracker : OVRGestureHandle
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
             performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
-            performanceIndicator.CheckUserTiming();  
+            //performanceIndicator.CheckUserTiming();  
             isBeneathPlane = !isBeneathPlane;
 
             MusicStart();

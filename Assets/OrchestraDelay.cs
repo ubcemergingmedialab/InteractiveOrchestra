@@ -50,7 +50,7 @@ public class OrchestraDelay : MonoBehaviour {
     /// </summary>
     private void UpdateText()
     {
-        string displayText = string.Format("{0}ms", possibleOrchTimeDelays[currentIndex]);
+        string displayText = string.Format("{0} ms", possibleOrchTimeDelays[currentIndex]);
         displaytext.text = displayText;
     }
 

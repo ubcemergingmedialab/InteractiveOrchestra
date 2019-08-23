@@ -14,7 +14,8 @@ public class PerformanceIndicator : MonoBehaviour {
     private int userBPM, targetBPM;
     private int beatCount; 
     private float timeBetweenBeats;
-    private float allowedTimingError;  
+    private float allowedTimingError;
+    private float bpmAccumulator = 0;
 
     [SerializeField] private Text UserBPMTextDisplay, TargetBPMTextDisplay;
     [SerializeField] private ParticleSystem BPMGuide;
@@ -65,21 +66,6 @@ public class PerformanceIndicator : MonoBehaviour {
         {
             pIRenderer.sprite = BPM_Miss;
         }
-        /*
-        if (timeSincePrevCollision > timeBetweenBeats + allowedTimingError || timeSincePrevCollision < timeBetweenBeats - allowedTimingError)
-        { 
-            pIRenderer.sprite = BPM_Miss; 
-        }
-        // PERFECT timing
-        else if (timeSincePrevCollision == timeBetweenBeats)
-        { 
-            pIRenderer.sprite = BPM_Perfect;
-        }
-        // OK timing
-        else
-        {
-            pIRenderer.sprite = BPM_OK;
-        }*/
     }
 
     /// <summary>
@@ -87,13 +73,15 @@ public class PerformanceIndicator : MonoBehaviour {
     /// </summary>
     public void UpdateBeatCount(float timeSincePrevCollision)
     {
-        //beatCount++;
-        //if (beatCount == 5)
-        //{ 
-            beatCount = 1;
-            SetUserBPM(timeSincePrevCollision);
-        //} 
-         
+        beatCount++;
+        bpmAccumulator += timeSincePrevCollision;
+        if(beatCount == 4)
+        {
+            SetUserBPM(bpmAccumulator/beatCount);
+            CheckUserTiming();
+            beatCount = 0;
+            bpmAccumulator = 0;
+        }
     }
 
     /// <summary>
@@ -132,6 +120,8 @@ public class PerformanceIndicator : MonoBehaviour {
     {
         BPMGuide.Stop();
         ResetBPMDisplay();
+        beatCount = 0;
+        bpmAccumulator = 0;
     }
 
     /// <summary>
@@ -143,6 +133,8 @@ public class PerformanceIndicator : MonoBehaviour {
         userBPM = 0;
         UserBPMTextDisplay.text = userBPM.ToString();
         TargetBPMTextDisplay.text = targetBPM.ToString();
+        beatCount = 0;
+        bpmAccumulator = 0;
     }
 
     /// <summary>

@@ -231,7 +231,7 @@ public class BPMPredictor : MonoBehaviour {
             m_BPMHasBeenPredicted = true;
 
             int BPM = (int)(60f/timeBetweenCollisions);
-            tp.setNewBPM(BPM);
+            tp.SetNewBPM(BPM);
         }
     }
 

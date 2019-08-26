@@ -7,14 +7,11 @@ using UnityEngine.UI;
 public class OVRGestureHandle : MonoBehaviour {
 
     #region Variables
-    [SerializeField] public BPMPredictor BPMPred;
-    public TempoController tempoController;
+    [SerializeField] private SteamVR_TrackedObject rightHandControl;
     // Reference to the vive right hand controller for handing key pressing
     // public SteamVR_TrackedObject rightHandControl;
     public ParticleSystem track;
-
-    public SteamVR_TrackedObject rightHandControl;
-
+    
     public OVRVelocityTracker velocityTracker;
 
     private bool tracking = false;
@@ -27,7 +24,7 @@ public class OVRGestureHandle : MonoBehaviour {
     /// <summary>
     /// Checks for the existence of a right controller, used for displaying particles. 
     /// </summary>
-    protected void UpdateUIandHandleControl(string gestureString) {
+    void FixedUpdate() { 
         if (Input.GetKeyUp(KeyCode.Escape)) {
             Application.Quit();
         }
@@ -38,7 +35,7 @@ public class OVRGestureHandle : MonoBehaviour {
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             if (triggerKeyValue > 0.8f)
             {
-                velocityTracker.StoreConductorSample(gestureString, device); 
+                velocityTracker.StoreConductorSample(device); 
                 velocityTracker.GetTimeSincePrevCollisionWithBasePlane(device);
                 track.Play();
                 tracking = true;

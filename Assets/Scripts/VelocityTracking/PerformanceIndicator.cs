@@ -99,7 +99,7 @@ public class PerformanceIndicator : MonoBehaviour {
     /// </summary>
     public void SetTargetBPM()
     {
-        targetBPM = (int)tempoController.getLocalBPM();
+        targetBPM = (int)tempoController.GetLocalBPM();
         TargetBPMTextDisplay.text = targetBPM.ToString();
         SetGuideSpeed();
         SetPerformanceMetrics();

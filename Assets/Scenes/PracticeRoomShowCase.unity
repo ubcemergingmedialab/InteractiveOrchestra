@@ -639,9 +639,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BPMPred: {fileID: 180399928}
   tempoController: {fileID: 1611651760}
-  track: {fileID: 0}
-  rightHandControl: {fileID: 0}
-  velocityTracker: {fileID: 0}
   planeHasBeenSpawned: 0
   BPMToRecord: 500000006400000078000000
   NewBPMToRecord: 3c000000640000008c000000
@@ -1088,16 +1085,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 256918967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd0071b3765f5c459138c6fc7a31ddc, type: 3}
+  m_Script: {fileID: 11500000, guid: 522fd04fdcd54cc4dbc1e77c0c42362a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPMPred: {fileID: 0}
-  tempoController: {fileID: 1611651760}
-  track: {fileID: 164788554}
   rightHandControl: {fileID: 949539178}
+  track: {fileID: 164788554}
   velocityTracker: {fileID: 180399927}
-  prep: {fileID: 0}
-  gestureGuide: {fileID: 0}
 --- !u!4 &256918969
 Transform:
   m_ObjectHideFlags: 0
@@ -2039,17 +2032,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 256918967}
-        m_MethodName: 
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
     m_TypeName: VRTK.UnityEventHelper.VRTK_InteractableObject_UnityEvents+InteractableObjectEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   OnUngrab:
@@ -2089,7 +2071,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1611651760}
-        m_MethodName: stopPiece
+        m_MethodName: StopPiece
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10074,15 +10056,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10518f7fe9649f4bb616ef437764091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPrepComplete: 0
-  audioSlider: {fileID: 0}
-  performanceIndicator: {fileID: 1232802071}
-  conductor: {fileID: 256918968}
-  threshold: 0.7
   rtpcID: PieceVelocity
-  timeSignature: 0400000004000000
-  articulation: 0
-  isPlaying: 0
+  performanceIndicator: {fileID: 1232802071}
 --- !u!114 &1611651761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16202,19 +16177,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.00016526776
       objectReference: {fileID: 0}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.3455376
       objectReference: {fileID: 0}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.00044163372
       objectReference: {fileID: 0}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.93840486
       objectReference: {fileID: 0}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_RootOrder
@@ -16227,11 +16202,23 @@ Prefab:
       objectReference: {fileID: 1611651760}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 40.429
       objectReference: {fileID: 0}
     - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.054
+      objectReference: {fileID: 0}
+    - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.0655878
+      objectReference: {fileID: 0}
+    - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4134447494805878, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.48162198
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 078c7b8c42bec934ba985f0a2479178d, type: 2}

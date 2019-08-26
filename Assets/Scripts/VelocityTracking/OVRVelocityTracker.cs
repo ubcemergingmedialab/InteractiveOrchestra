@@ -12,14 +12,11 @@ using UnityEngine;
 /// Velocity Tracker is in charge of collecting and evaluating ConductorSamples. 
 /// GatherSample is used for data evaluation.TrackAndStoreVelocity is used for ConductorSample collection. 
 /// </summary>
-public class OVRVelocityTracker : OVRGestureHandle
+public class OVRVelocityTracker : MonoBehaviour
 {
-
-
     #region Variables
-
-    //[SerializeField] private BPMPredictor BPMPred;
-
+    [SerializeField] private BPMPredictor BPMPred;
+    [SerializeField] private TempoController tempoController;
     private float ModelBarLength;
     private float DISTANCE_BETWEEN_MEASUREMENTS = 0.005f;
     private float startTime;
@@ -78,10 +75,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         planeHasBeenSpawned = false;
         dataShouldBeRecorded = true;
         currentGestureSize = gestureSize[0];
-        currentBPMToRecord = BPMToRecord[1];                // BPM of 'O Canada' track
-        //Debug.Log("Current BPM to record: " + currentBPMToRecord);         
-        //Debug.Log("Initializing time between beats: " + timeBetweenBeats);
-        //dataUpdater = new ControllerDataUpdater();
+        currentBPMToRecord = BPMToRecord[1];        
 
         currentTrial = 1;
         startTime = 0;
@@ -179,18 +173,11 @@ public class OVRVelocityTracker : OVRGestureHandle
         }
     }
 
-    //IEnumerator Timer()
-    //{
-    //    yield return new WaitForSeconds(0.25F);
-    //    horizontalPlane.ChangeColorToBlueOnCollision();
-    //}
-
     /// <summary>
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
-    /// <param name="gestureString"> Current gesture the sample was collected at </param>
     /// <param name="device"> Device corresponding to the baton </param>
-    public void StoreConductorSample(string gestureString, OVRInput.Controller device)
+    public void StoreConductorSample(OVRInput.Controller device)
     {
         // if (!dataShouldBeRecorded) return;
         int SizeOfSamplesList = samples.Count;
@@ -351,9 +338,7 @@ public class OVRVelocityTracker : OVRGestureHandle
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
             // start playing audio if not already playing and plane has been spawned during prep beat gesture
-            Debug.Log("I SHOULD ONLY SEE ONE OF THESE ");
             tempoController.playPiece();
-
             // provide haptic feedback
             horizontalPlane.PlaneFeedback(conductorBaton.position,false);
             // calculate time since last recorded collision  

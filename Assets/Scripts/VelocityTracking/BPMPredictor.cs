@@ -15,6 +15,9 @@ public class BPMPredictor : MonoBehaviour {
     private bool m_BPMHasBeenPredicted = false;
 
 
+    /// <summary>
+    /// These weights are obtained from our Ridge Regression algorithm in our python documents
+    /// </summary>
     private float[] m_PredictorWeights = new float[]{-4.57478767e-02f,  1.74408086e-02f, -4.65637032e-02f, -4.65637032e-02f,
   7.57208029e-02f, -8.39595146e-02f, -8.23871177e-03f, -1.40348235e-03f,
   8.32269185e-04f,  9.32913799e-05f,  5.57131179e-02f, -3.68119487e-02f,
@@ -62,7 +65,6 @@ public class BPMPredictor : MonoBehaviour {
     private float m_prevCollisionTime = 0;
     private Vector3 m_basePlaneCollisionPoint;
     private Vector3 m_previousBatonPosition;
-
     private Vector3 m_previousControllerPosition;
     private Vector3 m_BP1;
 
@@ -74,8 +76,6 @@ public class BPMPredictor : MonoBehaviour {
     {
         if (!m_BPMHasBeenPredicted)
         {
-            //Debug.Log(m_prevConductorSample.velocityMagnitude);
-            //Debug.Log("PrevVel: " + m_prevConductorSample.velocityMagnitude);
             if (m_prevConductorSample.velocityMagnitude == 0)
             {
                 m_TimeStartRegionOne = conductorSample.timeRelativeToPrep;
@@ -92,18 +92,18 @@ public class BPMPredictor : MonoBehaviour {
                 if (m_prevConductorSample.position.y > conductorSample.position.y && m_prevConductorSample.position.y != 0)
                 {
                     m_RegionOneFinished = true;
-                    // Distance
+                    // -- Distance
                     m_RegionOneDistance = conductorSample.distanceCoveredSoFar;
-                    // Time
+                    // -- Time
                     m_TimeEndRegionOne = m_prevConductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
                     m_TimeStartRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
-                    // Median Velocity
+                    // -- Median Velocity
                     StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionOne = median, m_MedianVelocityRegionOneList));
                     StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionOne = median, m_MedianVelocityYRegionOneList));
-                    // Mean velocity 
+                    // -- Mean velocity 
                     m_MeanVelocityRegionOne = m_MeanVelocityRegionOne / m_SizeOfRegionOne;
                     m_MeanVelocityYRegionOne = m_MeanVelocityYRegionOne / m_SizeOfRegionOne;
-                    // Values for getting Region 2
+                    // -- Values for getting Region 2
                     m_RegionTwoThresholdDistance = (m_prevConductorSample.position.y - m_RegionOneInitialYPosition) / 2;
                     m_MaxRegionOneYPosition = m_prevConductorSample.position.y;
                     m_SizeOfRegionTwo++;
@@ -126,15 +126,15 @@ public class BPMPredictor : MonoBehaviour {
                 if (Math.Abs(m_MaxRegionOneYPosition - conductorSample.position.y) > m_RegionTwoThresholdDistance)
                 {
                     m_RegionTwoFinished = true;
-                    // Distance
+                    // --  Distance
                     m_TotalRegionDistance = conductorSample.distanceCoveredSoFar;
                     m_RegionTwoDistance = m_TotalRegionDistance - m_RegionOneDistance;
-                    // Time
+                    // -- Time
                     m_TimeEndRegionTwo = conductorSample.timeRelativeToPrep - m_TimeStartRegionOne;
-                    // Median Velocity
+                    // -- Median Velocity
                     StartCoroutine(FindMedianGivenList(median => m_MedianVelocityRegionTwo = median, m_MedianVelocityRegionTwoList));
                     StartCoroutine(FindMedianGivenList(median => m_MedianVelocityYRegionTwo = median, m_MedianVelocityYRegionTwoList));
-                    // Mean velocity 
+                    // -- Mean velocity 
                     m_MeanVelocityRegionTwo = m_MeanVelocityRegionTwo / m_SizeOfRegionTwo;
                     m_MeanVelocityYRegionTwo = m_MeanVelocityYRegionTwo / m_SizeOfRegionTwo;
                     
@@ -159,54 +159,6 @@ public class BPMPredictor : MonoBehaviour {
     {
         if(m_MedianVelocityRegionTwo != 0 && m_MedianVelocityYRegionTwo!= 0 && !m_BPMHasBeenPredicted)
         {
-            
-            string printThis = String.Format("{0}\n" +
-                "{1}\n" +
-                "{2}\n" +
-                "{3}\n" +
-                "{4}\n" +
-                "{5}\n" +
-                "{6}\n" +
-                "{7}\n" +
-                "{8}\n" +
-                "{9}\n" +
-                "{10}\n" +
-                "{11}\n" +
-                "{12}\n" +
-                "{13}\n" +
-                "{14}\n" +
-                "{15}\n" +
-                "{16}\n" +
-                "{17}\n", 
-                m_MedianVelocityRegionOne,
-                m_MedianVelocityRegionTwo,
-                m_MeanVelocityRegionOne,
-                m_MeanVelocityRegionTwo,
-
-                m_RegionOneDistance,
-                m_RegionTwoDistance,
-                m_TotalRegionDistance,
-                m_MaxAngleRegionOne,
-                m_MaxAngleRegionTwo,
-                m_MinAngleRegionTwo,
-
-                m_MedianVelocityYRegionOne,
-                m_MedianVelocityYRegionTwo,
-                m_MeanVelocityYRegionOne,
-                m_MeanVelocityYRegionTwo,
-
-                m_TimeEndRegionOne,
-                m_TimeEndRegionTwo,
-                m_TimeStartRegionOne,
-                m_TimeStartRegionTwo);
-
-           
-            //Debug.Log(m_prevConductorSample.velocityMagnitude);
-            //Debug.Log(m_prevConductorSample.distanceCoveredSoFar);
-            //Debug.Log(m_prevConductorSample.velocityVector);
-            //Debug.Log(m_prevConductorSample.timeRelativeToPrep);
-
-           
             float timeBetweenCollisions = m_MedianVelocityRegionOne * m_PredictorWeights[0] +
                 m_MedianVelocityRegionTwo * m_PredictorWeights[1] +
                 m_MeanVelocityRegionOne * m_PredictorWeights[2] +

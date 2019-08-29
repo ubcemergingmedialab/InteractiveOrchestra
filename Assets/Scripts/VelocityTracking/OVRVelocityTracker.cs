@@ -15,51 +15,51 @@ using UnityEngine;
 public class OVRVelocityTracker : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private BPMPredictor BPMPred;
-    [SerializeField] private TempoController tempoController;
-    private float ModelBarLength;
+    private int currentTrial;
+    public int currentBPMToRecord;
+    public int[] BPMToRecord = { 80, 100, 120 };
+    public int[] NewBPMToRecord = { 60, 100, 140 };
+
     private float DISTANCE_BETWEEN_MEASUREMENTS = 0.005f;
     private float startTime;
     private float previousYVelocity;
-    private Vector3 previousBatonPosition;
-    private Vector3 previousControllerPosition;
-    private bool dataHasBeenRecorded;
-    public bool planeHasBeenSpawned;
-    private bool dataShouldBeRecorded;
-    private int currentTrial;
-    private Vector3 basePlaneCollisionPoint;
     private float prevCollisionTime;
     private float timeSincePrevCollision;
+
+    private bool dataHasBeenRecorded;
+    private bool dataShouldBeRecorded;
+    private bool isBeneathPlane = false;
+    private bool dataTypeHasBeenChanged = false;
+    public bool RestrictRecordingData { get; private set; }
+    public bool planeHasBeenSpawned;
+
+
+    private Vector3 previousBatonPosition;
+    private Vector3 previousControllerPosition;
+    private Vector3 basePlaneCollisionPoint;
     private Vector3 BP1;
     private Vector3 previousConductorSamplePoint; 
     private Vector3 planeSpawnPosition;
 
     public delegate void VelocityTracker();
-
     public static event VelocityTracker MusicStart;
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
-    public int[] BPMToRecord = { 80, 100, 120 };
-    public int[] NewBPMToRecord = {60, 100, 140 };
-    public int currentBPMToRecord; 
-    private bool isBeneathPlane = false;
 
-    public Transform conductorBaton;
-    public InHouseMetronome inHouseMetronome;
-    public static List<ConductorSample> samples;
     public static Dictionary<string, List<ConductorSample>> trials;
 
     private List<GameObject> spheres = new List<GameObject>();
-    
-    
     private List<ConductorSample> finalSamples;
+    private List<ConductorSample> samples;
 
+    [SerializeField] private BPMPredictor BPMPred;
+    [SerializeField] private TempoController tempoController;
     [SerializeField] private HorizontalPlane horizontalPlane;
     [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour;
     [SerializeField] private PerformanceIndicator performanceIndicator;
-
-    public bool RestrictRecordingData { get; private set; }
+    [SerializeField] private Transform conductorBaton;
+    [SerializeField] private InHouseMetronome inHouseMetronome;
     #endregion
 
     #region Unity Methods
@@ -68,7 +68,6 @@ public class OVRVelocityTracker : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-
         samples = new List<ConductorSample>();
         finalSamples = new List<ConductorSample>();
         dataHasBeenRecorded = false;
@@ -76,7 +75,6 @@ public class OVRVelocityTracker : MonoBehaviour
         dataShouldBeRecorded = true;
         currentGestureSize = gestureSize[0];
         currentBPMToRecord = BPMToRecord[1];        
-
         currentTrial = 1;
         startTime = 0;
         prevCollisionTime = 0;
@@ -113,52 +111,44 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             currentBPMToRecord = BPMToRecord[0];
             Debug.Log(BPMToRecord[0]);
-            inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
-            currentTrial = 1;
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
-            finalSamples.Clear();
+            dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("2"))
         {
-            currentBPMToRecord = BPMToRecord[1]; 
-            inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
-            currentTrial = 1;
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
-            finalSamples.Clear();
+            currentBPMToRecord = BPMToRecord[1];
+            dataTypeHasBeenChanged = true;
         }
 
         if (Input.GetKeyUp("3"))
         {
-            currentBPMToRecord = BPMToRecord[2]; 
-            inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
-            currentTrial = 1;
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
-            finalSamples.Clear();
+            currentBPMToRecord = BPMToRecord[2];
+            dataTypeHasBeenChanged = true;
         }
 
         if (Input.GetKeyUp("s"))
         {
             currentGestureSize = gestureSize[0];
-            currentTrial = 1;
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
-            finalSamples.Clear();
-            DestroySpheres();
+            dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("m"))
         {
             currentGestureSize = gestureSize[1];
-            currentTrial = 1;
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
-            finalSamples.Clear();
-            DestroySpheres();
+            dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("l"))
         {
             currentGestureSize = gestureSize[2];
+            dataTypeHasBeenChanged = true;
+
+        }
+        if (dataTypeHasBeenChanged)
+        {
             currentTrial = 1;
+            inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
             finalSamples.Clear();
             DestroySpheres();
+            dataTypeHasBeenChanged = false;
         }
     }
 
@@ -177,15 +167,14 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
     /// <param name="device"> Device corresponding to the baton </param>
-    public void StoreConductorSample(OVRInput.Controller device)
+    public void CollectConductorSamples(OVRInput.Controller device)
     {
-        // if (!dataShouldBeRecorded) return;
         int SizeOfSamplesList = samples.Count;
         // We're starting a new list of Conductor Samples so we need to track the start time
         if (SizeOfSamplesList == 0) startTime = (Time.time*1000.0f)/1000.0f;
+
         float currRelativeTimeInPrepBeat = Mathf.Round((Time.time - startTime) * 1000.0f) / 1000.0f;
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
-
         float distanceCoveredSofar = GetDistanceCoveredSoFar(device);
         
         if (SizeOfSamplesList == 0 || distanceCoveredSofar != 0 )
@@ -194,62 +183,45 @@ public class OVRVelocityTracker : MonoBehaviour
             Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
+            // =========================
+            // -- Checks for the precise instance where the current controller y velocity is positive
+            // -- and the previous controller y velocity is negative.
+            // -- This is the first slope of the prep beat, so we spawn the plane here.
+            // =========================
             if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
-                //horizontalPlane.SpawnPlane(conductorBaton.position);
                 prevCollisionTime = currOverallTime;
-                //timeSincePrevCollision = GetTimeSincePrevCollisionWithBasePlane(currOverallTime);
                 basePlaneCollisionPoint = controllerPosition; 
+                
+                // ========================
+                // -- This is to account for controller weirdness. Sometimes although
+                // -- the velocity of the current controller is positive, it doesn't mean that it's at a higher position
+                // -- then the previous velocity. So we pick the smallest one. 
+                // ========================
                 if (previousBatonPosition.y > conductorBaton.position.y)
                 {
-                    Debug.Log("Plane to be spawned from OVR Velocity Tracker on prev");
                     horizontalPlane.SpawnPlane(conductorBaton.position);
-                    // =========================
-                    // See description below for plane color change
-                    //planeSpawnPosition = conductorBaton.position;
-                    //==========================
                     BP1 = controllerPosition;
                 }
                 else
                 {
-                    Debug.Log("Plane to be spawned from OVR Velocity Tracker on curr");
                     horizontalPlane.SpawnPlane(previousBatonPosition);
-                    // ===========================
-                    // See description below for plane color change
-                    //planeSpawnPosition = previousBatonPosition;
-                    //============================
                     BP1 = previousControllerPosition;
                 } 
                 planeHasBeenSpawned = true;
             }
-
-            // ======================================================
-            // Triggering base plane color change based on y-coordiates of plane and controller
-            //
-            //Debug.Log("conductorBaton.position.y: " + conductorBaton.position.y);
-            //Debug.Log("planeSpawnPosition.y: " + planeSpawnPosition.y);
-            //Debug.Log("controllerVelocity.y: " + controllerVelocity.y);
-
-            //if (planeHasBeenSpawned && (conductorBaton.position.y <= planeSpawnPosition.y))
-            //{
-            //    horizontalPlane.ChangeColorToBlackOnCollision();
-            //    StartCoroutine(Timer());
-            //}
-            //else
-            //{
-            //    horizontalPlane.ChangeColorToBlueOnCollision();
-            //}
-            // ======================================================
-
+            
             float angleToBP1 = GetAngleToFirstCollisionWithBasePlane(BP1,controllerPosition);
-            if (angleToBP1 == 90) angleToBP1 = -999;
             float totalDistanceCoveredSoFar = distanceCoveredSofar;
             if (BP1 == Vector3.zero) totalDistanceCoveredSoFar = 0;
-            // Three conditions under which we will add a data sample 
-            // 1. The controller is located above the BP1 position
-            // 2. The BP1 has  been defined
-            // 3. Controller y velocity is positive 
-            // These combinations of conditions allow for data points to only be recorded for the prep gesture
+
+            // =========================
+            // -- Three conditions under which we will add a data sample 
+            // -- 1. The controller is located above the BP1 position
+            // -- 2. The BP1 has  been defined
+            // -- 3. Controller y velocity is positive 
+            // -- These combinations of conditions allow for data points to only be recorded for the prep gesture
+            // =========================
             if (!RestrictRecordingData)
             {
                 if (controllerPosition.y > BP1.y || BP1 == Vector3.zero || controllerVelocity.y < 0)
@@ -268,19 +240,21 @@ public class OVRVelocityTracker : MonoBehaviour
                             currentTrial
                             );
                     if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
-                    //if (newConductorSample.trial == 1) InstantiateDebugSphere();
+
+                    // =========================
+                    // -- Uncomment to spawn debug Spheres on first prep beat
+                    // if (newConductorSample.trial == 1) InstantiateDebugSphere();
+                    // =========================
+
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
                     if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)
                     {
                         RestrictRecordingData = true;
                     }
-
                 }
                 else
                 {
-                    // Debug.Log("Controller y position = " + samples[samples.Count - 1].position.y);
-                    // Debug.Log("BP1 y position = " + BP1.y);
                     if (samples[samples.Count - 1].position.y > BP1.y)
                     {
                         ConductorSample newConductorSample = new ConductorSample(
@@ -296,14 +270,18 @@ public class OVRVelocityTracker : MonoBehaviour
                             currentBPMToRecord,                                         // Current BPM being collected
                             currentTrial
                             );
-                        //if(newConductorSample.trial == 1) InstantiateDebugSphere();
                         if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
+
+                        // =========================
+                        // -- Uncomment to spawn debug Spheres on first prep beat
+                        // if(newConductorSample.trial == 1) InstantiateDebugSphere();
+                        // =========================
+
                         samples.Add(newConductorSample);
                         trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
                     }
                     else
                     {
-                        // Debug.Log("Number of data points: " + samples.Count);
                         dataShouldBeRecorded = false;
                     }
                 }
@@ -337,7 +315,7 @@ public class OVRVelocityTracker : MonoBehaviour
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
-            // start playing audio if not already playing and plane has been spawned during prep beat gesture
+            // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
             // provide haptic feedback
             horizontalPlane.PlaneFeedback(conductorBaton.position,false);
@@ -345,9 +323,7 @@ public class OVRVelocityTracker : MonoBehaviour
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
             performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
-            //performanceIndicator.CheckUserTiming();  
             isBeneathPlane = !isBeneathPlane;
-
             MusicStart();
         } 
         else if (isBeneathPlane && controllerPosition.y > BP1.y)
@@ -356,12 +332,20 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Return angle of controller relative to the point at which it collided with the plane for the first time
+    /// </summary>
+    /// <param name="BP1"> Position of the plane </param>
+    /// <param name="currentPosition"> Current Position of baton </param>
+    /// <returns> -999 if plane hasn't been hit , or angle</returns>
     private float GetAngleToFirstCollisionWithBasePlane(Vector3 BP1, Vector3 currentPosition)
     {
         if (BP1 == Vector3.zero) return -999;
         Vector3 BP1ToCurrentPosition = (currentPosition - BP1).normalized;
         Vector3 BP1ProjectedVectorTowardsCurrentPosition = (new Vector3(BP1ToCurrentPosition.x, 0,BP1ToCurrentPosition.z)).normalized;
-        return (float)(Math.Acos(Vector3.Dot(BP1ProjectedVectorTowardsCurrentPosition, BP1ToCurrentPosition))*(180/(Math.PI)));
+        float angle = (float)(Math.Acos(Vector3.Dot(BP1ProjectedVectorTowardsCurrentPosition, BP1ToCurrentPosition)) * (180 / (Math.PI)));
+        if (angle == 90) return -999;
+        return angle;
     }
 
     /// <summary>
@@ -371,8 +355,6 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <returns> Total distance covered in the current trial </returns>
     private float GetDistanceCoveredSoFar(OVRInput.Controller device)
     {
-
-        //Possibly also return 0 if we're to the right of BP1.
         try
         {
             ConductorSample latestConductorSample = samples[samples.Count - 1];
@@ -388,8 +370,6 @@ public class OVRVelocityTracker : MonoBehaviour
 
         catch(ArgumentOutOfRangeException e)
         {
-
-            //Debug.Log("There's nothing in the samples list");
             return 0;
         }
 
@@ -414,12 +394,15 @@ public class OVRVelocityTracker : MonoBehaviour
     internal void StoreCurrentTrial()
     {
         Debug.Assert(samples.Count != 0);
+        // =========================
+        // -- This is used to rule out dummy trials that were made by mistake
+        // -- which only grabbed a few samples
+        // =========================
         if (samples.Count > 10)
         {
             currentTrial++;
             trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
             finalSamples.AddRange(samples);
-           
         }
         BPMPred.ResetBPMPredictor();
         samples.Clear();
@@ -432,13 +415,14 @@ public class OVRVelocityTracker : MonoBehaviour
         RestrictRecordingData = false;
     }
 
+    /// <summary>
+    /// Remove the base plane
+    /// </summary>
     public void RemovePlane()
     {
         horizontalPlane.GetComponent<Renderer>().enabled = false;
     }
-
-
-
+    
     /// <summary>
     /// Returns true if a is within an offset of b
     /// </summary>
@@ -462,8 +446,6 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <param name="samples"> List of newly recorded ConductorSamples </param>
     public void SetNewSamples(List<ConductorSample> samples)
     {
-
-        //using (XmlWriter writer = XmlWriter.Create(Application.dataPath + "/XML_Data/ConductorSamples_OcculusTrial_Test_ " + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
         using (XmlWriter writer = XmlWriter.Create(Application.dataPath + "/ConductorSamples_OcculusTrial_Test_ " + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
         {
             writer.WriteStartDocument();

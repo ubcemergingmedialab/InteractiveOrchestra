@@ -64,6 +64,9 @@ Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities
 
 ### Current EML Student Team:
 
+- Jaehun Song - Project Coordinator
+
+### Past EML Student Team:
 - Rithvik Alluri - Developer
 - William Beltran - Technical Lead
 - Serena Chao - Project Coordinator

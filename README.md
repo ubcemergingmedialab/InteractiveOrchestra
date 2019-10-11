@@ -66,6 +66,7 @@ Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities
 
 - Jaehun Song - Project Coordinator
 - Julie Khashimova - Designer
+- Julia Zhu - Designer
 
 ### Past EML Student Team:
 - Rithvik Alluri - Developer

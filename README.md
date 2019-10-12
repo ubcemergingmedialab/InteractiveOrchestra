@@ -63,7 +63,6 @@ The following assets are either necessary or recommended for the project to work
 Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities, Assistant Professor of Conducting and Ensembles at the UBC School of Music
 
 ### Current EML Student Team:
-
 - Jaehun Song - Project Coordinator
 - Julie Khashimova - Designer
 - Julia Zhu - Designer

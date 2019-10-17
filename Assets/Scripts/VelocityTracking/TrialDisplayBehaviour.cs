@@ -9,6 +9,7 @@ public class TrialDisplayBehaviour : MonoBehaviour {
 
     void Start () {
         textComponent = GetComponent<Text>();
+        Debug.Log("Got textComponent");
     }
     /// <summary>
     /// Change display text of the current trial that is being recorded
@@ -26,8 +27,8 @@ public class TrialDisplayBehaviour : MonoBehaviour {
     /// </summary>
     public void displayRecordScreen()
     {
-        textComponent.text = "Data has been recorded!"+"\n" + "Thank you Jaelem";
-
+        textComponent.text = "Data has been recorded!"+"\n" + "Thank you very much!";
+        Debug.Log("data has been recorded");
     }
 
     public void updateValuesWithConductorSample(OVRVelocityTracker.ConductorSample sample)

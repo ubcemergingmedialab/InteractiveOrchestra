@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +46,7 @@ public class OVRVelocityTracker : MonoBehaviour
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
+    private static string XMLFolderPath; 
 
     public static Dictionary<string, List<ConductorSample>> trials;
 
@@ -68,6 +69,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        Debug.Log("awake");
         samples = new List<ConductorSample>();
         finalSamples = new List<ConductorSample>();
         dataHasBeenRecorded = false;
@@ -103,7 +105,7 @@ public class OVRVelocityTracker : MonoBehaviour
 
     /// <summary>
     /// Sets up the type of gesture that will be recorded. 
-    /// Small/Medium/Lard and 80/100/120 BPM
+    /// Small/Medium/Large and 80/100/120 BPM
     /// </summary>
     private void DataTypeSetter()
     {
@@ -116,28 +118,33 @@ public class OVRVelocityTracker : MonoBehaviour
         if (Input.GetKeyUp("2"))
         {
             currentBPMToRecord = BPMToRecord[1];
+            Debug.Log(BPMToRecord[1]);
             dataTypeHasBeenChanged = true;
         }
 
         if (Input.GetKeyUp("3"))
         {
             currentBPMToRecord = BPMToRecord[2];
+            Debug.Log(BPMToRecord[2]);
             dataTypeHasBeenChanged = true;
         }
 
         if (Input.GetKeyUp("s"))
         {
             currentGestureSize = gestureSize[0];
+            Debug.Log(gestureSize[0]);
             dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("m"))
         {
             currentGestureSize = gestureSize[1];
+            Debug.Log(gestureSize[1]);
             dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("l"))
         {
             currentGestureSize = gestureSize[2];
+            Debug.Log(gestureSize[2]);
             dataTypeHasBeenChanged = true;
 
         }
@@ -224,6 +231,7 @@ public class OVRVelocityTracker : MonoBehaviour
             // =========================
             if (!RestrictRecordingData)
             {
+                // recording the P1 & P2 movement data
                 if (controllerPosition.y > BP1.y || BP1 == Vector3.zero || controllerVelocity.y < 0)
                 {
                     ConductorSample newConductorSample = new ConductorSample(
@@ -248,13 +256,16 @@ public class OVRVelocityTracker : MonoBehaviour
 
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
+                    // the controller position is below the base plane, meaning that the P2 movement has finished, and recording should now stop.
                     if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)
                     {
                         RestrictRecordingData = true;
                     }
                 }
+                // collecting last data point crossing the plane
                 else
                 {
+                    // might want to count how many time this is triggered to prove theory^
                     if (samples[samples.Count - 1].position.y > BP1.y)
                     {
                         ConductorSample newConductorSample = new ConductorSample(
@@ -446,7 +457,8 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <param name="samples"> List of newly recorded ConductorSamples </param>
     public void SetNewSamples(List<ConductorSample> samples)
     {
-        using (XmlWriter writer = XmlWriter.Create(Application.dataPath + "/ConductorSamples_OcculusTrial_Test_ " + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
+        Debug.Log(Application.dataPath);
+        using (XmlWriter writer = XmlWriter.Create(XMLFolderPath + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
         {
             writer.WriteStartDocument();
             writer.WriteStartElement("Samples");
@@ -482,6 +494,7 @@ public class OVRVelocityTracker : MonoBehaviour
             writer.WriteEndElement();
             writer.WriteEndDocument();
         }
+        Debug.Log("created");
     }
 
     #endregion

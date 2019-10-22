@@ -6,7 +6,7 @@ public class OrchestraDelay : MonoBehaviour {
 
     private static OrchestraDelay instance;
     private float[] possibleOrchTimeDelays;
-    private int maxIndex = 10;
+    private int maxIndex = 20;
     private int currentIndex = 0;
     private TextMesh displaytext;
 
@@ -27,18 +27,28 @@ public class OrchestraDelay : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        possibleOrchTimeDelays = new float[11];
+        possibleOrchTimeDelays = new float[21];
         possibleOrchTimeDelays[0] = 0;
-        possibleOrchTimeDelays[1] = 100;
-        possibleOrchTimeDelays[2] = 200;
-        possibleOrchTimeDelays[3] = 300;
-        possibleOrchTimeDelays[4] = 400;
-        possibleOrchTimeDelays[5] = 500;
-        possibleOrchTimeDelays[6] = 600;
-        possibleOrchTimeDelays[7] = 700;
-        possibleOrchTimeDelays[8] = 800;
-        possibleOrchTimeDelays[9] = 900;
-        possibleOrchTimeDelays[10] = 1000;
+        possibleOrchTimeDelays[1] = 50;
+        possibleOrchTimeDelays[2] = 100;
+        possibleOrchTimeDelays[3] = 150;
+        possibleOrchTimeDelays[4] = 200;
+        possibleOrchTimeDelays[5] = 250;
+        possibleOrchTimeDelays[6] = 300;
+        possibleOrchTimeDelays[7] = 350;
+        possibleOrchTimeDelays[8] = 400;
+        possibleOrchTimeDelays[9] = 450;
+        possibleOrchTimeDelays[10] = 500;
+        possibleOrchTimeDelays[11] = 550;
+        possibleOrchTimeDelays[12] = 600;
+        possibleOrchTimeDelays[13] = 650;
+        possibleOrchTimeDelays[14] = 700;
+        possibleOrchTimeDelays[15] = 750;
+        possibleOrchTimeDelays[16] = 800;
+        possibleOrchTimeDelays[17] = 850;
+        possibleOrchTimeDelays[18] = 900;
+        possibleOrchTimeDelays[19] = 950;
+        possibleOrchTimeDelays[20] = 1000;
         displaytext = GetComponent<TextMesh>();
         UpdateText();
 

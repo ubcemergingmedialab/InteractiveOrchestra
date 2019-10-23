@@ -46,8 +46,6 @@ public class OVRVelocityTracker : MonoBehaviour
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
-    private static string XMLFolderPath; 
-
     public static Dictionary<string, List<ConductorSample>> trials;
 
     private List<GameObject> spheres = new List<GameObject>();
@@ -457,8 +455,8 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <param name="samples"> List of newly recorded ConductorSamples </param>
     public void SetNewSamples(List<ConductorSample> samples)
     {
-        Debug.Log(Application.dataPath);
-        using (XmlWriter writer = XmlWriter.Create(XMLFolderPath + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
+        string XMLPath = Application.dataPath + "/XMLConductingSamples/ConductorSamples_OcculusTrial_Test_";
+        using (XmlWriter writer = XmlWriter.Create(XMLPath + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
         {
             writer.WriteStartDocument();
             writer.WriteStartElement("Samples");

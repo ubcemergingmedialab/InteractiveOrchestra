@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +46,7 @@ public class OVRVelocityTracker : MonoBehaviour
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
+
     public static Dictionary<string, List<ConductorSample>> trials;
 
     private List<GameObject> spheres = new List<GameObject>();
@@ -59,6 +60,8 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private PerformanceIndicator performanceIndicator;
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
+    [SerializeField] private GameObject batonObject;
+
     #endregion
 
     #region Unity Methods
@@ -67,7 +70,6 @@ public class OVRVelocityTracker : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        Debug.Log("awake");
         samples = new List<ConductorSample>();
         finalSamples = new List<ConductorSample>();
         dataHasBeenRecorded = false;
@@ -82,6 +84,7 @@ public class OVRVelocityTracker : MonoBehaviour
         previousBatonPosition = Vector3.zero;
         previousControllerPosition = Vector3.zero;
         previousYVelocity = 0;
+        batonObject = GameObject.Find("Baton_Tip");
     }
 
     private void Update()
@@ -100,10 +103,9 @@ public class OVRVelocityTracker : MonoBehaviour
 
     #region Class Methods
 
-
     /// <summary>
     /// Sets up the type of gesture that will be recorded. 
-    /// Small/Medium/Large and 80/100/120 BPM
+    /// Small/Medium/Lard and 80/100/120 BPM
     /// </summary>
     private void DataTypeSetter()
     {
@@ -116,33 +118,28 @@ public class OVRVelocityTracker : MonoBehaviour
         if (Input.GetKeyUp("2"))
         {
             currentBPMToRecord = BPMToRecord[1];
-            Debug.Log(BPMToRecord[1]);
             dataTypeHasBeenChanged = true;
         }
 
         if (Input.GetKeyUp("3"))
         {
             currentBPMToRecord = BPMToRecord[2];
-            Debug.Log(BPMToRecord[2]);
             dataTypeHasBeenChanged = true;
         }
 
         if (Input.GetKeyUp("s"))
         {
             currentGestureSize = gestureSize[0];
-            Debug.Log(gestureSize[0]);
             dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("m"))
         {
             currentGestureSize = gestureSize[1];
-            Debug.Log(gestureSize[1]);
             dataTypeHasBeenChanged = true;
         }
         if (Input.GetKeyUp("l"))
         {
             currentGestureSize = gestureSize[2];
-            Debug.Log(gestureSize[2]);
             dataTypeHasBeenChanged = true;
 
         }
@@ -172,6 +169,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
     /// <param name="device"> Device corresponding to the baton </param>
+    //public void CollectConductorSamples(OVRInput.Controller device)
     public void CollectConductorSamples(OVRInput.Controller device)
     {
         int SizeOfSamplesList = samples.Count;
@@ -185,7 +183,9 @@ public class OVRVelocityTracker : MonoBehaviour
         if (SizeOfSamplesList == 0 || distanceCoveredSofar != 0 )
         {
             Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
-            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
+            Vector3 controllerPosition = batonObject.transform.position;
+
+
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
             // =========================
@@ -229,7 +229,6 @@ public class OVRVelocityTracker : MonoBehaviour
             // =========================
             if (!RestrictRecordingData)
             {
-                // recording the P1 & P2 movement data
                 if (controllerPosition.y > BP1.y || BP1 == Vector3.zero || controllerVelocity.y < 0)
                 {
                     ConductorSample newConductorSample = new ConductorSample(
@@ -254,16 +253,13 @@ public class OVRVelocityTracker : MonoBehaviour
 
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
-                    // the controller position is below the base plane, meaning that the P2 movement has finished, and recording should now stop.
                     if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)
                     {
                         RestrictRecordingData = true;
                     }
                 }
-                // collecting last data point crossing the plane
                 else
                 {
-                    // might want to count how many time this is triggered to prove theory^
                     if (samples[samples.Count - 1].position.y > BP1.y)
                     {
                         ConductorSample newConductorSample = new ConductorSample(
@@ -320,7 +316,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <param name="device"> Device corresponding to the baton </param> 
     public void GetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
     {
-        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
+        Vector3 controllerPosition = batonObject.transform.position;
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
@@ -368,7 +364,7 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             ConductorSample latestConductorSample = samples[samples.Count - 1];
             Vector3 lastPosition = samples[samples.Count - 1].position;
-            Vector3 currPosition = OVRInput.GetLocalControllerPosition(device);
+            Vector3 currPosition = batonObject.transform.position;
             float distanceBetweenDataPoints = GetDistanceBetweenVectors(lastPosition,currPosition);
             if (distanceBetweenDataPoints > DISTANCE_BETWEEN_MEASUREMENTS)
             {
@@ -455,8 +451,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <param name="samples"> List of newly recorded ConductorSamples </param>
     public void SetNewSamples(List<ConductorSample> samples)
     {
-        string XMLPath = Application.dataPath + "/XMLConductingSamples/ConductorSamples_OcculusTrial_Test_";
-        using (XmlWriter writer = XmlWriter.Create(XMLPath + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
+        using (XmlWriter writer = XmlWriter.Create(Application.dataPath + "/ConductorSamples_OcculusTrial_Test_ " + currentBPMToRecord + "_" + currentGestureSize + ".xml"))
         {
             writer.WriteStartDocument();
             writer.WriteStartElement("Samples");
@@ -492,7 +487,6 @@ public class OVRVelocityTracker : MonoBehaviour
             writer.WriteEndElement();
             writer.WriteEndDocument();
         }
-        Debug.Log("created");
     }
 
     #endregion

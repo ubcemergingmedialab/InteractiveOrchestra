@@ -143,12 +143,8 @@ public class PerformanceIndicator : MonoBehaviour {
     private void SetGuideSpeed()
     {
         var main = BPMGuide.main;
-        if (targetBPM == 80)
-            main.simulationSpeed = 1.33f;
-        if (targetBPM == 100)
-            main.simulationSpeed = 1.67f;
-        if (targetBPM == 120)
-            main.simulationSpeed = 2f;
-        
+        float seconds = 60f;
+        float speed = targetBPM / seconds;
+        main.simulationSpeed = speed;
     }
 }

@@ -15,19 +15,19 @@ MonoBehaviour:
   - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 9b18b4a9589f9c429497381791cbe22d
-    m_lastTime: -8586395144968233303
+    m_lastTime: -8586271512538893156
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: aa7f4b52ee9a6947a8e7dbf5ce066acb
-    m_lastTime: -8586395144968333308
+    m_lastTime: -8586271512538953179
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 9427f34b9fd75f4597cdd60e4752f788
-    m_lastTime: -8586395144968283304
+    m_lastTime: -8586271512538923161
     List:
     - name: Main
       guid: bc63e0a385948742b10b5548e08ccc8b
@@ -42,7 +42,7 @@ MonoBehaviour:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: c9256ad04076dd4cb3e47300a04e75d2
-    m_lastTime: -8586395144968483307
+    m_lastTime: -8586271512539063177
     List:
     - name: PieceBegins
       guid: 0bdc37560af7684cb727fa0743728949
@@ -60,7 +60,7 @@ MonoBehaviour:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 0178cbaf4cee7848aae777f901c5371e
-    m_lastTime: -8586395144968473314
+    m_lastTime: -8586271512539053164
     List:
     - name: PieceVelocity
       guid: 5a162209b8c610408116bc48803c8525
@@ -75,19 +75,19 @@ MonoBehaviour:
   - PhysicalPath: States\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 6917f066c54a354d87babaf23a42bc43
-    m_lastTime: -8586395144968273313
+    m_lastTime: -8586271512538913161
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 82e5f0a12db61b4ca336fd2c60cb5260
-    m_lastTime: -8586395144968263322
+    m_lastTime: -8586271512538903163
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 364378eb9df065448e48ca6dc3591ac8
-    m_lastTime: -8586395144968263322
+    m_lastTime: -8586271512538903163
     List: []
   ExpandedItems:
   - /InteractiveOrchestra_WwiseProject
@@ -96,4 +96,4 @@ MonoBehaviour:
   - /InteractiveOrchestra_WwiseProject/SoundBanks
   - /InteractiveOrchestra_WwiseProject/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
-  CurrentPluginConfig: 
+  CurrentPluginConfig: Profile

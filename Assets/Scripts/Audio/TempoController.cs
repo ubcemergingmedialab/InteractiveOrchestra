@@ -78,18 +78,6 @@ public class TempoController : MonoBehaviour
         StopCoroutine(BeginOrchestraPiece(localBPM));
         if (!isPlaying && isPrepComplete)
         {
-            if(localBPM > 115)
-            {
-                localBPM = 120;
-            }
-            else if(localBPM < 85)
-            {
-                localBPM = 80;
-            }
-            else
-            {
-                localBPM = 100;
-            }
             StartCoroutine(BeginOrchestraPiece(localBPM));
         }
     }

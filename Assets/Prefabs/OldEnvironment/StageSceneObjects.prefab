@@ -4691,7 +4691,7 @@ MonoBehaviour:
   performanceIndicator: {fileID: 114864123631605828}
   conductorBaton: {fileID: 4121199110245010}
   inHouseMetronome: {fileID: 114900767785331236}
-  batonObject: {fileID: 1290843565429276}
+  batonObject: {fileID: 0}
 --- !u!114 &114160175898718716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5280,7 +5280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa9a72c9ce895e419b0cff316bf53a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_conductorBaton: {fileID: 4017886833049766}
+  m_conductorBaton: {fileID: 0}
 --- !u!114 &114405062628281946
 MonoBehaviour:
   m_ObjectHideFlags: 1

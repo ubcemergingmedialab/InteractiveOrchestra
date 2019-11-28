@@ -2157,7 +2157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1033276276847682}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.01, y: -0.169, z: 0.02}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.500001, y: 0.5001426, z: 0.500002}
   m_Children: []
   m_Father: {fileID: 4669929752609168}
@@ -6289,9 +6289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e8ad34e1878452490892e17e915c0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM_OK: {fileID: 21300000, guid: 3bacedcc36fe491429744d5cb82f38ae, type: 3}
-  BPM_Miss: {fileID: 21300000, guid: f6507640cfde3cf408cb3015f43aad68, type: 3}
-  BPM_Perfect: {fileID: 21300000, guid: 2f3eb7f7b9b887a489e57bca32ae620f, type: 3}
+  BPM_OK: {fileID: 21300000, guid: 55d07ead2f1dec441a2963482f2eb502, type: 3}
+  BPM_Miss: {fileID: 21300000, guid: 07796a99a10967441bba5951c12cd6a3, type: 3}
+  BPM_Perfect: {fileID: 21300000, guid: 5f56a5cd318d42c448803f4b71feac39, type: 3}
   UserBPMTextDisplay: {fileID: 114859837602684136}
   TargetBPMTextDisplay: {fileID: 114924458767432954}
   BPMGuide: {fileID: 198488470537734270}
@@ -16356,7 +16356,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f6507640cfde3cf408cb3015f43aad68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 07796a99a10967441bba5951c12cd6a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -16681,7 +16681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 442}
+  m_AnchoredPosition: {x: 0, y: 390}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224136953183832292
@@ -17285,6 +17285,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1, y: 121.4}
+  m_AnchoredPosition: {x: 1, y: 136}
   m_SizeDelta: {x: 400, y: -280}
   m_Pivot: {x: 0.5, y: 0}

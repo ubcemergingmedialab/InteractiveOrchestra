@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using VRTK;
 
 
 public class OVRGestureHandle : MonoBehaviour {
@@ -30,7 +31,8 @@ public class OVRGestureHandle : MonoBehaviour {
         }
         if (-1 != (int)rightHandControl.index)
         {
-            var device = OVRInput.GetActiveController();
+            //var device = OVRInput.GetActiveController();
+            var device = OVRInput.Controller.RTouch;
 
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             if (triggerKeyValue > 0.8f)

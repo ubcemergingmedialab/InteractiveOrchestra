@@ -1,0 +1,10 @@
+digraph "AudioMaster.StopEvent"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="AudioMaster.StopEvent",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="TempoController.StopPiece",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_tempo_controller.html#a70412da1e1ddadc4118592c139aa02e5",tooltip="Access Wwise functionality to pause current piece."];
+}

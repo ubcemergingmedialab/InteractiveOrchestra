@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4952917198285616}
-  - component: {fileID: 114051736952980886}
+  - component: {fileID: 114900929835861788}
   m_Layer: 0
   m_Name: GestureManager
   m_TagString: Untagged
@@ -33,14 +33,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1394046932777754}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.25627595, y: -0.39990935, z: 0.11751563, w: 0.87211543}
+  m_LocalPosition: {x: 1.4911767, y: 23.386734, z: -1.2840881}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114051736952980886
+--- !u!114 &114900929835861788
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,13 +48,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1394046932777754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd0071b3765f5c459138c6fc7a31ddc, type: 3}
+  m_Script: {fileID: 11500000, guid: 522fd04fdcd54cc4dbc1e77c0c42362a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempoController: {fileID: 0}
-  airsigManager: {fileID: 0}
-  track: {fileID: 0}
   rightHandControl: {fileID: 0}
+  track: {fileID: 0}
   velocityTracker: {fileID: 0}
-  prep: {fileID: 0}
-  gestureGuide: {fileID: 0}

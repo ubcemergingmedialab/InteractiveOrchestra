@@ -7,9 +7,9 @@ public class PerformanceIndicator : MonoBehaviour {
 
     #region Variables  
     SpriteRenderer pIRenderer;
-    [SerializeField] public Sprite BPM_OK;
-    [SerializeField] public Sprite BPM_Miss;
-    [SerializeField] public Sprite BPM_Perfect;
+    [SerializeField] private Sprite BPM_OK;
+    [SerializeField] private Sprite BPM_Miss;
+    [SerializeField] private Sprite BPM_Perfect;
 
     private int userBPM, targetBPM;
     private int beatCount; 

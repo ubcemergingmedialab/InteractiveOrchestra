@@ -60,6 +60,8 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private PerformanceIndicator performanceIndicator;
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
+    [SerializeField] private GameObject batonObject;
+
     #endregion
 
     #region Unity Methods
@@ -82,6 +84,7 @@ public class OVRVelocityTracker : MonoBehaviour
         previousBatonPosition = Vector3.zero;
         previousControllerPosition = Vector3.zero;
         previousYVelocity = 0;
+        batonObject = GameObject.Find("Baton_Tip");
     }
 
     private void Update()
@@ -99,7 +102,6 @@ public class OVRVelocityTracker : MonoBehaviour
     #endregion
 
     #region Class Methods
-
 
     /// <summary>
     /// Sets up the type of gesture that will be recorded. 
@@ -167,6 +169,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
     /// <param name="device"> Device corresponding to the baton </param>
+    //public void CollectConductorSamples(OVRInput.Controller device)
     public void CollectConductorSamples(OVRInput.Controller device)
     {
         int SizeOfSamplesList = samples.Count;
@@ -180,7 +183,9 @@ public class OVRVelocityTracker : MonoBehaviour
         if (SizeOfSamplesList == 0 || distanceCoveredSofar != 0 )
         {
             Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
-            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
+            Vector3 controllerPosition = batonObject.transform.position;
+
+
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
             // =========================
@@ -311,7 +316,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// <param name="device"> Device corresponding to the baton </param> 
     public void GetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
     {
-        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(device);
+        Vector3 controllerPosition = batonObject.transform.position;
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
@@ -359,7 +364,7 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             ConductorSample latestConductorSample = samples[samples.Count - 1];
             Vector3 lastPosition = samples[samples.Count - 1].position;
-            Vector3 currPosition = OVRInput.GetLocalControllerPosition(device);
+            Vector3 currPosition = batonObject.transform.position;
             float distanceBetweenDataPoints = GetDistanceBetweenVectors(lastPosition,currPosition);
             if (distanceBetweenDataPoints > DISTANCE_BETWEEN_MEASUREMENTS)
             {

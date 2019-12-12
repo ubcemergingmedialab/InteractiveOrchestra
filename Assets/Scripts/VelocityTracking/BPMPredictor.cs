@@ -183,6 +183,19 @@ public class BPMPredictor : MonoBehaviour {
             m_BPMHasBeenPredicted = true;
 
             int BPM = (int)(60f/timeBetweenCollisions);
+
+            if (BPM > 115)
+            {
+                BPM = 120;
+            }
+            else if (BPM < 85)
+            {
+                BPM = 80;
+            }
+            else
+            {
+                BPM = 100;
+            }
             tp.SetNewBPM(BPM);
         }
     }

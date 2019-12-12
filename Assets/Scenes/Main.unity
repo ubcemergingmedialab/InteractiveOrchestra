@@ -462,28 +462,6 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
---- !u!1 &616164901 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1054112583220142, guid: 126d619cf4daa52469682f85c1378b4a,
-    type: 2}
-  m_PrefabInternal: {fileID: 616164896}
---- !u!1 &616164902 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 113768, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
-  m_PrefabInternal: {fileID: 616164896}
---- !u!1 &616164903 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1983321904398200, guid: 126d619cf4daa52469682f85c1378b4a,
-    type: 2}
-  m_PrefabInternal: {fileID: 616164896}
---- !u!1 &616164904 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 109308, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
-  m_PrefabInternal: {fileID: 616164896}
---- !u!1 &616164905 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
-  m_PrefabInternal: {fileID: 616164896}
 --- !u!4 &616164907 stripped
 Transform:
   m_PrefabParentObject: {fileID: 487254, guid: 126d619cf4daa52469682f85c1378b4a, type: 2}
@@ -607,6 +585,36 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
+--- !u!1 &983428366 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1546257981025830, guid: 64f0e705038e6bf43a7937ace8475494,
+    type: 2}
+  m_PrefabInternal: {fileID: 983428361}
+--- !u!1 &983428367 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1171602032803956, guid: 64f0e705038e6bf43a7937ace8475494,
+    type: 2}
+  m_PrefabInternal: {fileID: 983428361}
+--- !u!1 &983428368 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1016229817767886, guid: 64f0e705038e6bf43a7937ace8475494,
+    type: 2}
+  m_PrefabInternal: {fileID: 983428361}
+--- !u!1 &983428369 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1945071702062276, guid: 64f0e705038e6bf43a7937ace8475494,
+    type: 2}
+  m_PrefabInternal: {fileID: 983428361}
+--- !u!1 &983428370 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1116181448949332, guid: 64f0e705038e6bf43a7937ace8475494,
+    type: 2}
+  m_PrefabInternal: {fileID: 983428361}
+--- !u!1 &983428371 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1955644546685358, guid: 64f0e705038e6bf43a7937ace8475494,
+    type: 2}
+  m_PrefabInternal: {fileID: 983428361}
 --- !u!1 &1064378472
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,12 +658,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoPopulateObjectReferences: 1
-  actualBoundaries: {fileID: 616164905}
-  actualHeadset: {fileID: 616164898}
-  actualLeftController: {fileID: 616164904}
-  actualRightController: {fileID: 616164902}
-  modelAliasLeftController: {fileID: 616164903}
-  modelAliasRightController: {fileID: 616164901}
+  actualBoundaries: {fileID: 983428370}
+  actualHeadset: {fileID: 983428369}
+  actualLeftController: {fileID: 983428368}
+  actualRightController: {fileID: 983428371}
+  modelAliasLeftController: {fileID: 983428367}
+  modelAliasRightController: {fileID: 983428366}
   cachedSystemSDKInfo:
     baseTypeName: VRTK.SDK_BaseSystem
     fallbackTypeName: VRTK.SDK_FallbackSystem
@@ -676,11 +684,6 @@ MonoBehaviour:
     fallbackTypeName: VRTK.SDK_FallbackController
     typeName: VRTK.SDK_OculusController
     descriptionIndex: 0
---- !u!1 &1133112973 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1538634918296218, guid: 1467177afaf1f0e44bea886f42f0efef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1804980001}
 --- !u!198 &1282972133 stripped
 ParticleSystem:
   m_PrefabParentObject: {fileID: 198576161568973962, guid: 64f0e705038e6bf43a7937ace8475494,
@@ -758,7 +761,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 431383582}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1538079577
 MonoBehaviour:
@@ -870,11 +873,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1633758708 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1771495825079920, guid: 1467177afaf1f0e44bea886f42f0efef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1804980001}
 --- !u!1 &1705629475
 GameObject:
   m_ObjectHideFlags: 0
@@ -5427,7 +5425,7 @@ Prefab:
         type: 2}
       propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1633758708}
+      objectReference: {fileID: 0}
     - target: {fileID: 1429982315297216, guid: 1467177afaf1f0e44bea886f42f0efef, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -5449,7 +5447,7 @@ Prefab:
         type: 2}
       propertyPath: conductor
       value: 
-      objectReference: {fileID: 1804980006}
+      objectReference: {fileID: 0}
     - target: {fileID: 114437874638912078, guid: 1467177afaf1f0e44bea886f42f0efef,
         type: 2}
       propertyPath: rightHandStartTrigger
@@ -5458,44 +5456,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1804980002 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114638279673758036, guid: 1467177afaf1f0e44bea886f42f0efef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1804980001}
-  m_Script: {fileID: 11500000, guid: c10518f7fe9649f4bb616ef437764091, type: 3}
---- !u!1 &1804980003 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1755316026255926, guid: 1467177afaf1f0e44bea886f42f0efef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1804980001}
---- !u!114 &1804980004 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114437874638912078, guid: 1467177afaf1f0e44bea886f42f0efef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1804980001}
-  m_Script: {fileID: 11500000, guid: 46964b142a8b343b3919fa771e2f7294, type: 3}
---- !u!1 &1804980005 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1865085085983104, guid: 1467177afaf1f0e44bea886f42f0efef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1804980001}
---- !u!114 &1804980006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1804980005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd0071b3765f5c459138c6fc7a31ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tempoController: {fileID: 1804980002}
-  airsigManager: {fileID: 1804980004}
-  track: {fileID: 1705629478}
-  prep: {fileID: 1804980003}
-  gestureGuide: {fileID: 1133112973}
 --- !u!1001 &1814442754
 Prefab:
   m_ObjectHideFlags: 0

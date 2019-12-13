@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: 4532397705662750}
   - component: {fileID: 198488470537734270}
   - component: {fileID: 199561487061627854}
-  - component: {fileID: 114153297280235380}
   m_Layer: 0
   m_Name: BPMGuide
   m_TagString: Untagged
@@ -5057,17 +5056,6 @@ MonoBehaviour:
   m_Text: 'Trial: 1 of 20
 
     BPM: 100 Size: S'
---- !u!114 &114153297280235380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1033276276847682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114159314449624562
 MonoBehaviour:
   m_ObjectHideFlags: 1

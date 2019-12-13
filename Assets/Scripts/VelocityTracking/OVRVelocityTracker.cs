@@ -374,7 +374,7 @@ public class OVRVelocityTracker : MonoBehaviour
             else return 0;
         }
 
-        catch(ArgumentOutOfRangeException e)
+        catch (ArgumentOutOfRangeException e)
         {
             return 0;
         }

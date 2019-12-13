@@ -159,42 +159,42 @@ public class BPMPredictor : MonoBehaviour {
     {
         if(m_MedianVelocityRegionTwo != 0 && m_MedianVelocityYRegionTwo!= 0 && !m_BPMHasBeenPredicted)
         {
-            float timeBetweenCollisions = m_MedianVelocityRegionOne * m_PredictorWeights[0] +
-                m_MedianVelocityRegionTwo * m_PredictorWeights[1] +
-                m_MeanVelocityRegionOne * m_PredictorWeights[2] +
-                m_MeanVelocityRegionTwo * m_PredictorWeights[3] +
+            float timeBetweenCollisions = m_TimeEndRegionTwo;
+                //m_MedianVelocityRegionOne * m_PredictorWeights[0] +
+                //m_MedianVelocityRegionTwo * m_PredictorWeights[1] +
+                //m_MeanVelocityRegionOne * m_PredictorWeights[2] +
+                //m_MeanVelocityRegionTwo * m_PredictorWeights[3] +
 
-                m_RegionOneDistance * m_PredictorWeights[4] +
-                m_RegionTwoDistance * m_PredictorWeights[5] +
-                m_TotalRegionDistance * m_PredictorWeights[6] +
-                m_MaxAngleRegionOne * m_PredictorWeights[7] +
-                m_MaxAngleRegionTwo * m_PredictorWeights[8] +
-                m_MinAngleRegionTwo * m_PredictorWeights[9] +
+                //m_RegionOneDistance * m_PredictorWeights[4] +
+                //m_RegionTwoDistance * m_PredictorWeights[5] +
+                //m_TotalRegionDistance * m_PredictorWeights[6] +
+                //m_MaxAngleRegionOne * m_PredictorWeights[7] +
+                //m_MaxAngleRegionTwo * m_PredictorWeights[8] +
+                //m_MinAngleRegionTwo * m_PredictorWeights[9] +
 
-                m_MedianVelocityYRegionOne * m_PredictorWeights[10] +
-                m_MedianVelocityYRegionTwo * m_PredictorWeights[11] +
-                m_MeanVelocityYRegionOne * m_PredictorWeights[12] +
-                m_MeanVelocityYRegionTwo * m_PredictorWeights[13] +
+                //m_MedianVelocityYRegionOne * m_PredictorWeights[10] +
+                //m_MedianVelocityYRegionTwo * m_PredictorWeights[11] +
+                //m_MeanVelocityYRegionOne * m_PredictorWeights[12] +
+                //m_MeanVelocityYRegionTwo * m_PredictorWeights[13] +
 
-                m_TimeEndRegionOne * m_PredictorWeights[14] +
-                m_TimeEndRegionTwo * m_PredictorWeights[15] +
-                m_TimeStartRegionTwo * m_PredictorWeights[16];
+                //m_TimeEndRegionOne * m_PredictorWeights[14] +
+                //m_TimeEndRegionTwo * m_PredictorWeights[15] +
+                //m_TimeStartRegionTwo * m_PredictorWeights[16];
             
             m_BPMHasBeenPredicted = true;
 
-            int BPM = (int)(60f/timeBetweenCollisions);
+            int BPM = (int)(60/timeBetweenCollisions);
+            Debug.Log("TimeEndRegionTwo: " + m_TimeEndRegionTwo);
+            Debug.Log("TBC is: " + timeBetweenCollisions);
+            Debug.Log("BPM is: " + BPM);
 
-            if (BPM > 115)
+            if (BPM > 140)
             {
-                BPM = 120;
+                BPM = 140;
             }
-            else if (BPM < 85)
+            else if (BPM < 60)
             {
-                BPM = 80;
-            }
-            else
-            {
-                BPM = 100;
+                BPM = 60;
             }
             tp.SetNewBPM(BPM);
         }

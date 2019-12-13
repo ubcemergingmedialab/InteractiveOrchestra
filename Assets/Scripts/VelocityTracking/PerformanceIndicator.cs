@@ -69,22 +69,6 @@ public class PerformanceIndicator : MonoBehaviour {
     }
 
     /// <summary>
-    /// Updates beat count, resets count every 4th beat
-    /// </summary>
-    //public void UpdateBeatCount(float timeSincePrevCollision)
-    //{
-    //    beatCount++;
-    //    bpmAccumulator += timeSincePrevCollision;
-    //    if(beatCount == 4)
-    //    {
-    //        SetUserBPM(bpmAccumulator/beatCount);
-    //        CheckUserTiming();
-    //        beatCount = 0;
-    //        bpmAccumulator = 0;
-    //    }
-    //}
-
-    /// <summary>
     /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
     /// </summary>
     /// <param name="timeSincePrevCollision"></param>

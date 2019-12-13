@@ -169,7 +169,6 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
     /// <param name="device"> Device corresponding to the baton </param>
-    //public void CollectConductorSamples(OVRInput.Controller device)
     public void CollectConductorSamples(OVRInput.Controller device)
     {
         int SizeOfSamplesList = samples.Count;
@@ -184,7 +183,6 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
             Vector3 controllerPosition = batonObject.transform.position;
-
 
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
@@ -314,10 +312,11 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Trigger on device must be pressed down for this function to be called (at every frame) from OVRGestureHandle.cs
     /// </summary>
     /// <param name="device"> Device corresponding to the baton </param> 
-    public void GetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
+    public void SetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
     {
         Vector3 controllerPosition = batonObject.transform.position;
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
+        // if the controller has gone below the plane
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
             // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
@@ -327,10 +326,12 @@ public class OVRVelocityTracker : MonoBehaviour
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
-            performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
+            //performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
+            performanceIndicator.SetUserBPM(timeSincePrevCollision);
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
         } 
+        // if the controller has gone over the plane
         else if (isBeneathPlane && controllerPosition.y > BP1.y)
         {
             isBeneathPlane = !isBeneathPlane;

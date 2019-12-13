@@ -10,7 +10,7 @@ public class OVRGestureHandle : MonoBehaviour {
     [SerializeField] private SteamVR_TrackedObject rightHandControl;
     // Reference to the vive right hand controller for handing key pressing
     // public SteamVR_TrackedObject rightHandControl;
-    public ParticleSystem track;
+    [SerializeField] private ParticleSystem batonTrail;
     
     public OVRVelocityTracker velocityTracker;
 
@@ -36,14 +36,14 @@ public class OVRGestureHandle : MonoBehaviour {
             if (triggerKeyValue > 0.8f)
             {
                 velocityTracker.CollectConductorSamples(device); 
-                velocityTracker.GetTimeSincePrevCollisionWithBasePlane(device);
-                track.Play();
+                velocityTracker.SetTimeSincePrevCollisionWithBasePlane(device);
+                batonTrail.Play();
                 tracking = true;
             }
             else if (triggerKeyValue < 0.1f && tracking)
             {
                 velocityTracker.StoreCurrentTrial();
-                track.Stop();
+                batonTrail.Stop();
                 velocityTracker.RemovePlane();
                 tracking = false;
             }
@@ -52,7 +52,7 @@ public class OVRGestureHandle : MonoBehaviour {
 
     public void StopParticles(float dummyParam)
     {
-        track.Stop();
+        batonTrail.Stop();
         songOver = true;
     }
 

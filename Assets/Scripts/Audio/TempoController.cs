@@ -102,6 +102,14 @@ public class TempoController : MonoBehaviour
     }
 
     /// <summary>
+    /// Updates the BPM of the piece based on dynamic localBPM
+    /// </summary>
+    public void UpdateOrchestraPiece(float localBPM)
+    {
+        AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
+    }
+
+    /// <summary>
     /// Access Wwise functionality to pause current piece. 
     /// </summary>
     public void StopPiece()

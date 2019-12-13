@@ -94,6 +94,7 @@ public class PerformanceIndicator : MonoBehaviour {
         Debug.Log("timeSincePrevCollision: " + timeSincePrevCollision);
         Debug.Log("userBPM: " + userBPM);
         UserBPMTextDisplay.text = userBPM.ToString();
+        tempoController.UpdateOrchestraPiece(userBPM);
     }
 
     /// <summary>

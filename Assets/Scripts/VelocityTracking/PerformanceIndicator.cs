@@ -69,29 +69,16 @@ public class PerformanceIndicator : MonoBehaviour {
     }
 
     /// <summary>
-    /// Updates beat count, resets count every 4th beat
-    /// </summary>
-    public void UpdateBeatCount(float timeSincePrevCollision)
-    {
-        beatCount++;
-        bpmAccumulator += timeSincePrevCollision;
-        if(beatCount == 4)
-        {
-            SetUserBPM(bpmAccumulator/beatCount);
-            CheckUserTiming();
-            beatCount = 0;
-            bpmAccumulator = 0;
-        }
-    }
-
-    /// <summary>
     /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
     /// </summary>
     /// <param name="timeSincePrevCollision"></param>
-    private void SetUserBPM(float timeSincePrevCollision)
+    public void SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
+        Debug.Log("timeSincePrevCollision: " + timeSincePrevCollision);
+        Debug.Log("userBPM: " + userBPM);
         UserBPMTextDisplay.text = userBPM.ToString();
+        tempoController.UpdateOrchestraPiece(userBPM);
     }
 
     /// <summary>

@@ -40,7 +40,7 @@ public class ParticleBehaviour : MonoBehaviour {
     /// </summary>
     public void ChangeAnimation()
     {
-        animator.SetBool("PrepGestureCompleted",true);
+        animator.SetBool("PrepGestureCompleted", true);
     }
 
     /// <summary>

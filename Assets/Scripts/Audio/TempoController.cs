@@ -12,8 +12,6 @@ using VRTK.Controllables.PhysicsBased;
 [RequireComponent(typeof(AudioMaster))]
 public class TempoController : MonoBehaviour
 {
-    
-    private bool isPrepComplete;
     private bool gestureCaptured;
     private bool isPlaying = false;
 
@@ -76,7 +74,7 @@ public class TempoController : MonoBehaviour
     public void playPiece()
     {
         StopCoroutine(BeginOrchestraPiece(localBPM));
-        if (!isPlaying && isPrepComplete)
+        if (!isPlaying && IsPrepComplete)
         {
             StartCoroutine(BeginOrchestraPiece(localBPM));
         }
@@ -99,6 +97,14 @@ public class TempoController : MonoBehaviour
         AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
         AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
         yield return null; 
+    }
+
+    /// <summary>
+    /// Updates the BPM of the piece based on dynamic localBPM
+    /// </summary>
+    public void UpdateOrchestraPiece(float localBPM)
+    {
+        AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
     }
 
     /// <summary>
@@ -130,17 +136,7 @@ public class TempoController : MonoBehaviour
     /// <summary>
     /// Get whether prep is complete and set it
     /// </summary>
-    public bool IsPrepComplete
-    {
-        get
-        {
-            return isPrepComplete;
-        }
-        set
-        {
-            isPrepComplete = value;
-        }
-    }
+    public bool IsPrepComplete { get; set; }
 
     #endregion
 }

@@ -1,6 +1,6 @@
 # Interactive Orchestra
 ## Project Information
-Tool in development to aid orchestral conducting students in understanding how to remain on beat with their conducting.
+Tool in development to provide a realistic and immersive orchestral conducting experience aimed towards both curious users as well as musical conducting students. 
 
 ## External Assets
 
@@ -14,14 +14,7 @@ Tool in development to aid orchestral conducting students in understanding how t
 ### Included (Design)
 | Asset | Purpose |
 | ------ | ------ |
-| [Orchestra Practice Room 3D Model](https://3dwarehouse.sketchup.com/model/55a4e238148047373166bdf893060179/Orchestra-Room) | 3D model of orchestra practice room environment. |
-| [Mannequin Saxophone 3D Model](https://3dwarehouse.sketchup.com/model/da256d509d2e99fd1e54f6541acaa659/Musician-Sax) | 3D model of mannequin saxophonist for the orchestra. |
-| [Mannequin Upright Bass 3D Model](https://3dwarehouse.sketchup.com/model/a5aab341c771384c11a0817415275603/Musician-Upright-bass) | 3D model of mannequin bassist for the orchestra. |
-| [Mannequin Piano 3D Model](https://3dwarehouse.sketchup.com/model/c04160534b7d1a7eda6d676ff8ea001c/Musician-Piano) | 3D model of mannequin pianist for the orchestra. |
-| [Mannequin Violin 3D Model](https://3dwarehouse.sketchup.com/model/36b13c92d0d23f1433eddc4ad251356e/Musician-Violin) | 3D model of mannequin violinist for the orchestra. |
-| [Ceiling Tile Texture](https://3dtextures.me/2019/01/29/ceiling-gypsum-001/) | 3D texture for ceiling in the orchestra practice room environment. |
 | [O Canada Sheet Music](https://musescore.com/user/326626/scores/291086) | O Canada sheet music to display on music stand. |
-| [Wall Texture (Plastic Rough)](https://3dtextures.me/2019/02/15/plaster-rough-001/) | 3D wall texture for the orchestra practice room environment. |
 
 
 ### Excluded (Dev)
@@ -29,7 +22,6 @@ The following assets are either necessary or recommended for the project to work
 
 | Asset | Purpose | Optional? |
 | ------ | ------ | ------ |
-| [AirSig for HTC VIVE & Oculus Rift](https://assetstore.unity.com/packages/tools/input-management/3d-motion-gesture-and-signature-recognition-for-oculus-rift-101504) | Gesture recognition library used for defining the shape of each gesture component. Provides a score of correctness. | :heavy_check_mark: |
 | [Wwise 2018.1.3](https://www.audiokinetic.com/download/) | Interactive audio software, used for slowing and speeding up the piece according to the user. | :x: |
 
 ### Excluded (Design)
@@ -40,14 +32,15 @@ The following assets are either necessary or recommended for the project to work
 
 ## Versioning
 
-- Unity 2018.1.4f1 
-- Oculus Plugin 1.36.0
-- VRTK 3.3.0
-- SteamVR 1.2.3
+- Unity 2018.4.0f LTR 
+- Oculus Plugin 1.36.0 (Update this)
+- VRTK 3.3.0 (Update this)
+- SteamVR 1.2.3 (Update this)
 
 ## Getting Started
 
-1. Make note of Oculus controller: only the grip & the trigger functionalities will be used.
+1. Make note of Oculus controller: only the grip & the trigger functionalities will be used. Baton can only be picked 
+    * up with right controlller.
 2. Adjust headset for user's comfort.
 3. Ensure that the guide button (above the top left of music stand) is selected.
     * Select by making contact with Oculus controller.
@@ -55,7 +48,9 @@ The following assets are either necessary or recommended for the project to work
     * User can let go of the grip button after baton has been selected.
 5. Press & hold trigger to activate the trail system. The trail system indicates that your gestures are being tracked.
     * Move baton tip along prep beat guide to an approximate speed of 80 beats per minute. This will activate the 4:4 legato guide for the user to follow.
-    * Motion baton tip along 4:4 legato static guide in a smooth motion.
+    * Motion baton tip along 4:4 legato static guide in a smooth motion. The audio playback will change based on your 
+    * conducting speed.
+    
 
 ## Team
 

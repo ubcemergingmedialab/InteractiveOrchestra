@@ -1,0 +1,10 @@
+digraph "PerformanceIndicator.UpdateBeatCount"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PerformanceIndicator.Update\lBeatCount",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Updates beat count, resets count every 4th beat"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PerformanceIndicator.Check\lUserTiming",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_performance_indicator.html#aad8f7a7d9a49a6c9279421c7b2278619",tooltip="At every beat, checks whether user's gestures are in time with audio BPM, providing user feedback by ..."];
+}

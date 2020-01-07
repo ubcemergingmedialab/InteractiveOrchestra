@@ -1,0 +1,14 @@
+digraph "HorizontalPlane.PlaneFeedback"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="HorizontalPlane.PlaneFeedback",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Calls the haptic feedback and ripple feedback"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="OVRVelocityTracker.GetTime\lSincePrevCollisionWithBasePlane",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_v_r_velocity_tracker.html#ab6af2f8603bf5affb3cb513cfe0455a6",tooltip="Calculates time elapsed since the last recorded collision with the base plane Trigger on device must ..."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="HorizontalPlane.SpawnPlane",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_horizontal_plane.html#a1e20bf1945249a1a7e84a1cfa8cc6137",tooltip="Creates horizontal plane at (x,y,z) controllerPosition during initial prep beat"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OVRVelocityTracker.Collect\lConductorSamples",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_v_r_velocity_tracker.html#a800d664c6b37036a38bd9e705c6809d4",tooltip="Collects conductor samples every 'DistanceBetweenMeasurements' apart."];
+}

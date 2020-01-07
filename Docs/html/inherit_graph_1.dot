@@ -1,0 +1,8 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="OVRVelocityTracker.Conductor\lSample",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$struct_o_v_r_velocity_tracker_1_1_conductor_sample.html",tooltip="Struct that contains relevant information of the controller. Collected at each frame"];
+}

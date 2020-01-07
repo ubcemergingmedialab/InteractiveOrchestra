@@ -1,0 +1,40 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="MonoBehaviour",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="AudioMaster",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_audio_master.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="BPMPredictor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_b_p_m_predictor.html",tooltip=" "];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ButtonActions",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_button_actions.html",tooltip=" "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ButtonState",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_button_state.html",tooltip=" "];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ControllerDataUpdater",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_controller_data_updater.html",tooltip="Updates relevant data being tracked using the controller. This data is displayed and updated dynamica..."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="EndScreenBehaviour",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_end_screen_behaviour.html",tooltip=" "];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="HorizontalPlane",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_horizontal_plane.html",tooltip=" "];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="InHouseMetronome",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_in_house_metronome.html",tooltip=" "];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="OrchestraDelay",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_orchestra_delay.html",tooltip=" "];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="OVRGestureHandle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_v_r_gesture_handle.html",tooltip=" "];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="OVRVelocityTracker",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_o_v_r_velocity_tracker.html",tooltip="Velocity Tracker is in charge of collecting and evaluating ConductorSamples. GatherSample is used for..."];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="ParticleBehaviour",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_particle_behaviour.html",tooltip=" "];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="PerformanceIndicator",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_performance_indicator.html",tooltip=" "];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="SliderBehaviour",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_slider_behaviour.html",tooltip=" "];
+  Node1 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="TempoController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_tempo_controller.html",tooltip="The Purpose of this script is to change the speed of the music based on local tempo inputted by the p..."];
+  Node1 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="TrialDisplayBehaviour",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_trial_display_behaviour.html",tooltip=" "];
+}

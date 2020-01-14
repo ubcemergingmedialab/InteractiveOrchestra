@@ -102,9 +102,9 @@ public class TempoController : MonoBehaviour
     /// <summary>
     /// Updates the BPM of the piece based on dynamic localBPM
     /// </summary>
-    public void UpdateOrchestraPiece(float localBPM)
+    public void UpdateOrchestraPiece()
     {
-        AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
+        AkSoundEngine.SetRTPCValue(rtpcID, this.localBPM);
     }
 
     /// <summary>

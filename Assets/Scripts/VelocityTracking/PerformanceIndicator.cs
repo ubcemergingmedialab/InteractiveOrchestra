@@ -75,10 +75,9 @@ public class PerformanceIndicator : MonoBehaviour {
     public void SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
-        Debug.Log("timeSincePrevCollision: " + timeSincePrevCollision);
-        Debug.Log("userBPM: " + userBPM);
         UserBPMTextDisplay.text = userBPM.ToString();
-        tempoController.UpdateOrchestraPiece(userBPM);
+        tempoController.SetNewBPM(userBPM);
+        tempoController.UpdateOrchestraPiece();
     }
 
     /// <summary>

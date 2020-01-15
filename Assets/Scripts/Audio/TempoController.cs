@@ -20,7 +20,6 @@ public class TempoController : MonoBehaviour
     // -- Set to -1 if piece is not playing
     private float timeSincePieceStart = -1f;
     private float eventStartTime;
-    private float MasterBPM = 100f;
     private float localBPM = 100f;
     
     [SerializeField] private PerformanceIndicator performanceIndicator;

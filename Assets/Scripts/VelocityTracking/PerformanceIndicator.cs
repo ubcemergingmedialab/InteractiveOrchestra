@@ -78,6 +78,7 @@ public class PerformanceIndicator : MonoBehaviour {
         UserBPMTextDisplay.text = userBPM.ToString();
         tempoController.SetNewBPM(userBPM);
         tempoController.UpdateOrchestraPiece();
+        SetGuideSpeed();
     }
 
     /// <summary>

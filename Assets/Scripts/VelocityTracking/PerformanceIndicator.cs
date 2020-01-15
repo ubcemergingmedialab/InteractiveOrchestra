@@ -78,7 +78,7 @@ public class PerformanceIndicator : MonoBehaviour {
         UserBPMTextDisplay.text = userBPM.ToString();
         tempoController.SetNewBPM(userBPM);
         tempoController.UpdateOrchestraPiece();
-        SetGuideSpeed();
+        SetGuideSpeed(userBPM);
     }
 
     /// <summary>
@@ -132,6 +132,17 @@ public class PerformanceIndicator : MonoBehaviour {
         var main = BPMGuide.main;
         float seconds = 60f;
         float speed = targetBPM / seconds;
+        main.simulationSpeed = speed;
+    }
+
+    /// <summary>
+    /// Update speed of BPM Guide based on inputBPM
+    /// </summary>
+    private void SetGuideSpeed(int inputBPM)
+    {
+        var main = BPMGuide.main;
+        float seconds = 60f;
+        float speed = inputBPM / seconds;
         main.simulationSpeed = speed;
     }
 }

@@ -32,10 +32,10 @@ The following assets are either necessary or recommended for the project to work
 
 ## Versioning
 
-- Unity 2018.4.0f LTR 
-- Oculus Plugin 1.36.0 (Update this)
-- VRTK 3.3.0 (Update this)
-- SteamVR 1.2.3 (Update this)
+- Unity 2018.4.0f LTS 
+- Oculus Plugin 1.38.4
+- VRTK 3.3.0 
+- SteamVR 1.2.3
 
 ## Getting Started
 
@@ -59,6 +59,7 @@ Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities
 
 ### Current EML Student Team:
 
+- Dante Cerron - Project Coordinator
 - Jaehun Song - Project Coordinator
 - Julie Khashimova - Designer
 - Julia Zhu - Designer

@@ -1,4 +1,4 @@
-{# (brief description / PR title)
+# (brief description / PR title)
 
 Status: **Don't forget to label this PR as either: Open for visibility or Ready for review!**
 

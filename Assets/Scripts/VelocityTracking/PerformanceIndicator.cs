@@ -69,16 +69,16 @@ public class PerformanceIndicator : MonoBehaviour {
     }
 
     /// <summary>
-    /// Updates and displays the userBPM based on timeSincePrevCollision and song's BPM
+    /// Updates and displays the userBPM based on timeSincePrevCollision and updates audio BPM
     /// </summary>
     /// <param name="timeSincePrevCollision"></param>
-    public void SetUserBPM(float timeSincePrevCollision)
+    public int SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
-        Debug.Log("timeSincePrevCollision: " + timeSincePrevCollision);
-        Debug.Log("userBPM: " + userBPM);
         UserBPMTextDisplay.text = userBPM.ToString();
-        tempoController.UpdateOrchestraPiece(userBPM);
+        tempoController.SetNewBPM(userBPM);
+        tempoController.UpdateOrchestraAudioPlayback();
+        return userBPM;
     }
 
     /// <summary>

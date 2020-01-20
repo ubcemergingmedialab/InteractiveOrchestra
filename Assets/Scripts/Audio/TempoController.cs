@@ -81,6 +81,14 @@ public class TempoController : MonoBehaviour
     }
 
     /// <summary>
+    /// Update conducting guide animation based on user BPM
+    /// </summary>
+    public void UpdatePiece()
+    {
+
+    }
+
+    /// <summary>
     /// Coroutine that cues orchestra given some delay
     /// </summary>
     /// <param name="localBPM"> BPM at which piece should start </param>
@@ -102,9 +110,9 @@ public class TempoController : MonoBehaviour
     /// <summary>
     /// Updates the BPM of the piece based on dynamic localBPM
     /// </summary>
-    public void UpdateOrchestraPiece(float localBPM)
+    public void UpdateOrchestraAudioPlayback()
     {
-        AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
+        AkSoundEngine.SetRTPCValue(rtpcID, this.localBPM);
     }
 
     /// <summary>

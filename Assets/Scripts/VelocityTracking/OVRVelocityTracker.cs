@@ -33,6 +33,7 @@ public class OVRVelocityTracker : MonoBehaviour
     public bool RestrictRecordingData { get; private set; }
     public bool planeHasBeenSpawned;
 
+    private ParticleBehaviour particleBehaviour;
 
     private Vector3 previousBatonPosition;
     private Vector3 previousControllerPosition;
@@ -61,6 +62,7 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
     [SerializeField] private GameObject batonObject;
+    [SerializeField] private float velocityThreshold;
 
     #endregion
 
@@ -185,13 +187,14 @@ public class OVRVelocityTracker : MonoBehaviour
             Vector3 controllerPosition = batonObject.transform.position;
 
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
+            float thresholdCheck = Math.Abs(controllerVelocity.y - previousYVelocity);
 
             // =========================
             // -- Checks for the precise instance where the current controller y velocity is positive
             // -- and the previous controller y velocity is negative.
             // -- This is the first slope of the prep beat, so we spawn the plane here.
             // =========================
-            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
+            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned && thresholdCheck > velocityThreshold)
             {
                 prevCollisionTime = currOverallTime;
                 basePlaneCollisionPoint = controllerPosition; 
@@ -327,7 +330,9 @@ public class OVRVelocityTracker : MonoBehaviour
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
             //performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
-            performanceIndicator.SetUserBPM(timeSincePrevCollision);
+            int updatedBPM = performanceIndicator.SetUserBPM(timeSincePrevCollision);
+            Debug.Log(updatedBPM);
+            //particleBehaviour.SetAnimationSpeed(updatedBPM);
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
         } 

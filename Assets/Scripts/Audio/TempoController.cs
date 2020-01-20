@@ -1,8 +1,6 @@
 ﻿
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using VRTK.Controllables.PhysicsBased;
 
 /// <summary>
 /// The Purpose of this script is to change the speed of the music based on local tempo inputted by the player.
@@ -20,7 +18,6 @@ public class TempoController : MonoBehaviour
     // -- Set to -1 if piece is not playing
     private float timeSincePieceStart = -1f;
     private float eventStartTime;
-    private float MasterBPM = 100f;
     private float localBPM = 100f;
     
     [SerializeField] private PerformanceIndicator performanceIndicator;
@@ -102,8 +99,8 @@ public class TempoController : MonoBehaviour
         PlayPiece(localBPM);
         yield return new WaitForSeconds(OrchestraDelay.Instance.GetCurrentOrchDelay() * 0.001f);
         Debug.Log("Piece Now Play");
-        AkSoundEngine.PostEvent("PieceBegins", this.gameObject);
-        AkSoundEngine.SetRTPCValue(rtpcID, localBPM);
+        am.PlayEvent("PieceBegins");
+        am.UpdateAudioPlaybackSpeed(localBPM);
         yield return null; 
     }
 
@@ -113,6 +110,7 @@ public class TempoController : MonoBehaviour
     public void UpdateOrchestraAudioPlayback()
     {
         AkSoundEngine.SetRTPCValue(rtpcID, this.localBPM);
+        am.UpdateAudioPlaybackSpeed(localBPM);
     }
 
     /// <summary>

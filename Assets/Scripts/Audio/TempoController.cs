@@ -101,6 +101,7 @@ public class TempoController : MonoBehaviour
     /// </summary>
     public void UpdateOrchestraPiece()
     {
+        AkSoundEngine.SetRTPCValue(rtpcID, this.localBPM);
         am.UpdateAudioPlaybackSpeed(localBPM);
     }
 

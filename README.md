@@ -56,6 +56,7 @@ The following assets are either necessary or recommended for the project to work
 
 ### Faculty:
 Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities, Assistant Professor of Conducting and Ensembles at the UBC School of Music
+Dr. Patrick Pennefather | Principal Investigator - Assistant Professor at the Master of Digital Media Program and shared with UBC Theatre and Film.
 
 ### Current EML Student Team:
 

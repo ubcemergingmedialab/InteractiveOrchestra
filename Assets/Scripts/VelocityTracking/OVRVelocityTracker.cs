@@ -61,6 +61,7 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
     [SerializeField] private GameObject batonObject;
+    [SerializeField] private float yVelocityThreshold;
 
     #endregion
 
@@ -183,6 +184,7 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
             Vector3 controllerPosition = batonObject.transform.position;
+            float thresholdCheck = Math.Abs(previousYVelocity - controllerVelocity.y);
 
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
@@ -191,7 +193,7 @@ public class OVRVelocityTracker : MonoBehaviour
             // -- and the previous controller y velocity is negative.
             // -- This is the first slope of the prep beat, so we spawn the plane here.
             // =========================
-            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
+            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned && thresholdCheck > yVelocityThreshold)
             {
                 prevCollisionTime = currOverallTime;
                 basePlaneCollisionPoint = controllerPosition; 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{D06A25C9-7640-4CDD-B3E4-7300A04E75D2}" SchemaVersion="89">
+<WwiseDocument Type="WorkUnit" ID="{D06A25C9-7640-4CDD-B3E4-7300A04E75D2}" SchemaVersion="94">
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{D06A25C9-7640-4CDD-B3E4-7300A04E75D2}" PersistMode="Standalone">
 			<ChildrenList>
@@ -11,7 +11,7 @@
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="Anthem" ID="{3133CA33-3A30-4988-8A49-C26599E49979}" WorkUnitID="{F9782DDE-13FE-437C-8E09-DC3118C46F08}"/>
+									<ObjectRef Name="OCanada" ID="{3133CA33-3A30-4988-8A49-C26599E49979}" WorkUnitID="{F9782DDE-13FE-437C-8E09-DC3118C46F08}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

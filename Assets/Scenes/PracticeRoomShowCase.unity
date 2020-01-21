@@ -125,10 +125,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1280400766772732, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_Name
-      value: StageSceneObjects
-      objectReference: {fileID: 0}
     - target: {fileID: 4765223302975482, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -161,18 +157,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 4765223302975482, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.034
-      objectReference: {fileID: 0}
-    - target: {fileID: 4765223302975482, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 52.483
-      objectReference: {fileID: 0}
-    - target: {fileID: 4765223302975482, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.028
-      objectReference: {fileID: 0}
     - target: {fileID: 114018572051703154, guid: 1467177afaf1f0e44bea886f42f0efef,
         type: 3}
       propertyPath: rightHandControl
@@ -192,6 +176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114159314449624562, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: yVelocityThreshold
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}

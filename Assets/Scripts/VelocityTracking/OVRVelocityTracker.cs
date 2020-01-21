@@ -61,7 +61,6 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
     [SerializeField] private GameObject batonObject;
-    [SerializeField] private float yVelocityThreshold;
 
     #endregion
 
@@ -184,7 +183,6 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
             Vector3 controllerPosition = batonObject.transform.position;
-            float thresholdCheck = Math.Abs(previousYVelocity - controllerVelocity.y);
 
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
@@ -193,7 +191,7 @@ public class OVRVelocityTracker : MonoBehaviour
             // -- and the previous controller y velocity is negative.
             // -- This is the first slope of the prep beat, so we spawn the plane here.
             // =========================
-            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned && thresholdCheck > yVelocityThreshold)
+            if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned)
             {
                 prevCollisionTime = currOverallTime;
                 basePlaneCollisionPoint = controllerPosition; 
@@ -321,15 +319,15 @@ public class OVRVelocityTracker : MonoBehaviour
         // if the controller has gone below the plane
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
+            // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
+            tempoController.playPiece();
             // provide haptic feedback
             horizontalPlane.PlaneFeedback(conductorBaton.position,false);
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
+            //performanceIndicator.UpdateBeatCount(timeSincePrevCollision);
             performanceIndicator.SetUserBPM(timeSincePrevCollision);
-            // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
-            tempoController.playPiece();
-
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
         } 

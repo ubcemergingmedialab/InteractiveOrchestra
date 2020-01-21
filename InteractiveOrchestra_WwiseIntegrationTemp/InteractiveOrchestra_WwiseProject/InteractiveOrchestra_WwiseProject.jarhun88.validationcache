@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ValidationCache Version="1" SchemaVersion="94">
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1579640020" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Attenuations\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Audio Devices\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Control Surface Sessions\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Conversion Settings\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Dynamic Dialogue\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Effects\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Effects\Factory Effects.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Events\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Game Parameters\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\InteractiveOrchestra_WwiseProject.jarhun88.wsettings" DateLow="1579640235" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\InteractiveOrchestra_WwiseProject.wproj" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Mixing Sessions\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Modulators\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Presets\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Queries\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Queries\Factory Queries.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\SoundBanks\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Soundcaster Sessions\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\States\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Switches\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Triggers\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+	<ValidationCacheItem File="D:\EML Projects\InteractiveOrchestra\InteractiveOrchestra_WwiseIntegrationTemp\InteractiveOrchestra_WwiseProject\Virtual Acoustics\Default Work Unit.wwu" DateLow="1579639565" DateHigh="0"/>
+</ValidationCache>

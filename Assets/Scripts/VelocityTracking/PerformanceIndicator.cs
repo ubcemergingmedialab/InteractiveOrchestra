@@ -19,6 +19,7 @@ public class PerformanceIndicator : MonoBehaviour {
 
     [SerializeField] private Text UserBPMTextDisplay, TargetBPMTextDisplay;
     [SerializeField] private ParticleSystem BPMGuide;
+    [SerializeField] private Animator ConductingGuideAnimation;
 
     [SerializeField] private OVRVelocityTracker velocityTracker;
     [SerializeField] private TempoController tempoController;
@@ -75,10 +76,10 @@ public class PerformanceIndicator : MonoBehaviour {
     public void SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
-        Debug.Log("timeSincePrevCollision: " + timeSincePrevCollision);
-        Debug.Log("userBPM: " + userBPM);
         UserBPMTextDisplay.text = userBPM.ToString();
-        tempoController.UpdateOrchestraPiece(userBPM);
+        tempoController.SetNewBPM(userBPM);
+        tempoController.UpdateOrchestraPiece();
+        SetGuideSpeed(userBPM);
     }
 
     /// <summary>
@@ -133,5 +134,20 @@ public class PerformanceIndicator : MonoBehaviour {
         float seconds = 60f;
         float speed = targetBPM / seconds;
         main.simulationSpeed = speed;
+    }
+
+    /// <summary>
+    /// Update speed of BPM Guide based on inputBPM
+    /// </summary>
+    private void SetGuideSpeed(int inputBPM)
+    {
+        var main = BPMGuide.main;
+        float seconds = 60f;
+        float speed = inputBPM / seconds;
+        Debug.Log(inputBPM);
+        float animationSpeed = inputBPM / 100.0f;
+        //Debug.Log("animationSpeed" + animationSpeed);
+        main.simulationSpeed = speed;
+        ConductingGuideAnimation.speed = animationSpeed;
     }
 }

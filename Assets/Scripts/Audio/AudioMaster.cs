@@ -6,8 +6,11 @@ public class AudioMaster : MonoBehaviour {
 
 
     uint bankID;
-	// Use this for initialization
-	protected void LoadBank () {
+
+    public string rtpcID;
+
+    // Use this for initialization
+    protected void LoadBank () {
         AkSoundEngine.LoadBank("Main", AkSoundEngine.AK_DEFAULT_POOL_ID, out bankID);
 	}
 
@@ -18,8 +21,12 @@ public class AudioMaster : MonoBehaviour {
 
     public void PlayEvent(string eventName)
     {
-        //Debug.Log("Game object should exist?");
         AkSoundEngine.PostEvent(eventName, this.gameObject);
+    }
+
+    public void UpdateAudioPlaybackSpeed(float bpm)
+    {
+        AkSoundEngine.SetRTPCValue(rtpcID, bpm);
     }
 
     public void StopEvent(string eventname, int fadeout)

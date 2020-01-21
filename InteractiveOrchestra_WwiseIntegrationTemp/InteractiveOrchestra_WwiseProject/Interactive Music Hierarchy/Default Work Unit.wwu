@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{F9782DDE-13FE-437C-8E09-DC3118C46F08}" SchemaVersion="94">
+<WwiseDocument Type="WorkUnit" ID="{F9782DDE-13FE-437C-8E09-DC3118C46F08}" SchemaVersion="89">
 	<InteractiveMusic>
 		<WorkUnit Name="Default Work Unit" ID="{F9782DDE-13FE-437C-8E09-DC3118C46F08}" PersistMode="Standalone">
 			<ChildrenList>
-				<MusicSegment Name="OCanada" ID="{3133CA33-3A30-4988-8A49-C26599E49979}" ShortID="140652758">
+				<MusicSegment Name="Anthem" ID="{3133CA33-3A30-4988-8A49-C26599E49979}" ShortID="140652758">
 					<PropertyList>
 						<Property Name="EndPosition" Type="Real64" Value="68913.8043240426"/>
 						<Property Name="PlaybackSpeed" Type="Real64">

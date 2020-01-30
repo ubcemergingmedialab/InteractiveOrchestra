@@ -166,6 +166,48 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
+    public void SpawnPlaneIfNotSpawned(OVRInput.Controller device)
+    {
+        float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
+        Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
+        Vector3 controllerPosition = batonObject.transform.position;
+        float thresholdCheck = Math.Abs(previousYVelocity - controllerVelocity.y);
+
+        float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
+
+        // =========================
+        // -- Checks for the precise instance where the current controller y velocity is positive
+        // -- and the previous controller y velocity is negative.
+        // -- This is the first slope of the prep beat, so we spawn the plane here.
+        // =========================
+        if (previousYVelocity < 0 && controllerVelocity.y > 0 && !planeHasBeenSpawned && thresholdCheck > yVelocityThreshold)
+        {
+            prevCollisionTime = currOverallTime;
+            basePlaneCollisionPoint = controllerPosition;
+
+            // ========================
+            // -- This is to account for controller weirdness. Sometimes although
+            // -- the velocity of the current controller is positive, it doesn't mean that it's at a higher position
+            // -- then the previous velocity. So we pick the smallest one. 
+            // ========================
+            if (previousBatonPosition.y > conductorBaton.position.y)
+            {
+                horizontalPlane.SpawnPlane(conductorBaton.position);
+                BP1 = controllerPosition;
+            }
+            else
+            {
+                horizontalPlane.SpawnPlane(previousBatonPosition);
+                BP1 = previousControllerPosition;
+            }
+            planeHasBeenSpawned = true;
+        }
+
+        previousYVelocity = controllerVelocity.y;
+        previousBatonPosition = conductorBaton.position;
+        previousControllerPosition = controllerPosition;
+    }
+
     /// <summary>
     /// Collects conductor samples every 'DistanceBetweenMeasurements' apart. 
     /// </summary>
@@ -187,7 +229,7 @@ public class OVRVelocityTracker : MonoBehaviour
             float thresholdCheck = Math.Abs(previousYVelocity - controllerVelocity.y);
 
             float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
-
+            /*
             // =========================
             // -- Checks for the precise instance where the current controller y velocity is positive
             // -- and the previous controller y velocity is negative.
@@ -214,7 +256,7 @@ public class OVRVelocityTracker : MonoBehaviour
                     BP1 = previousControllerPosition;
                 } 
                 planeHasBeenSpawned = true;
-            }
+            }*/
             
             float angleToBP1 = GetAngleToFirstCollisionWithBasePlane(BP1,controllerPosition);
             float totalDistanceCoveredSoFar = distanceCoveredSofar;
@@ -253,10 +295,12 @@ public class OVRVelocityTracker : MonoBehaviour
 
                     samples.Add(newConductorSample);
                     trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
+                    /*
                     if (BP1.y > controllerPosition.y && BP1 != Vector3.zero)
                     {
                         RestrictRecordingData = true;
                     }
+                    */
                 }
                 else
                 {
@@ -275,7 +319,7 @@ public class OVRVelocityTracker : MonoBehaviour
                             currentBPMToRecord,                                         // Current BPM being collected
                             currentTrial
                             );
-                        if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
+                        //if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
 
                         // =========================
                         // -- Uncomment to spawn debug Spheres on first prep beat

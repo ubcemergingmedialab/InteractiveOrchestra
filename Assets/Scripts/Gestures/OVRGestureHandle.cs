@@ -35,7 +35,8 @@ public class OVRGestureHandle : MonoBehaviour {
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             if (triggerKeyValue > 0.8f)
             {
-                velocityTracker.CollectConductorSamples(device); 
+                velocityTracker.SpawnPlaneIfNotSpawned(device);
+                //velocityTracker.CollectConductorSamples(device); 
                 velocityTracker.SetTimeSincePrevCollisionWithBasePlane(device);
                 batonTrail.Play();
                 tracking = true;

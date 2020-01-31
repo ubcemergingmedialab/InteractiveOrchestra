@@ -13,8 +13,10 @@ public class OVRGestureHandle : MonoBehaviour {
     [SerializeField] private ParticleSystem batonTrail;
     
     public OVRVelocityTracker velocityTracker;
+    public PlaybackSystem playbackSystem;
 
     private bool tracking = false;
+    private bool samplesRecorded = false;
 
     public static bool songOver = false;
     #endregion
@@ -35,14 +37,20 @@ public class OVRGestureHandle : MonoBehaviour {
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             if (triggerKeyValue > 0.8f)
             {
+                if(samplesRecorded)
+                {
+                    playbackSystem.ClearSamples();
+                    samplesRecorded = false;
+                }
+                playbackSystem.GrabSample();
                 velocityTracker.SpawnPlaneIfNotSpawned(device);
-                //velocityTracker.CollectConductorSamples(device); 
                 velocityTracker.SetTimeSincePrevCollisionWithBasePlane(device);
                 batonTrail.Play();
                 tracking = true;
             }
             else if (triggerKeyValue < 0.1f && tracking)
             {
+                samplesRecorded = true;
                 velocityTracker.StoreCurrentTrial();
                 batonTrail.Stop();
                 velocityTracker.RemovePlane();

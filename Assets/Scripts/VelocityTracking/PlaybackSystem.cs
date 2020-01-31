@@ -40,16 +40,20 @@ public class PlaybackSystem : MonoBehaviour
 
     public void StartPlayback()
     {
-        playbackBaton.SetActive(true);
-        isPlaying = true;
+        isPlaying = !isPlaying;
+        playbackBaton.SetActive(isPlaying);
+        Debug.Log(isPlaying);
     }
 
     private void FixedUpdate()
     {
+        Debug.Log("poll");
         if(isPlaying)
         {
+            Debug.Log("playing");
             playbackBaton.transform.position = samples[playbackIndex];
             playbackIndex = (playbackIndex % samples.Count) + 1;
+            Debug.Log(playbackIndex);
         }
     }
 }

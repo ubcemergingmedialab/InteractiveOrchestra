@@ -35,6 +35,7 @@ public class OVRGestureHandle : MonoBehaviour {
             var device = OVRInput.Controller.RTouch;
 
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
+            // holding the trigger on the controller
             if (triggerKeyValue > 0.8f)
             {
                 if(samplesRecorded)
@@ -48,6 +49,7 @@ public class OVRGestureHandle : MonoBehaviour {
                 batonTrail.Play();
                 tracking = true;
             }
+            // letting go of trigger on the controller
             else if (triggerKeyValue < 0.1f && tracking)
             {
                 samplesRecorded = true;

@@ -19,6 +19,7 @@ public class PlaybackSystem : MonoBehaviour
     [SerializeField]
     public GameObject batonObject;
     public GameObject playbackBaton;
+    public GameObject button;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class PlaybackSystem : MonoBehaviour
     public void GrabSample()
     {
         Vector3 pos = batonObject.transform.position;
+        // these are some linear transformations to the vector to make it easier to see
         pos.z = pos.z + 3;
         pos.y = pos.y + 3;
         samples.Add(pos);
@@ -45,7 +47,6 @@ public class PlaybackSystem : MonoBehaviour
     public void StartPlayback()
     {
         isPlaying = !isPlaying;
-        playbackBaton.SetActive(isPlaying);
         Debug.Log(isPlaying);
     }
 
@@ -54,15 +55,22 @@ public class PlaybackSystem : MonoBehaviour
         Debug.Log("poll");
         if(isPlaying)
         {
-            Debug.Log("playing");
-            playbackBaton.transform.position = samples[playbackIndex];
-            Debug.Log(samples[playbackIndex]);
-            playbackIndex = (playbackIndex % samples.Count) + 1;
-           if (playbackIndex >= samples.Count)
+            if (playbackIndex >= samples.Count)
             {
                 playbackIndex = 0;
                 isPlaying = false;
                 playbackBaton.SetActive(isPlaying);
+                // turns the button's state off
+                ButtonState b = button.GetComponent<ButtonState>();
+                b.ToggleButtonState(false);
+            }
+            else
+            {
+                playbackBaton.SetActive(isPlaying);
+                Debug.Log("playing");
+                playbackBaton.transform.position = samples[playbackIndex];
+                Debug.Log(samples[playbackIndex]);
+                playbackIndex = (playbackIndex % samples.Count) + 1;
             }
         }
     }

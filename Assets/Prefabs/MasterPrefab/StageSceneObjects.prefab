@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 441592004}
   - component: {fileID: 441592005}
   m_Layer: 0
-  m_Name: Playback
+  m_Name: PlaybackSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   batonObject: {fileID: 1290843565429276}
   playbackBaton: {fileID: 912285514}
+  button: {fileID: 851905712}
 --- !u!1 &525993987
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577084931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -0.008, z: 0.184}
+  m_LocalPosition: {x: -0.02, y: -0.008, z: -1.623}
   m_LocalScale: {x: 1.1411306, y: 1.141131, z: 1.141131}
   m_Children: []
   m_Father: {fileID: 583752344}
@@ -239,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 583752344}
   m_Layer: 0
-  m_Name: Playback
+  m_Name: Playback Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,7 +296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851905712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0, z: 0}
+  m_LocalPosition: {x: -0.01, y: -0, z: -1.683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 583752344}
@@ -514,8 +515,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114632904209176410}
-        m_MethodName: ToggleEnablePlane
+      - m_Target: {fileID: 441592005}
+        m_MethodName: StartPlayback
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -659,8 +660,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912285514}
-  m_LocalRotation: {x: 0.40848216, y: -0.70564497, z: 0.57608134, w: 0.057774596}
-  m_LocalPosition: {x: 34.957, y: 12.302001, z: 108.49502}
+  m_LocalRotation: {x: 0.19817539, y: -0.64982074, z: -0.41783702, w: -0.60321784}
+  m_LocalPosition: {x: 29.430382, y: 15.884218, z: 102.24627}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 1432101117}
@@ -669,7 +670,7 @@ Transform:
   - {fileID: 862605156}
   m_Father: {fileID: 4474101901964376}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 120.659, y: -49.73401, z: 90.286}
+  m_LocalEulerAnglesHint: {x: 231.455, y: -97.091, z: 203.306}
 --- !u!1 &1432101116
 GameObject:
   m_ObjectHideFlags: 0
@@ -6942,7 +6943,7 @@ GameObject:
   - component: {fileID: 33436706469424316}
   - component: {fileID: 23350208431765940}
   m_Layer: 0
-  m_Name: Music_stand 17
+  m_Name: MusicPole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

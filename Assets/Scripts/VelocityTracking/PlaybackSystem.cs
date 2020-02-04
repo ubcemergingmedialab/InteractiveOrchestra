@@ -29,8 +29,12 @@ public class PlaybackSystem : MonoBehaviour
 
     public void GrabSample()
     {
-        samples.Add(batonObject.transform.position);
+        Vector3 pos = batonObject.transform.position;
+        pos.z = pos.z + 3;
+        pos.y = pos.y + 3;
+        samples.Add(pos);
         Debug.Log(batonObject.transform.position);
+        Debug.Log("Samples: " + samples.Count);
     }
 
     public void ClearSamples()
@@ -52,8 +56,14 @@ public class PlaybackSystem : MonoBehaviour
         {
             Debug.Log("playing");
             playbackBaton.transform.position = samples[playbackIndex];
+            Debug.Log(samples[playbackIndex]);
             playbackIndex = (playbackIndex % samples.Count) + 1;
-            Debug.Log(playbackIndex);
+           if (playbackIndex >= samples.Count)
+            {
+                playbackIndex = 0;
+                isPlaying = false;
+                playbackBaton.SetActive(isPlaying);
+            }
         }
     }
 }

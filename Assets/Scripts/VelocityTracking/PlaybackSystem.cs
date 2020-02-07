@@ -12,7 +12,7 @@ public class PlaybackSystem : MonoBehaviour
 
     #endregion
 
-    private List<Vector3> samples;
+    private List<ConductorSample> samples;
     private bool isPlaying;
     private int playbackIndex;
 
@@ -23,18 +23,31 @@ public class PlaybackSystem : MonoBehaviour
 
     private void Start()
     {
-        samples = new List<Vector3>();
+        samples = new List<ConductorSample>();
         isPlaying = false;
         playbackIndex = 0;
+    }
+
+    private struct ConductorSample
+    {
+        public Vector3 position;
+        public Quaternion rotation;
+
+        public ConductorSample(Vector3 pos, Quaternion rot)
+        {
+            position = pos;
+            rotation = rot;
+        }
     }
 
     public void GrabSample()
     {
         Vector3 pos = batonObject.transform.position;
+        pos.z += 3;
+        pos.y += 1;
+        ConductorSample sample = new ConductorSample(pos, batonObject.transform.rotation);
         // these are some linear transformations to the vector to make it easier to see
-        pos.z = pos.z + 3;
-        pos.y = pos.y + 3;
-        samples.Add(pos);
+        samples.Add(sample);
         Debug.Log(batonObject.transform.position);
         Debug.Log("Samples: " + samples.Count);
     }
@@ -68,7 +81,8 @@ public class PlaybackSystem : MonoBehaviour
             {
                 playbackBaton.SetActive(isPlaying);
                 Debug.Log("playing");
-                playbackBaton.transform.position = samples[playbackIndex];
+                playbackBaton.transform.position = samples[playbackIndex].position;
+                playbackBaton.transform.rotation = samples[playbackIndex].rotation;
                 Debug.Log(samples[playbackIndex]);
                 playbackIndex = (playbackIndex % samples.Count) + 1;
             }

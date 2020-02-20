@@ -65,7 +65,7 @@ public class PlaybackSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("poll");
+        //Debug.Log("poll");
         if(isPlaying)
         {
             if (playbackIndex >= samples.Count)

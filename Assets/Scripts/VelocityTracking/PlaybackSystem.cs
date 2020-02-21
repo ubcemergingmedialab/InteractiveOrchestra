@@ -15,17 +15,23 @@ public class PlaybackSystem : MonoBehaviour
     private List<ConductorSample> samples;
     private bool isPlaying;
     private int playbackIndex;
+    private bool teleported;
+    private Vector3 conductingpos;
 
     [SerializeField]
     public GameObject batonObject;
     public GameObject playbackBaton;
     public GameObject button;
+    public GameObject view;
+
 
     private void Start()
     {
         samples = new List<ConductorSample>();
         isPlaying = false;
+        teleported = false;
         playbackIndex = 0;
+        conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
     }
 
     private struct ConductorSample
@@ -73,12 +79,22 @@ public class PlaybackSystem : MonoBehaviour
                 playbackIndex = 0;
                 isPlaying = false;
                 playbackBaton.SetActive(isPlaying);
+                view.transform.position = conductingpos;
+                view.transform.Rotate(0, 180, 0);
                 // turns the button's state off
                 ButtonState b = button.GetComponent<ButtonState>();
                 b.ToggleButtonState(false);
             }
             else
             {
+                if (!teleported)
+                {
+                    conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
+                    view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 25);
+                    view.transform.Rotate(0, 180, 0);
+                    teleported = true;
+                }
+
                 playbackBaton.SetActive(isPlaying);
                 Debug.Log("playing");
                 playbackBaton.transform.position = samples[playbackIndex].position;

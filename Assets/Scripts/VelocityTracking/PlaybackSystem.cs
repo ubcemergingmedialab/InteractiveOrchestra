@@ -48,14 +48,12 @@ public class PlaybackSystem : MonoBehaviour
 
     public void GrabSample()
     {
-        Vector3 pos = batonObject.transform.position;
-        pos.z += 3;
-        pos.y += 1;
+        Vector3 pos = new Vector3(batonObject.transform.position.x, batonObject.transform.position.y+1, batonObject.transform.position.z+3);
         ConductorSample sample = new ConductorSample(pos, batonObject.transform.rotation);
         // these are some linear transformations to the vector to make it easier to see
         samples.Add(sample);
-        Debug.Log(batonObject.transform.position);
-        Debug.Log("Samples: " + samples.Count);
+        //Debug.Log(batonObject.transform.position);
+        //Debug.Log("Samples: " + samples.Count);
     }
 
     public void ClearSamples()
@@ -66,12 +64,12 @@ public class PlaybackSystem : MonoBehaviour
     public void StartPlayback()
     {
         isPlaying = !isPlaying;
-        Debug.Log(isPlaying);
+        //Debug.Log(isPlaying);
     }
 
     private void FixedUpdate()
     {
-        Debug.Log("poll");
+        //Debug.Log("poll");
         if(isPlaying)
         {
             if (playbackIndex >= samples.Count)
@@ -87,19 +85,19 @@ public class PlaybackSystem : MonoBehaviour
             }
             else
             {
+                // teleports user to musicians POV
                 if (!teleported)
                 {
-                    conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
                     view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 25);
                     view.transform.Rotate(0, 180, 0);
                     teleported = true;
                 }
 
                 playbackBaton.SetActive(isPlaying);
-                Debug.Log("playing");
+                //Debug.Log("playing");
                 playbackBaton.transform.position = samples[playbackIndex].position;
                 playbackBaton.transform.rotation = samples[playbackIndex].rotation;
-                Debug.Log(samples[playbackIndex]);
+                //Debug.Log(samples[playbackIndex]);
                 playbackIndex = (playbackIndex % samples.Count) + 1;
             }
         }

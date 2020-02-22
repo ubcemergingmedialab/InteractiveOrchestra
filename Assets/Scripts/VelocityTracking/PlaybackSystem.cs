@@ -23,6 +23,7 @@ public class PlaybackSystem : MonoBehaviour
     public GameObject playbackBaton;
     public GameObject button;
     public GameObject view;
+    public OVRVelocityTracker velocityTracker;
 
 
     private void Start()
@@ -64,7 +65,7 @@ public class PlaybackSystem : MonoBehaviour
     public void StartPlayback()
     {
         isPlaying = !isPlaying;
-        //Debug.Log(isPlaying);
+        velocityTracker.setBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
     }
 
     private void FixedUpdate()
@@ -98,8 +99,12 @@ public class PlaybackSystem : MonoBehaviour
                 //Debug.Log("playing");
                 playbackBaton.transform.position = samples[playbackIndex].position;
                 playbackBaton.transform.rotation = samples[playbackIndex].rotation;
+
                 //Debug.Log(samples[playbackIndex]);
                 playbackIndex = (playbackIndex % samples.Count) + 1;
+
+                velocityTracker.SpawnPlaneIfNotSpawned();
+                velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
             }
         }
     }

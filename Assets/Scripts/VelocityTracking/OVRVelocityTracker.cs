@@ -60,7 +60,7 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private PerformanceIndicator performanceIndicator;
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
-    [SerializeField] private Rigidbody batonObject;
+    [SerializeField] private GameObject batonObject;
     [SerializeField] private float yVelocityThreshold;
 
     #endregion
@@ -87,7 +87,7 @@ public class OVRVelocityTracker : MonoBehaviour
         previousYVelocity = 0;
         if(batonObject == null)
         {
-            batonObject = GameObject.Find("Baton_Tip").GetComponent<Rigidbody>();
+            batonObject = GameObject.Find("Baton_Tip");
         }
     }
 
@@ -158,9 +158,14 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
-    public void setBatonObject(Rigidbody newBaton) 
+    public void setBatonObject(GameObject newBaton) 
     {
         this.batonObject = newBaton;
+    }
+
+    public GameObject GetBatonObject()
+    {
+        return batonObject;
     }
 
     /// <summary>
@@ -196,9 +201,9 @@ public class OVRVelocityTracker : MonoBehaviour
             // -- the velocity of the current controller is positive, it doesn't mean that it's at a higher position
             // -- then the previous velocity. So we pick the smallest one. 
             // ========================
-            if (previousBatonPosition.y > batonObject.position.y)
+            if (previousBatonPosition.y > batonObject.transform.position.y)
             {
-                horizontalPlane.SpawnPlane(batonObject.position);
+                horizontalPlane.SpawnPlane(batonObject.transform.position);
                 BP1 = controllerPosition;
             }
             else
@@ -210,7 +215,7 @@ public class OVRVelocityTracker : MonoBehaviour
         }
 
         previousYVelocity = controllerVelocity.y;
-        previousBatonPosition = batonObject.position;
+        previousBatonPosition = batonObject.transform.position;
         previousControllerPosition = controllerPosition;
     }
 
@@ -333,7 +338,7 @@ public class OVRVelocityTracker : MonoBehaviour
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
             // provide haptic feedback
-            horizontalPlane.PlaneFeedback(batonObject.position,false);
+            horizontalPlane.PlaneFeedback(batonObject.transform.position,false);
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;

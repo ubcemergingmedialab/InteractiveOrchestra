@@ -44,8 +44,8 @@ public class OVRGestureHandle : MonoBehaviour {
                     samplesRecorded = false;
                 }
                 playbackSystem.GrabSample();
-                velocityTracker.SpawnPlaneIfNotSpawned(device);
-                velocityTracker.SetTimeSincePrevCollisionWithBasePlane(device);
+                velocityTracker.SpawnPlaneIfNotSpawned();
+                velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
                 batonTrail.Play();
                 tracking = true;
             }

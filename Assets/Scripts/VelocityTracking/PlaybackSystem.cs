@@ -82,6 +82,7 @@ public class PlaybackSystem : MonoBehaviour
                 // turns the button's state off
                 ButtonState b = button.GetComponent<ButtonState>();
                 b.ToggleButtonState(false);
+                teleported = false;
             }
             else
             {

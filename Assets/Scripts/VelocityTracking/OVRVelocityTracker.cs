@@ -60,7 +60,7 @@ public class OVRVelocityTracker : MonoBehaviour
     [SerializeField] private PerformanceIndicator performanceIndicator;
     [SerializeField] private Transform conductorBaton;
     [SerializeField] private InHouseMetronome inHouseMetronome;
-    [SerializeField] private GameObject batonObject;
+    [SerializeField] private Rigidbody batonObject;
     [SerializeField] private float yVelocityThreshold;
 
     #endregion
@@ -87,7 +87,7 @@ public class OVRVelocityTracker : MonoBehaviour
         previousYVelocity = 0;
         if(batonObject == null)
         {
-            batonObject = GameObject.Find("Baton_Tip");
+            batonObject = GameObject.Find("Baton_Tip").GetComponent<Rigidbody>();
         }
     }
 
@@ -158,6 +158,11 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
+    public void setBatonObject(Rigidbody newBaton) 
+    {
+        this.batonObject = newBaton;
+    }
+
     /// <summary>
     /// Destroy the spheres used to represent the current gesture
     /// </summary>
@@ -169,14 +174,12 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
-    public void SpawnPlaneIfNotSpawned(OVRInput.Controller device)
+    public void SpawnPlaneIfNotSpawned()
     {
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
-        Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
         Vector3 controllerPosition = batonObject.transform.position;
+        Vector3 controllerVelocity = (controllerPosition - previousBatonPosition) / Time.deltaTime;
         float thresholdCheck = Math.Abs(previousYVelocity - controllerVelocity.y);
-
-        float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
         // =========================
         // -- Checks for the precise instance where the current controller y velocity is positive
@@ -193,9 +196,9 @@ public class OVRVelocityTracker : MonoBehaviour
             // -- the velocity of the current controller is positive, it doesn't mean that it's at a higher position
             // -- then the previous velocity. So we pick the smallest one. 
             // ========================
-            if (previousBatonPosition.y > conductorBaton.position.y)
+            if (previousBatonPosition.y > batonObject.position.y)
             {
-                horizontalPlane.SpawnPlane(conductorBaton.position);
+                horizontalPlane.SpawnPlane(batonObject.position);
                 BP1 = controllerPosition;
             }
             else
@@ -207,7 +210,7 @@ public class OVRVelocityTracker : MonoBehaviour
         }
 
         previousYVelocity = controllerVelocity.y;
-        previousBatonPosition = conductorBaton.position;
+        previousBatonPosition = batonObject.position;
         previousControllerPosition = controllerPosition;
     }
 
@@ -322,8 +325,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Calculates time elapsed since the last recorded collision with the base plane
     /// Trigger on device must be pressed down for this function to be called (at every frame) from OVRGestureHandle.cs
     /// </summary>
-    /// <param name="device"> Device corresponding to the baton </param> 
-    public void SetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
+    public void SetTimeSincePrevCollisionWithBasePlane()
     {
         Vector3 controllerPosition = batonObject.transform.position;
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
@@ -331,7 +333,7 @@ public class OVRVelocityTracker : MonoBehaviour
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
             // provide haptic feedback
-            horizontalPlane.PlaneFeedback(conductorBaton.position,false);
+            horizontalPlane.PlaneFeedback(batonObject.position,false);
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;

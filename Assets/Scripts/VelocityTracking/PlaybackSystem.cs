@@ -12,7 +12,7 @@ public class PlaybackSystem : MonoBehaviour
 
     #endregion
 
-    private List<ConductorSample> samples;
+    private List<ConductorSample> recording;
     private bool isPlaying;
     private int playbackIndex;
     private bool teleported;
@@ -24,15 +24,18 @@ public class PlaybackSystem : MonoBehaviour
     public GameObject button;
     public GameObject view;
     public OVRVelocityTracker velocityTracker;
+    public TempoController tempoController;
+    public GameObject gestureRelated;
 
 
     private void Start()
     {
-        samples = new List<ConductorSample>();
+        recording = new List<ConductorSample>();
         isPlaying = false;
         teleported = false;
         playbackIndex = 0;
         conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
+        button.GetComponent<ButtonState>();
     }
 
     private struct ConductorSample
@@ -52,32 +55,43 @@ public class PlaybackSystem : MonoBehaviour
         Vector3 pos = new Vector3(batonObject.transform.position.x, batonObject.transform.position.y+1, batonObject.transform.position.z+3);
         ConductorSample sample = new ConductorSample(pos, batonObject.transform.rotation);
         // these are some linear transformations to the vector to make it easier to see
-        samples.Add(sample);
+        recording.Add(sample);
         //Debug.Log(batonObject.transform.position);
         //Debug.Log("Samples: " + samples.Count);
     }
 
     public void ClearSamples()
     {
-        samples.Clear();
+        recording.Clear();
     }
 
     public void StartPlayback()
     {
-        isPlaying = !isPlaying;
-        velocityTracker.setBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
+        if (recording.Count > 0)
+        {
+            isPlaying = !isPlaying;
+            velocityTracker.setBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
+        }
+        else
+        {
+            Debug.Log("No recording to playback!");
+            ButtonState b = button.GetComponent<ButtonState>();
+            b.ToggleButtonState(false);
+        }
     }
 
     private void FixedUpdate()
     {
-        //Debug.Log("poll");
         if(isPlaying)
         {
-            if (playbackIndex >= samples.Count)
+            // reached the end of the playback stored within the samples array
+            if (playbackIndex >= recording.Count)
             {
                 playbackIndex = 0;
                 isPlaying = false;
                 playbackBaton.SetActive(isPlaying);
+                batonObject.SetActive(true);
+                gestureRelated.SetActive(false);
                 view.transform.position = conductingpos;
                 view.transform.Rotate(0, 180, 0);
                 // turns the button's state off
@@ -85,6 +99,7 @@ public class PlaybackSystem : MonoBehaviour
                 b.ToggleButtonState(false);
                 teleported = false;
                 velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
+                tempoController.StopPiece();
             }
             else
             {
@@ -94,15 +109,16 @@ public class PlaybackSystem : MonoBehaviour
                     view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 25);
                     view.transform.Rotate(0, 180, 0);
                     teleported = true;
+                    playbackBaton.SetActive(true);
+                    batonObject.SetActive(false);
+                    gestureRelated.SetActive(true);
                 }
-
-                playbackBaton.SetActive(isPlaying);
                 //Debug.Log("playing");
-                playbackBaton.transform.position = samples[playbackIndex].position;
-                playbackBaton.transform.rotation = samples[playbackIndex].rotation;
+                playbackBaton.transform.position = recording[playbackIndex].position;
+                playbackBaton.transform.rotation = recording[playbackIndex].rotation;
 
                 //Debug.Log(samples[playbackIndex]);
-                playbackIndex = (playbackIndex % samples.Count) + 1;
+                playbackIndex = (playbackIndex % recording.Count) + 1;
 
                 velocityTracker.SpawnPlaneIfNotSpawned();
                 velocityTracker.SetTimeSincePrevCollisionWithBasePlane();

@@ -179,6 +179,9 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn the horizontal plane based on the first negative to positive convex gesture by the prep beat. 
+    /// </summary>
     public void SpawnPlaneIfNotSpawned()
     {
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
@@ -345,7 +348,6 @@ public class OVRVelocityTracker : MonoBehaviour
             performanceIndicator.SetUserBPM(timeSincePrevCollision);
             // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
-
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
         } 

@@ -84,6 +84,7 @@ public class PlaybackSystem : MonoBehaviour
                 ButtonState b = button.GetComponent<ButtonState>();
                 b.ToggleButtonState(false);
                 teleported = false;
+                velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
             }
             else
             {

@@ -26,6 +26,7 @@ public class PlaybackSystem : MonoBehaviour
     public OVRVelocityTracker velocityTracker;
     public TempoController tempoController;
     public GameObject gestureRelated;
+    public CameraTransitions transitions;
 
 
     private void Start()
@@ -103,26 +104,32 @@ public class PlaybackSystem : MonoBehaviour
             }
             else
             {
-                // teleports user to musicians POV
-                if (!teleported)
-                {
-                    view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 25);
-                    view.transform.Rotate(0, 180, 0);
-                    teleported = true;
-                    playbackBaton.SetActive(true);
-                    batonObject.SetActive(false);
-                    gestureRelated.SetActive(true);
-                }
-                //Debug.Log("playing");
-                playbackBaton.transform.position = recording[playbackIndex].position;
-                playbackBaton.transform.rotation = recording[playbackIndex].rotation;
-
-                //Debug.Log(samples[playbackIndex]);
-                playbackIndex = (playbackIndex % recording.Count) + 1;
-
-                velocityTracker.SpawnPlaneIfNotSpawned();
-                velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
+                StartCoroutine(Teleport());
             }
         }
+    }
+
+    public IEnumerator Teleport()
+    {
+        if (!teleported)
+        {
+            transitions.FadeIn();
+            view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 25);
+            view.transform.Rotate(0, 180, 0);
+            teleported = true;
+            playbackBaton.SetActive(true);
+            batonObject.SetActive(false);
+            gestureRelated.SetActive(true);
+            yield return new WaitForSeconds(2f);
+        }
+        //Debug.Log("playing");
+        playbackBaton.transform.position = recording[playbackIndex].position;
+        playbackBaton.transform.rotation = recording[playbackIndex].rotation;
+
+        //Debug.Log(samples[playbackIndex]);
+        playbackIndex = (playbackIndex % recording.Count) + 1;
+
+        velocityTracker.SpawnPlaneIfNotSpawned();
+        velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
     }
 }

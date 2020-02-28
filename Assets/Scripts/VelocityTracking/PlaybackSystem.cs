@@ -28,7 +28,6 @@ public class PlaybackSystem : MonoBehaviour
     public GameObject gestureRelated;
     public CameraTransitions transitions;
 
-
     private void Start()
     {
         recording = new List<ConductorSample>();
@@ -52,21 +51,28 @@ public class PlaybackSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates a conducting sample based on baton's position and rotation and add to recording.
+    /// </summary>
     public void GrabSample()
     {
         Vector3 pos = new Vector3(batonObject.transform.position.x, batonObject.transform.position.y+1, batonObject.transform.position.z+3);
         ConductorSample sample = new ConductorSample(pos, batonObject.transform.rotation);
         // these are some linear transformations to the vector to make it easier to see
         recording.Add(sample);
-        //Debug.Log(batonObject.transform.position);
-        //Debug.Log("Samples: " + samples.Count);
     }
 
+    /// <summary>
+    /// Clear all samples from recording.
+    /// </summary>
     public void ClearSamples()
     {
         recording.Clear();
     }
 
+    /// <summary>
+    /// Trigger for playback button. 
+    /// </summary>
     public void StartPlayback()
     {
         if (recording.Count > 0)
@@ -74,6 +80,7 @@ public class PlaybackSystem : MonoBehaviour
             isPlaying = !isPlaying;
             velocityTracker.setBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
         }
+        // if there are have not been any conducting gestures done by user.
         else
         {
             Debug.Log("No recording to playback!");
@@ -98,13 +105,11 @@ public class PlaybackSystem : MonoBehaviour
                     StartCoroutine(TransitionToAudienceView());
                 } else if (teleported && !transitions.transitioning)
                 {
-                    //Debug.Log("playing");
+                    // playback occurs here
                     playbackBaton.transform.position = recording[playbackIndex].position;
                     playbackBaton.transform.rotation = recording[playbackIndex].rotation;
-
-                    //Debug.Log(samples[playbackIndex]);
                     playbackIndex = (playbackIndex % recording.Count) + 1;
-
+                    // activates velocityTracker functionality
                     velocityTracker.SpawnPlaneIfNotSpawned();
                     velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
                 }
@@ -112,41 +117,55 @@ public class PlaybackSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activates fade animation and changes user position and sets playback baton active.
+    /// </summary>
     private IEnumerator TransitionToAudienceView()
     {
         transitions.transitioning = true;
-        transitions.FadeIn();
+        transitions.FadeIn("Starting Playback");
         yield return new WaitForSeconds(2.5f);
+
         view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 20);
         view.transform.Rotate(0, 180, 0);
+
         playbackBaton.SetActive(true);
         batonObject.SetActive(false);
         gestureRelated.SetActive(true);
+
         yield return new WaitForSeconds(1f);
         teleported = true;
         transitions.FadeOut();
+
         yield return new WaitForSeconds(2.5f);
         transitions.transitioning = false;
     }
 
+    /// <summary>
+    /// changes user position back to conducting position and resets all fields back to default.
+    /// </summary>
     private IEnumerator TransitionToConductorView()
     {
         playbackIndex = 0;
         isPlaying = false;
-        transitions.FadeIn();
-        playbackBaton.SetActive(isPlaying);
-        batonObject.SetActive(true);
-        gestureRelated.SetActive(false);
         tempoController.StopPiece();
+        gestureRelated.SetActive(false);
+        playbackBaton.SetActive(false);
+        transitions.FadeIn("Ending Playback");
+
         yield return new WaitForSeconds(2.5f);
+        batonObject.SetActive(true);
         view.transform.position = conductingpos;
         view.transform.Rotate(0, 180, 0);
         // turns the button's state off
+
         yield return new WaitForSeconds(1f);
         ButtonState b = button.GetComponent<ButtonState>();
         b.ToggleButtonState(false);
         teleported = false;
         transitions.FadeOut();
         velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
+
+        yield return new WaitForSeconds(2.5f);
     }
 }

@@ -34,6 +34,7 @@ public class PlaybackSystem : MonoBehaviour
         recording = new List<ConductorSample>();
         isPlaying = false;
         teleported = false;
+        transitions.transitioning = false;
         playbackIndex = 0;
         conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
         button.GetComponent<ButtonState>();
@@ -88,48 +89,64 @@ public class PlaybackSystem : MonoBehaviour
             // reached the end of the playback stored within the samples array
             if (playbackIndex >= recording.Count)
             {
-                playbackIndex = 0;
-                isPlaying = false;
-                playbackBaton.SetActive(isPlaying);
-                batonObject.SetActive(true);
-                gestureRelated.SetActive(false);
-                view.transform.position = conductingpos;
-                view.transform.Rotate(0, 180, 0);
-                // turns the button's state off
-                ButtonState b = button.GetComponent<ButtonState>();
-                b.ToggleButtonState(false);
-                teleported = false;
-                velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
-                tempoController.StopPiece();
+                StartCoroutine(TransitionToConductorView());
             }
             else
             {
-                StartCoroutine(Teleport());
+                if (!teleported && !transitions.transitioning)
+                {
+                    StartCoroutine(TransitionToAudienceView());
+                } else if (teleported && !transitions.transitioning)
+                {
+                    //Debug.Log("playing");
+                    playbackBaton.transform.position = recording[playbackIndex].position;
+                    playbackBaton.transform.rotation = recording[playbackIndex].rotation;
+
+                    //Debug.Log(samples[playbackIndex]);
+                    playbackIndex = (playbackIndex % recording.Count) + 1;
+
+                    velocityTracker.SpawnPlaneIfNotSpawned();
+                    velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
+                }
             }
         }
     }
 
-    public IEnumerator Teleport()
+    private IEnumerator TransitionToAudienceView()
     {
-        if (!teleported)
-        {
-            transitions.FadeIn();
-            view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 25);
-            view.transform.Rotate(0, 180, 0);
-            teleported = true;
-            playbackBaton.SetActive(true);
-            batonObject.SetActive(false);
-            gestureRelated.SetActive(true);
-            yield return new WaitForSeconds(2f);
-        }
-        //Debug.Log("playing");
-        playbackBaton.transform.position = recording[playbackIndex].position;
-        playbackBaton.transform.rotation = recording[playbackIndex].rotation;
+        transitions.transitioning = true;
+        transitions.FadeIn();
+        yield return new WaitForSeconds(2.5f);
+        view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 20);
+        view.transform.Rotate(0, 180, 0);
+        playbackBaton.SetActive(true);
+        batonObject.SetActive(false);
+        gestureRelated.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        teleported = true;
+        transitions.FadeOut();
+        yield return new WaitForSeconds(2.5f);
+        transitions.transitioning = false;
+    }
 
-        //Debug.Log(samples[playbackIndex]);
-        playbackIndex = (playbackIndex % recording.Count) + 1;
-
-        velocityTracker.SpawnPlaneIfNotSpawned();
-        velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
+    private IEnumerator TransitionToConductorView()
+    {
+        playbackIndex = 0;
+        isPlaying = false;
+        transitions.FadeIn();
+        playbackBaton.SetActive(isPlaying);
+        batonObject.SetActive(true);
+        gestureRelated.SetActive(false);
+        tempoController.StopPiece();
+        yield return new WaitForSeconds(2.5f);
+        view.transform.position = conductingpos;
+        view.transform.Rotate(0, 180, 0);
+        // turns the button's state off
+        yield return new WaitForSeconds(1f);
+        ButtonState b = button.GetComponent<ButtonState>();
+        b.ToggleButtonState(false);
+        teleported = false;
+        transitions.FadeOut();
+        velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
     }
 }

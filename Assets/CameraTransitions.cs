@@ -5,6 +5,8 @@ public class CameraTransitions : MonoBehaviour
 {
 
     public Animator animator;
+    public bool transitioning;
+
     // Update is called once per frame
     void Update()
     {
@@ -15,10 +17,9 @@ public class CameraTransitions : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeOut()
+    public void FadeOut()
     {
         animator.SetBool("FadeIn", false);
-        yield return new WaitForSeconds(2f);
     }
 
     public void FadeIn()

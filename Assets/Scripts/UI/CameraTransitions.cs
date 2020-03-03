@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CameraTransitions : MonoBehaviour
 {
-
     public Animator animator;
     public GameObject text;
     public bool transitioning;
@@ -14,16 +13,6 @@ public class CameraTransitions : MonoBehaviour
     {
         txt = text.GetComponent<Text>();
         txt.text = "";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //StartCoroutine(FadeIn());
-            
-        }
     }
 
     public void FadeOut()

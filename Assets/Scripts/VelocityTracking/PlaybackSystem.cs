@@ -126,10 +126,8 @@ public class PlaybackSystem : MonoBehaviour
         transitions.FadeIn("Starting Playback");
         yield return new WaitForSeconds(2.5f);
 
-        view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 20);
-        view.transform.Rotate(0, 180, 0);
+        setToAudiencePosition();
 
-        playbackBaton.SetActive(true);
         batonObject.SetActive(false);
         gestureRelated.SetActive(true);
 
@@ -138,6 +136,7 @@ public class PlaybackSystem : MonoBehaviour
         transitions.FadeOut();
 
         yield return new WaitForSeconds(2.5f);
+        playbackBaton.SetActive(true);
         transitions.transitioning = false;
     }
 
@@ -155,8 +154,7 @@ public class PlaybackSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
         batonObject.SetActive(true);
-        view.transform.position = conductingpos;
-        view.transform.Rotate(0, 180, 0);
+        setToConductorPosition();
         // turns the button's state off
 
         yield return new WaitForSeconds(1f);
@@ -167,5 +165,17 @@ public class PlaybackSystem : MonoBehaviour
         velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
 
         yield return new WaitForSeconds(2.5f);
+    }
+
+    private void setToAudiencePosition()
+    {
+        view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 20);
+        view.transform.Rotate(0, 180, 0);
+    }
+
+    private void setToConductorPosition()
+    {
+        view.transform.position = conductingpos;
+        view.transform.Rotate(0, 180, 0);
     }
 }

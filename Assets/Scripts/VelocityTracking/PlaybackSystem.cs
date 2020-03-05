@@ -21,7 +21,7 @@ public class PlaybackSystem : MonoBehaviour
     public GameObject playbackBaton;
     public GameObject button;
 
-    private void Start()
+    private void Awake()
     {
         samples = new List<ConductorSample>();
         isPlaying = false;

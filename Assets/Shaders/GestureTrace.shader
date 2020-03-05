@@ -54,7 +54,7 @@
 			float distance = dot(IN.worldPos, _TracingPlane.xyz);
 			distance = distance + _TracingPlane.w;
 			//discard surface above plane
-			clip(-distance);
+			clip(distance);
 
 			float facing = IN.facing * 0.5 + 0.5;
 

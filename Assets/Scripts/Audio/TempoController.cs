@@ -19,7 +19,8 @@ public class TempoController : MonoBehaviour
     private float timeSincePieceStart = -1f;
     private float eventStartTime;
     private float localBPM = 100f;
-    
+    private string startAudioCommand = "PieceBegins";
+
     [SerializeField] private PerformanceIndicator performanceIndicator;
     private AudioMaster am;
 
@@ -91,7 +92,7 @@ public class TempoController : MonoBehaviour
         PlayPiece(localBPM);
         yield return new WaitForSeconds(OrchestraDelay.Instance.GetCurrentOrchDelay() * 0.001f);
         Debug.Log("Piece Now Play");
-        am.PlayEvent("PieceBegins");
+        am.PlayEvent(startAudioCommand);
         am.UpdateAudioPlaybackSpeed(localBPM);
         yield return null; 
     }
@@ -110,7 +111,7 @@ public class TempoController : MonoBehaviour
     /// </summary>
     public void StopPiece()
     {
-        am.StopEvent("PieceBegins",0);
+        am.StopEvent(startAudioCommand, 0);
         timeSincePieceStart = -1f;
         if (PieceStop != null && PieceInterrupt != null) PieceInterrupt(1);
         isPlaying = false;

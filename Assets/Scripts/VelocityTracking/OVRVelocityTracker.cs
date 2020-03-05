@@ -158,6 +158,16 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
+    public void setBatonObject(GameObject newBaton) 
+    {
+        this.batonObject = newBaton;
+    }
+
+    public GameObject GetBatonObject()
+    {
+        return batonObject;
+    }
+
     /// <summary>
     /// Destroy the spheres used to represent the current gesture
     /// </summary>
@@ -169,14 +179,15 @@ public class OVRVelocityTracker : MonoBehaviour
         }
     }
 
-    public void SpawnPlaneIfNotSpawned(OVRInput.Controller device)
+    /// <summary>
+    /// Spawn the horizontal plane based on the first negative to positive convex gesture by the prep beat. 
+    /// </summary>
+    public void SpawnPlaneIfNotSpawned()
     {
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f;
-        Vector3 controllerVelocity = OVRInput.GetLocalControllerVelocity(device);
         Vector3 controllerPosition = batonObject.transform.position;
+        Vector3 controllerVelocity = (controllerPosition - previousBatonPosition) / Time.deltaTime;
         float thresholdCheck = Math.Abs(previousYVelocity - controllerVelocity.y);
-
-        float controllerAcceleration = OVRInput.GetLocalControllerAcceleration(device).magnitude;
 
         // =========================
         // -- Checks for the precise instance where the current controller y velocity is positive
@@ -193,9 +204,9 @@ public class OVRVelocityTracker : MonoBehaviour
             // -- the velocity of the current controller is positive, it doesn't mean that it's at a higher position
             // -- then the previous velocity. So we pick the smallest one. 
             // ========================
-            if (previousBatonPosition.y > conductorBaton.position.y)
+            if (previousBatonPosition.y > batonObject.transform.position.y)
             {
-                horizontalPlane.SpawnPlane(conductorBaton.position);
+                horizontalPlane.SpawnPlane(batonObject.transform.position);
                 BP1 = controllerPosition;
             }
             else
@@ -207,7 +218,7 @@ public class OVRVelocityTracker : MonoBehaviour
         }
 
         previousYVelocity = controllerVelocity.y;
-        previousBatonPosition = conductorBaton.position;
+        previousBatonPosition = batonObject.transform.position;
         previousControllerPosition = controllerPosition;
     }
 
@@ -322,8 +333,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// Calculates time elapsed since the last recorded collision with the base plane
     /// Trigger on device must be pressed down for this function to be called (at every frame) from OVRGestureHandle.cs
     /// </summary>
-    /// <param name="device"> Device corresponding to the baton </param> 
-    public void SetTimeSincePrevCollisionWithBasePlane(OVRInput.Controller device)
+    public void SetTimeSincePrevCollisionWithBasePlane()
     {
         Vector3 controllerPosition = batonObject.transform.position;
         float currOverallTime = Mathf.Round(Time.time * 1000.0f) / 1000.0f; 
@@ -331,14 +341,13 @@ public class OVRVelocityTracker : MonoBehaviour
         if (!isBeneathPlane && controllerPosition.y <= BP1.y && BP1 != Vector3.zero) 
         {
             // provide haptic feedback
-            horizontalPlane.PlaneFeedback(conductorBaton.position,false);
+            horizontalPlane.PlaneFeedback(batonObject.transform.position,false);
             // calculate time since last recorded collision  
             timeSincePrevCollision = currOverallTime - prevCollisionTime;
             prevCollisionTime = currOverallTime;
             performanceIndicator.SetUserBPM(timeSincePrevCollision);
             // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
-
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
         } 

@@ -12,20 +12,31 @@ public class PlaybackSystem : MonoBehaviour
 
     #endregion
 
-    private List<ConductorSample> samples;
+    private List<ConductorSample> recording;
     private bool isPlaying;
     private int playbackIndex;
+    private bool teleported;
+    private Vector3 conductingpos;
 
     [SerializeField]
     public GameObject batonObject;
     public GameObject playbackBaton;
     public GameObject button;
+    public GameObject view;
+    public OVRVelocityTracker velocityTracker;
+    public TempoController tempoController;
+    public GameObject gestureRelated;
+    public CameraTransitions transitions;
 
-    private void Awake()
+    private void Start()
     {
-        samples = new List<ConductorSample>();
+        recording = new List<ConductorSample>();
         isPlaying = false;
+        teleported = false;
+        transitions.transitioning = false;
         playbackIndex = 0;
+        conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
+        button.GetComponent<ButtonState>();
     }
 
     private struct ConductorSample
@@ -40,52 +51,131 @@ public class PlaybackSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Creates a conducting sample based on baton's position and rotation and add to recording.
+    /// </summary>
     public void GrabSample()
     {
-        Vector3 pos = batonObject.transform.position;
-        pos.z += 3;
-        pos.y += 1;
+        Vector3 pos = new Vector3(batonObject.transform.position.x, batonObject.transform.position.y+1, batonObject.transform.position.z+3);
         ConductorSample sample = new ConductorSample(pos, batonObject.transform.rotation);
         // these are some linear transformations to the vector to make it easier to see
-        samples.Add(sample);
-        Debug.Log(batonObject.transform.position);
-        Debug.Log("Samples: " + samples.Count);
+        recording.Add(sample);
     }
 
+    /// <summary>
+    /// Clear all samples from recording.
+    /// </summary>
     public void ClearSamples()
     {
-        samples.Clear();
+        recording.Clear();
     }
 
+    /// <summary>
+    /// Trigger for playback button. 
+    /// </summary>
     public void StartPlayback()
     {
-        isPlaying = !isPlaying;
-        Debug.Log(isPlaying);
+        if (recording.Count > 0)
+        {
+            isPlaying = !isPlaying;
+            velocityTracker.setBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
+        }
+        // if there are have not been any conducting gestures done by user.
+        else
+        {
+            Debug.Log("No recording to playback!");
+            ButtonState b = button.GetComponent<ButtonState>();
+            b.ToggleButtonState(false);
+        }
     }
 
     private void FixedUpdate()
     {
-        //Debug.Log("poll");
         if(isPlaying)
         {
-            if (playbackIndex >= samples.Count)
+            // reached the end of the playback stored within the samples array
+            if (playbackIndex >= recording.Count)
             {
-                playbackIndex = 0;
-                isPlaying = false;
-                playbackBaton.SetActive(isPlaying);
-                // turns the button's state off
-                ButtonState b = button.GetComponent<ButtonState>();
-                b.ToggleButtonState(false);
+                StartCoroutine(TransitionToConductorView());
             }
             else
             {
-                playbackBaton.SetActive(isPlaying);
-                Debug.Log("playing");
-                playbackBaton.transform.position = samples[playbackIndex].position;
-                playbackBaton.transform.rotation = samples[playbackIndex].rotation;
-                Debug.Log(samples[playbackIndex]);
-                playbackIndex = (playbackIndex % samples.Count) + 1;
+                if (!teleported && !transitions.transitioning)
+                {
+                    StartCoroutine(TransitionToAudienceView());
+                } else if (teleported && !transitions.transitioning)
+                {
+                    // playback occurs here
+                    playbackBaton.transform.position = recording[playbackIndex].position;
+                    playbackBaton.transform.rotation = recording[playbackIndex].rotation;
+                    playbackIndex = (playbackIndex % recording.Count) + 1;
+                    // activates velocityTracker functionality
+                    velocityTracker.SpawnPlaneIfNotSpawned();
+                    velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
+                }
             }
         }
+    }
+
+    /// <summary>
+    /// Activates fade animation and changes user position and sets playback baton active.
+    /// </summary>
+    private IEnumerator TransitionToAudienceView()
+    {
+        transitions.transitioning = true;
+        transitions.FadeIn("Starting Playback");
+        yield return new WaitForSeconds(2.5f);
+
+        setToAudiencePosition();
+
+        batonObject.SetActive(false);
+        gestureRelated.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        teleported = true;
+        transitions.FadeOut();
+
+        yield return new WaitForSeconds(2.5f);
+        playbackBaton.SetActive(true);
+        transitions.transitioning = false;
+    }
+
+    /// <summary>
+    /// changes user position back to conducting position and resets all fields back to default.
+    /// </summary>
+    private IEnumerator TransitionToConductorView()
+    {
+        playbackIndex = 0;
+        isPlaying = false;
+        tempoController.StopPiece();
+        gestureRelated.SetActive(false);
+        playbackBaton.SetActive(false);
+        transitions.FadeIn("Ending Playback");
+
+        yield return new WaitForSeconds(2.5f);
+        batonObject.SetActive(true);
+        setToConductorPosition();
+        // turns the button's state off
+
+        yield return new WaitForSeconds(1f);
+        ButtonState b = button.GetComponent<ButtonState>();
+        b.ToggleButtonState(false);
+        teleported = false;
+        transitions.FadeOut();
+        velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
+
+        yield return new WaitForSeconds(2.5f);
+    }
+
+    private void setToAudiencePosition()
+    {
+        view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 20);
+        view.transform.Rotate(0, 180, 0);
+    }
+
+    private void setToConductorPosition()
+    {
+        view.transform.position = conductingpos;
+        view.transform.Rotate(0, 180, 0);
     }
 }

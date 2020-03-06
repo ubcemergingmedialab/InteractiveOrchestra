@@ -7,7 +7,6 @@ public class HorizontalPlane : MonoBehaviour {
 
     #region Variables
     [SerializeField] private ParticleSystem rippleTemplate;
-    [SerializeField] private GameObject batonObject;
     public Vector3 batonTipPosition;
     private ParticleSystem rippleInPlay;
     private bool visible = false;
@@ -16,6 +15,7 @@ public class HorizontalPlane : MonoBehaviour {
     private Renderer planeRenderer;
     [SerializeField] private TempoController tempoController;
     public static List<Vector3> planePositions;
+    public OVRVelocityTracker velocityTracker;
     #endregion
 
     #region UnityFunctions
@@ -26,7 +26,6 @@ public class HorizontalPlane : MonoBehaviour {
     {
         planeRenderer = GetComponent<Renderer>();
         planeRenderer.enabled = visible && planeIsEnabled;
-        batonObject = GameObject.Find("Baton_Tip");
     }
 
     #endregion
@@ -49,7 +48,7 @@ public class HorizontalPlane : MonoBehaviour {
     /// <param name="controllerPosition">x,y,z position of conducting baton controller</param>
     public void SpawnPlane(Vector3 controllerPosition)
     {
-        gameObject.transform.position = batonObject.transform.position;
+        gameObject.transform.position = velocityTracker.GetBatonObject().transform.position;
         ToggleView();
         tempoController.IsPrepComplete = true;
         PlaneFeedback(controllerPosition,true);
@@ -63,7 +62,7 @@ public class HorizontalPlane : MonoBehaviour {
     /// <param name="isInitialRipple"> Determines whether we're creating ripple or moving it </param>
     public void PlaneFeedback(Vector3 positionOfController, bool isInitialRipple)
     {
-        ActivateRipple(batonObject.transform.position, isInitialRipple);
+        ActivateRipple(velocityTracker.GetBatonObject().transform.position, isInitialRipple);
         StartCoroutine(Haptics(0.5f, 0.5f, 0.1f));
     }
 

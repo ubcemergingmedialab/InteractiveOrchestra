@@ -145,7 +145,7 @@ public class BPMPredictor : MonoBehaviour {
             }
             else
             {
-                CalculateBPM(tp);
+                //CalculateBPM(tp);
             }
         }
     }

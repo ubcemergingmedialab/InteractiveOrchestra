@@ -43,6 +43,8 @@ public class OVRVelocityTracker : MonoBehaviour
 
     public delegate void VelocityTracker();
     public static event VelocityTracker MusicStart;
+    public GameObject beatTrace;
+    public GameObject prepTrace;
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;
@@ -350,6 +352,7 @@ public class OVRVelocityTracker : MonoBehaviour
             tempoController.playPiece();
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
+            
         } 
         // if the controller has gone over the plane
         else if (isBeneathPlane && controllerPosition.y > BP1.y)

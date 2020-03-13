@@ -14,14 +14,53 @@ public class GestureTrace : MonoBehaviour
         traceableIndex = 0;
     }
 
+    private void Update()
+    {
+        transform.localScale = transform.localScale;
+    }
+
+    private void OnDisable()
+    {
+        transform.localScale = transform.localScale;
+    }
+
+    private void OnEnable()
+    {
+        transform.localScale = transform.localScale;
+    }
+
     public GameObject GetBatonTip()
     {
         return batonTip;
     }
 
-    public Tracing GetNextTraceable()
+    public Tracing GetNextTraceable(int index)
     {
-        traceableIndex = (traceableIndex + 1) % traceables.Length;
-        return traceables[traceableIndex];
+        int r = index + 1;
+        if(r < 0)
+        {
+            return null;
+        } else if(r >= traceables.Length)
+        {
+            return traceables[0];
+        } else
+        {
+            return traceables[r];
+        }
+    }
+    
+    public Tracing GetPreviousTraceable(int index)
+    {
+        int r = index - 1;
+        if(r >= traceables.Length)
+        {
+            return null;
+        } else if(r < 0)
+        {
+            return null;
+        } else
+        {
+            return traceables[r];
+        }
     }
 }

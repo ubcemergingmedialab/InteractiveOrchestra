@@ -8,8 +8,6 @@ public class HorizontalPlane : MonoBehaviour {
     #region Variables
     [SerializeField] private ParticleSystem rippleTemplate;
     public Vector3 batonTipPosition;
-    public GameObject prepTrace;
-    public GameObject beatTrace;
     private ParticleSystem rippleInPlay;
     private bool visible = false;
     private bool flag = false;
@@ -42,11 +40,6 @@ public class HorizontalPlane : MonoBehaviour {
         Debug.Log(planeIsEnabled);
         Debug.Log(!visible);
         planeRenderer.enabled = !visible && planeIsEnabled;
-        if(prepTrace != null && beatTrace != null)
-        {
-            prepTrace.SetActive(false);
-            beatTrace.SetActive(true);
-        }
     }
 
     /// <summary>

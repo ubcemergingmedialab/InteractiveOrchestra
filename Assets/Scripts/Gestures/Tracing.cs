@@ -6,10 +6,10 @@ using UnityEngine;
 public class Tracing : MonoBehaviour
 {
     public bool isFirst = false;
-    public int traceableIndex;
-    public bool canTrace = false;
     public bool isTracing = false;
+    public bool canTrace = false;
     public bool tracedThrough = false;
+    public int traceableIndex;
     Material TracingMaterial;
     Vector3 planePoint;
     Vector3 defaultPoint;
@@ -34,10 +34,6 @@ public class Tracing : MonoBehaviour
         Plane clipPlane = new Plane(transform.up, planePoint);
         Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
         TracingMaterial.SetVector("_TracingPlane", plane);
-        if (isFirst)
-        {
-            canTrace = true;
-        }
     }
 
     // Update is called once per frame
@@ -61,29 +57,35 @@ public class Tracing : MonoBehaviour
     {
         if (other.gameObject.name == "Baton_Tip")
         {
-            if(ReadyToTrace())
-            {
-                isTracing = true;
-            }
             if (isFirst)
             {
-                foreach(Tracing trace in gestureTrace.GetComponentsInChildren<Tracing>())
+                foreach (Tracing trace in gestureTrace.GetComponentsInChildren<Tracing>())
                 {
                     trace.ResetTrace();
                 }
+                StartTracing();
+            }
+            if(!tracedThrough && ReadyToTrace(gestureTrace.traceDifficulty))
+            {
                 Tracing nextTrace = gestureTrace.GetNextTraceable(traceableIndex);
                 if (nextTrace != null)
                 {
-                    nextTrace.StartTracing();
+                    if(nextTrace.isFirst)
+                    {
+                        Debug.Log("resetting first trace");
+                        nextTrace.ResetTrace();
+                    } else
+                    {
+                        nextTrace.StartTracing();
+                    }
                 }
-            } else
-            {
-                Tracing lastTrace = gestureTrace.GetPreviousTraceable(traceableIndex);
-                if(lastTrace != null)
+                Tracing prevTrace = gestureTrace.GetPreviousTraceable(traceableIndex);
+                if(prevTrace != null)
                 {
-                    lastTrace.FinishTracing();
+                    prevTrace.FinishTracing();
                 }
             }
+            isTracing = true;
         }
     }
 
@@ -91,22 +93,18 @@ public class Tracing : MonoBehaviour
     {
         if (other.gameObject.name == "Baton_Tip" && canTrace == true)
         {
-            if (ReadyToTrace())
-            {
-                FinishTracing();
-            }
+            FinishTracing();
             Debug.Log("Baton Collider Exit");
         }
     }
 
     public void ResetTrace()
     {
-        Debug.Log("resetting " + gameObject.name);
+        //Debug.Log("resetting " + gameObject.name);
         Plane clipPlane = new Plane(transform.up, defaultPoint);
         Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
         TracingMaterial.SetVector("_TracingPlane", plane);
         tracedThrough = false;
-        canTrace = false;
     }
 
     public void FinishTracing()
@@ -118,21 +116,43 @@ public class Tracing : MonoBehaviour
         Plane clipPlane = new Plane(transform.up, afterPoint);
         Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
         TracingMaterial.SetVector("_TracingPlane", plane);
+        Tracing nextTrace = gestureTrace.GetNextTraceable(traceableIndex);
+        if(nextTrace != null)
+        {
+            if(!nextTrace.isFirst)
+            {
+                Tracing prevTrace = gestureTrace.GetPreviousTraceable(traceableIndex);
+                if (prevTrace != null)
+                {
+                    if (!prevTrace.isFirst)
+                    {
+                        prevTrace.FinishTracing();
+                    }
+                }
+            }
+        }
     }
 
-    private bool ReadyToTrace()
+    public bool ReadyToTrace(int difficulty)
     {
         Tracing prev = gestureTrace.GetPreviousTraceable(traceableIndex);
         if(prev == null)
         {
             return true;
-        } else if(prev.isTracing && prev.canTrace)
+        } else if(prev.canTrace || prev.tracedThrough)
         {
-            Debug.Log(gameObject.name + " asking for " + prev.name);
+           // Debug.Log(gameObject.name + " asking for " + prev.name);
             return true;
         } else
         {
-            return false;
+            if(difficulty <= 0)
+            {
+               // Debug.Log("not ready to trace yet " + name + " " + prev.name);
+                return false;
+            } else
+            {
+                return prev.ReadyToTrace(difficulty - 1);
+            }
         }
     }
 }

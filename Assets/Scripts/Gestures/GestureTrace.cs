@@ -7,6 +7,7 @@ public class GestureTrace : MonoBehaviour
     public GameObject batonTip;
 
     public Tracing[] traceables;
+    public int traceDifficulty;
     private int traceableIndex;
 
     private void Start()

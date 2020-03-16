@@ -478,7 +478,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0bf11394f61bb044ba2e0e61f1f7c951, type: 2}
+  - {fileID: 2100000, guid: b3b0599f8f5942f45bf2c656fc4245a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -550,8 +550,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   startingState: 0
-  activatedState: {fileID: 2100000, guid: b3b0599f8f5942f45bf2c656fc4245a8, type: 2}
-  deactivatedState: {fileID: 2100000, guid: 0bf11394f61bb044ba2e0e61f1f7c951, type: 2}
+  activatedState: {fileID: 2100000, guid: 54f542da0df55704388f3de298104b3c, type: 2}
+  deactivatedState: {fileID: 2100000, guid: 54f542da0df55704388f3de298104b3c, type: 2}
 --- !u!114 &851905717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19371,6 +19371,16 @@ PrefabInstance:
     - target: {fileID: 4468892379249174, guid: 630fcf6ca112658469938d0a1f4e90a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 291575467318070025, guid: 630fcf6ca112658469938d0a1f4e90a5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -535
+      objectReference: {fileID: 0}
+    - target: {fileID: 291575467318070025, guid: 630fcf6ca112658469938d0a1f4e90a5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 630fcf6ca112658469938d0a1f4e90a5, type: 3}

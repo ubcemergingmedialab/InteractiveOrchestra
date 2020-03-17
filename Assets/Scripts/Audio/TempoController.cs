@@ -113,7 +113,7 @@ public class TempoController : MonoBehaviour
     {
         am.StopEvent(startAudioCommand, 0);
         timeSincePieceStart = -1f;
-        if (PieceStop != null) PieceInterrupt(1);
+        if (PieceStop != null && PieceInterrupt != null) PieceInterrupt(1);
         isPlaying = false;
     }
 

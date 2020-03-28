@@ -151,7 +151,7 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             currentTrial = 1;
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
+            // trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
             finalSamples.Clear();
             DestroySpheres();
             dataTypeHasBeenChanged = false;

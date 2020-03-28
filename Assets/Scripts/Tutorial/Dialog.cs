@@ -12,7 +12,7 @@ public class Dialog : MonoBehaviour
     public GameObject controllers;
     public ControllerAnimations animations;
 
-    private int index;
+    private int index = 0;
     private bool finishedSentence = false;
 
     void Start()
@@ -31,17 +31,14 @@ public class Dialog : MonoBehaviour
 
     void Update()
     {
-        NextSentence(sentences[index+1]);
+        NextSentence(sentences[index]);
     }
 
     IEnumerator Type()
     {
-        foreach (char letter in sentences[index].sentence.ToCharArray())
-        {
-            textDisplay.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
-        }
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.6f);
+        textDisplay.text = sentences[index].sentence;       
+        yield return new WaitForSeconds(3);
         finishedSentence = true;
         Debug.Log(finishedSentence);
     }
@@ -52,26 +49,27 @@ public class Dialog : MonoBehaviour
         {
             NextSentenceHelper();
         }
-        else if (finishedSentence && sequence.trigger == "controller1")
+        else if (sequence.trigger == "controller1")
         {
-            ActivateControllers();
-            NextSentenceHelper();
+            ActivateControllers(true);
+            if (finishedSentence) {
+                NextSentenceHelper();
+            }
         }
-        else if (finishedSentence && sequence.trigger == "controller2")
+        else if (sequence.trigger == "controller2")
         {
             animations.ShowGripButton();
-            NextSentenceHelper();
+            if (finishedSentence) {
+                ActivateControllers(false);
+                NextSentenceHelper();
+            }
+            
         }
     }
 
-    public void ShowGripControls()
+    public void ActivateControllers(bool b)
     {
-
-    }
-
-    public void ActivateControllers()
-    {
-        controllers.SetActive(true);
+        controllers.SetActive(b);
     }
 
     public void NextSentenceHelper()

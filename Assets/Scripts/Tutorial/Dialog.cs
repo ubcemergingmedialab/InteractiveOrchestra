@@ -14,6 +14,8 @@ public class Dialog : MonoBehaviour
 
     private int index = 0;
     private bool finishedSentence = false;
+    public bool batonIsGrabbed = false;
+
 
     void Start()
     {
@@ -24,14 +26,19 @@ public class Dialog : MonoBehaviour
             new DialogSequence("Let's get started!", "text"),
             new DialogSequence("Here are the visual representations of the controllers.", "controller1"),
             new DialogSequence("The grip button can be found resting under your middle finger, and is used to pick up and put down the baton.", "controller2"),
-            new DialogSequence("Try moving your right controller close to the baton, and tap the grip button to pick it up!", "text"),
+            new DialogSequence("Try moving your right controller close to the baton, and tap the grip button to pick it up!", "gripAction"),
+            new DialogSequence("Well done! Now its time to learn how to conduct.", "text"),
+            new DialogSequence("Well done! Now its time to learn how to conduct", "text"),
         };
         StartCoroutine(Type());
     }
 
     void Update()
     {
-        NextSentence(sentences[index]);
+        if (index < sentences.Count) 
+        {
+            NextSentence(sentences[index]);
+        }
     }
 
     IEnumerator Type()
@@ -63,7 +70,12 @@ public class Dialog : MonoBehaviour
                 ActivateControllers(false);
                 NextSentenceHelper();
             }
-            
+        }
+        else if (sequence.trigger == "gripAction") 
+        {
+            if (batonIsGrabbed) {
+                NextSentenceHelper();
+            }
         }
     }
 
@@ -78,6 +90,10 @@ public class Dialog : MonoBehaviour
         textDisplay.text = "";
         finishedSentence = false;
         StartCoroutine(Type());
+    }
+
+    public void isGrabbed() {
+        batonIsGrabbed = true;
     }
 
     public struct DialogSequence

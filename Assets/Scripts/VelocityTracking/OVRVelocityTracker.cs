@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using System.Xml;
 using UnityEngine;
-
-
 
 /// <summary>
 /// Velocity Tracker is in charge of collecting and evaluating ConductorSamples. 
@@ -33,13 +29,10 @@ public class OVRVelocityTracker : MonoBehaviour
     public bool RestrictRecordingData { get; private set; }
     public bool planeHasBeenSpawned;
 
-
     private Vector3 previousBatonPosition;
     private Vector3 previousControllerPosition;
     private Vector3 basePlaneCollisionPoint;
     private Vector3 BP1;
-    private Vector3 previousConductorSamplePoint; 
-    private Vector3 planeSpawnPosition;
 
     public delegate void VelocityTracker();
     public static event VelocityTracker MusicStart;
@@ -68,6 +61,7 @@ public class OVRVelocityTracker : MonoBehaviour
     #endregion
 
     #region Unity Methods
+
     /// <summary>
     /// Initialize game objects and other values
     /// </summary>
@@ -87,7 +81,7 @@ public class OVRVelocityTracker : MonoBehaviour
         previousBatonPosition = Vector3.zero;
         previousControllerPosition = Vector3.zero;
         previousYVelocity = 0;
-        if(batonObject == null)
+        if (batonObject == null)
         {
             batonObject = GameObject.Find("Baton_Tip");
         }
@@ -98,12 +92,11 @@ public class OVRVelocityTracker : MonoBehaviour
         DataTypeSetter();
         if(Input.GetKeyUp("r"))
         {
-            trialDisplayBehaviour.displayRecordScreen();
+            trialDisplayBehaviour.DisplayRecordScreen();
             SetNewSamples(finalSamples);
             finalSamples.Clear();
             dataHasBeenRecorded = true;
         }
-        
     }
     #endregion
 
@@ -153,18 +146,24 @@ public class OVRVelocityTracker : MonoBehaviour
         {
             currentTrial = 1;
             inHouseMetronome.SetNewBPM((double)currentBPMToRecord);
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
+            trialDisplayBehaviour.ChangeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
             finalSamples.Clear();
             DestroySpheres();
             dataTypeHasBeenChanged = false;
         }
     }
 
-    public void setBatonObject(GameObject newBaton) 
+    /// <summary>
+    /// Sets the local baton object to a different baton instance in scene.
+    /// </summary>
+    public void SetBatonObject(GameObject newBaton) 
     {
         this.batonObject = newBaton;
     }
 
+    /// <summary>
+    /// Returns the current local baton object. 
+    /// </summary>
     public GameObject GetBatonObject()
     {
         return batonObject;
@@ -218,7 +217,6 @@ public class OVRVelocityTracker : MonoBehaviour
             }
             planeHasBeenSpawned = true;
         }
-
         previousYVelocity = controllerVelocity.y;
         previousBatonPosition = batonObject.transform.position;
         previousControllerPosition = controllerPosition;
@@ -281,7 +279,7 @@ public class OVRVelocityTracker : MonoBehaviour
                     // =========================
 
                     samples.Add(newConductorSample);
-                    trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
+                    trialDisplayBehaviour.UpdateValuesWithConductorSample(newConductorSample);
                 }
                 else
                 {
@@ -308,7 +306,7 @@ public class OVRVelocityTracker : MonoBehaviour
                         // =========================
 
                         samples.Add(newConductorSample);
-                        trialDisplayBehaviour.updateValuesWithConductorSample(newConductorSample);
+                        trialDisplayBehaviour.UpdateValuesWithConductorSample(newConductorSample);
                     }
                     else
                     {
@@ -352,7 +350,6 @@ public class OVRVelocityTracker : MonoBehaviour
             tempoController.playPiece();
             isBeneathPlane = !isBeneathPlane;
             MusicStart();
-            
         } 
         // if the controller has gone over the plane
         else if (isBeneathPlane && controllerPosition.y > BP1.y)
@@ -396,12 +393,10 @@ public class OVRVelocityTracker : MonoBehaviour
             }
             else return 0;
         }
-
         catch (ArgumentOutOfRangeException e)
         {
             return 0;
         }
-
     }
 
     /// <summary>
@@ -414,7 +409,6 @@ public class OVRVelocityTracker : MonoBehaviour
     {
         return (lastPosition - currPosition).magnitude;
     }
-
 
     /// <summary>
     /// Called when user lets go of tracker button. Takes list of samples collected thus far and 
@@ -430,7 +424,7 @@ public class OVRVelocityTracker : MonoBehaviour
         if (samples.Count > 10)
         {
             currentTrial++;
-            trialDisplayBehaviour.changeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
+            trialDisplayBehaviour.ChangeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
             finalSamples.AddRange(samples);
         }
         BPMPred.ResetBPMPredictor();
@@ -550,12 +544,9 @@ public class OVRVelocityTracker : MonoBehaviour
             this.acceleration = acceleration;
             this.distanceCoveredSoFar = distanceCoveredSoFar;
             this.trial = trial;
-
         }
-        
-
     }
-    #endregion
 
+    #endregion
 
 }

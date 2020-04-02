@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
+
+/// <summary>
+/// 
+/// </summary>
 public class Tracing : MonoBehaviour
 {
     public bool isFirst = false;
@@ -15,6 +19,7 @@ public class Tracing : MonoBehaviour
     Vector3 defaultPoint;
     Vector3 afterPoint;
     GestureTrace gestureTrace;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,11 +53,17 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void StartTracing()
     {
         canTrace = true;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Baton_Tip")
@@ -89,6 +100,9 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Baton_Tip" && canTrace == true)
@@ -98,6 +112,9 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void ResetTrace()
     {
         //Debug.Log("resetting " + gameObject.name);
@@ -107,6 +124,9 @@ public class Tracing : MonoBehaviour
         tracedThrough = false;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void FinishTracing()
     {
         planePoint = defaultPoint;
@@ -133,19 +153,22 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public bool ReadyToTrace(int difficulty)
     {
         Tracing prev = gestureTrace.GetPreviousTraceable(traceableIndex);
-        if(prev == null)
+        if (prev == null)
         {
             return true;
-        } else if(prev.canTrace || prev.tracedThrough)
+        } else if (prev.canTrace || prev.tracedThrough)
         {
            // Debug.Log(gameObject.name + " asking for " + prev.name);
             return true;
         } else
         {
-            if(difficulty <= 0)
+            if (difficulty <= 0)
             {
                // Debug.Log("not ready to trace yet " + name + " " + prev.name);
                 return false;

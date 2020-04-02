@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// This Script handles the visualization of the 4/4 conducting gesture.
+/// </summary>
 public class ParticleBehaviour : MonoBehaviour {
 
     [SerializeField]
@@ -49,6 +52,9 @@ public class ParticleBehaviour : MonoBehaviour {
         animator.speed = localBPM/100;
     }
 
+    /// <summary>
+    /// API for gesture button that toggles state of this class to emit or stop emitting particle effect.
+    /// </summary>
     public void ToggleGestureActivation()
     {
         particleSystem.enableEmission = !particleSystem.enableEmission;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This script manages ui components inside the menu prefab and updates accordingly.
+/// </summary>
 public class PerformanceIndicator : MonoBehaviour {
 
     #region Variables  
@@ -146,7 +149,6 @@ public class PerformanceIndicator : MonoBehaviour {
         float speed = inputBPM / seconds;
         Debug.Log(inputBPM);
         float animationSpeed = inputBPM / 100.0f;
-        //Debug.Log("animationSpeed" + animationSpeed);
         main.simulationSpeed = speed;
         ConductingGuideAnimation.speed = animationSpeed;
     }

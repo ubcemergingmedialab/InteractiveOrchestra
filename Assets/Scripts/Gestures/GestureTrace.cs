@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script holds the functionality of the systems practice 4/4 conducting gesturation model.
+/// </summary>
 public class GestureTrace : MonoBehaviour
 {
     public GameObject batonTip;
@@ -30,11 +33,17 @@ public class GestureTrace : MonoBehaviour
         transform.localScale = transform.localScale;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public GameObject GetBatonTip()
     {
         return batonTip;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Tracing GetNextTraceable(int index)
     {
         int r = index + 1;
@@ -49,7 +58,10 @@ public class GestureTrace : MonoBehaviour
             return traceables[r];
         }
     }
-    
+
+    /// <summary>
+    /// 
+    /// </summary>
     public Tracing GetPreviousTraceable(int index)
     {
         int r = index - 1;

@@ -150,7 +150,6 @@ public class BPMPredictor : MonoBehaviour {
         }
     }
 
-   
     /// <summary>
     /// Finally calculate the BPM given the data from the prep beat 
     /// </summary>

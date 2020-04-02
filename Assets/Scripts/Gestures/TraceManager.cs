@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class TraceManager : MonoBehaviour
 {
     public GameObject prepTrace;
@@ -34,6 +37,9 @@ public class TraceManager : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void LookAtPlayer(Transform trace)
     {
         Vector3 tracePosition = trace.transform.position;

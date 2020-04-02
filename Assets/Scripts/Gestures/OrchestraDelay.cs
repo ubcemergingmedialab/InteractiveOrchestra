@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This Script implements Singleton Design Pattern as a single instance for the Orchestral delay feature.
+/// </summary>
 public class OrchestraDelay : MonoBehaviour {
 
     private static OrchestraDelay instance;

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script holds the features of the display at the end of a conducted song.
+/// </summary>
 public class EndScreenBehaviour : MonoBehaviour
 {
     #region Variables

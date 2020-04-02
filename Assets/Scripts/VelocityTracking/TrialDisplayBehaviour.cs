@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
+/// <summary>
+/// This script handles display relevant information during conducting sample data collection.
+/// </summary>
 public class TrialDisplayBehaviour : MonoBehaviour {
 
     private Text textComponent;
@@ -17,7 +20,7 @@ public class TrialDisplayBehaviour : MonoBehaviour {
     /// <param name="trialNumber"> Current trial number </param>
     /// <param name="BPM"<> Current BPM being recorded </param>
     /// <param name="size"> Current gesture size being measure </param>
-    public void changeTrial(int trialNumber,string BPM, string size)
+    public void ChangeTrial(int trialNumber,string BPM, string size)
     {
         textComponent.text = "Trial: " + (trialNumber - 1) + " of " +"20" + "\n" + "BPM: " + BPM + " Size: " + size ;
     }
@@ -25,13 +28,17 @@ public class TrialDisplayBehaviour : MonoBehaviour {
     /// <summary>
     /// Display recording text
     /// </summary>
-    public void displayRecordScreen()
+    public void DisplayRecordScreen()
     {
         textComponent.text = "Data has been recorded!"+"\n" + "Thank you very much!";
         Debug.Log("data has been recorded");
     }
 
-    public void updateValuesWithConductorSample(OVRVelocityTracker.ConductorSample sample)
+    /// <summary>
+    /// Changes display values with new ConductorSample input.
+    /// <param name="sample"> The sample in which the display values are being used to update.</param>
+    /// </summary>
+    public void UpdateValuesWithConductorSample(OVRVelocityTracker.ConductorSample sample)
     {
         textComponent.text = "Trial:" + sample.trial + "\n" +
         "ID:" + sample.id + "\n" +
@@ -43,8 +50,6 @@ public class TrialDisplayBehaviour : MonoBehaviour {
         "Acceleration:" + sample.acceleration +"\n" +
         "DistanceCoveredSoFar:" + sample.distanceCoveredSoFar +"\n" +
         "GestureSize:" + sample.gestureSize;
-
     }
-
 
 }

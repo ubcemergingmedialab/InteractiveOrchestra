@@ -129,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011837718206, guid: fa4a34fb8bbe14649bca25aee46a5f4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.6451797
+      value: 4.64518
       objectReference: {fileID: 0}
     - target: {fileID: 4000011837718206, guid: fa4a34fb8bbe14649bca25aee46a5f4e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -222,6 +222,12 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 1124799735}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &233077365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1351076096, guid: 1467177afaf1f0e44bea886f42f0efef,
+    type: 3}
+  m_PrefabInstance: {fileID: 310577314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &310577314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -297,19 +303,19 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 441592005, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: view
-      value: 
-      objectReference: {fileID: 1016762315}
-    - target: {fileID: 1861658648, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1124799747}
     - target: {fileID: 114982759150482062, guid: 1467177afaf1f0e44bea886f42f0efef,
         type: 3}
       propertyPath: OnGrab.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1092874722}
+    - target: {fileID: 1861658648, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1124799747}
+    - target: {fileID: 441592005, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
+      propertyPath: view
+      value: 
+      objectReference: {fileID: 1016762315}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
 --- !u!95 &371868570 stripped
@@ -587,7 +593,7 @@ Animator:
   m_GameObject: {fileID: 989578646}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a360dcfa443ca124b83a0f8b263fefa8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 74239911fdd0f441bb4b23a3f0f4eb7e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -631,8 +637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89afd36d0235fdb4ebbb9339c127e136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 233077365}
   textDisplay: {fileID: 2097477385}
-  typingSpeed: 0.05
   controllers: {fileID: 685763781}
   animations: {fileID: 685763784}
   batonIsGrabbed: 0

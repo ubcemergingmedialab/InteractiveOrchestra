@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Dialog : MonoBehaviour
 {
+    public GameObject canvas;
     public Text textDisplay;
     private List<DialogSequence> sentences;
-    public float typingSpeed;
     public GameObject controllers;
     public ControllerAnimations animations;
 
@@ -29,7 +29,8 @@ public class Dialog : MonoBehaviour
             new DialogSequence("We will be conducting a song to a basic 4/4 pattern.", "text"),
             new DialogSequence("The first gesture to learn is called the preparatory beat and it is used to signal the start of the piece.", "text"),
             // upon finishing prep beat should activate next dialog
-            new DialogSequence("In order to signal the prep beat, hold down the trigger and trace the preparatory beat gesture in front of you.", "prep"), 
+            new DialogSequence("In order to signal the prep beat, hold down the trigger button on the right controller.", "trigger"), 
+            new DialogSequence("Try tracing the preparatory beat gesture in front of you.", "prep"),
             new DialogSequence("Great job! Now keeping the trigger held down, continue to trace the gestures in front of you!.", "text"),
             new DialogSequence("Notice how the faster or slower your pace of conducting is, the orchestra will react to match your speed.", "text"),
             new DialogSequence("Well done, you have just successfully finished your first song!", "text"),
@@ -48,6 +49,10 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Type()
     {
+        if (!canvas.active)
+        {
+            canvas.SetActive(true);
+        }
         yield return new WaitForSeconds(0.6f);
         textDisplay.text = sentences[index].sentence;       
         yield return new WaitForSeconds(3);
@@ -85,6 +90,17 @@ public class Dialog : MonoBehaviour
                 NextSentenceHelper();
             }
         }
+        else if (sequence.trigger == "trigger")
+        {
+            ActivateControllers(true);
+            animations.ShowTriggerButton();
+            if (finishedSentence) 
+            {
+                ActivateControllers(false);
+                NextSentenceHelper();
+            }
+        }
+        // need to figure out logic here
         else if (sequence.trigger == "prep") 
         {
             // if (finishedPrep) 
@@ -104,7 +120,13 @@ public class Dialog : MonoBehaviour
         index++;
         textDisplay.text = "";
         finishedSentence = false;
-        StartCoroutine(Type());
+        if (index > this.sentences.Count) {
+            canvas.SetActive(false);
+        }
+        else 
+        {
+            StartCoroutine(Type());
+        }
     }
 
     public void isGrabbed() {

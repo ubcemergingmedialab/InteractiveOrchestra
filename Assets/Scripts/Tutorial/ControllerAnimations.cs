@@ -10,4 +10,9 @@ public class ControllerAnimations : MonoBehaviour
     {
         animator.SetTrigger("grip");
     }
+
+    public void ShowTriggerButton() 
+    {
+        animator.SetTrigger("trigger");
+    }
 }

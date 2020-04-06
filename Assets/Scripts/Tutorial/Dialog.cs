@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Dialog : MonoBehaviour
 {
-
     public Text textDisplay;
     private List<DialogSequence> sentences;
     public float typingSpeed;
@@ -15,7 +14,6 @@ public class Dialog : MonoBehaviour
     private int index = 0;
     private bool finishedSentence = false;
     public bool batonIsGrabbed = false;
-
 
     void Start()
     {
@@ -28,7 +26,14 @@ public class Dialog : MonoBehaviour
             new DialogSequence("The grip button can be found resting under your middle finger, and is used to pick up and put down the baton.", "controller2"),
             new DialogSequence("Try moving your right controller close to the baton, and tap the grip button to pick it up!", "gripAction"),
             new DialogSequence("Well done! Now its time to learn how to conduct.", "text"),
-            new DialogSequence("Well done! Now its time to learn how to conduct", "text"),
+            new DialogSequence("We will be conducting a song to a basic 4/4 pattern.", "text"),
+            new DialogSequence("The first gesture to learn is called the preparatory beat and it is used to signal the start of the piece.", "text"),
+            // upon finishing prep beat should activate next dialog
+            new DialogSequence("In order to signal the prep beat, hold down the trigger and trace the preparatory beat gesture in front of you.", "prep"), 
+            new DialogSequence("Great job! Now keeping the trigger held down, continue to trace the gestures in front of you!.", "text"),
+            new DialogSequence("Notice how the faster or slower your pace of conducting is, the orchestra will react to match your speed.", "text"),
+            new DialogSequence("Well done, you have just successfully finished your first song!", "text"),
+            new DialogSequence("Feel free to continue to practice conducting, and explore the other features of Interactive Orchestra!", "text"),
         };
         StartCoroutine(Type());
     }
@@ -59,23 +64,33 @@ public class Dialog : MonoBehaviour
         else if (sequence.trigger == "controller1")
         {
             ActivateControllers(true);
-            if (finishedSentence) {
+            if (finishedSentence) 
+            {
                 NextSentenceHelper();
             }
         }
         else if (sequence.trigger == "controller2")
         {
             animations.ShowGripButton();
-            if (finishedSentence) {
+            if (finishedSentence) 
+            {
                 ActivateControllers(false);
                 NextSentenceHelper();
             }
         }
         else if (sequence.trigger == "gripAction") 
         {
-            if (batonIsGrabbed) {
+            if (batonIsGrabbed) 
+            {
                 NextSentenceHelper();
             }
+        }
+        else if (sequence.trigger == "prep") 
+        {
+            // if (finishedPrep) 
+            // {
+            //     NextSentenceHelper();
+            // }
         }
     }
 

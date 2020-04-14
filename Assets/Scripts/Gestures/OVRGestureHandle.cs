@@ -32,8 +32,6 @@ public class OVRGestureHandle : MonoBehaviour {
         }
         if (-1 != (int)rightHandControl.index)
         {
-            var device = OVRInput.Controller.RTouch;
-
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
             // holding the trigger on the controller
             if (triggerKeyValue > 0.8f)

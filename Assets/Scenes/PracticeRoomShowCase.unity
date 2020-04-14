@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3739035, g: 0.29282215, b: 0.22681929, a: 1}
+  m_IndirectSpecularColor: {r: 0.3738147, g: 0.29276836, b: 0.22672798, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -303,19 +303,19 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 441592005, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
+      propertyPath: view
+      value: 
+      objectReference: {fileID: 1016762315}
+    - target: {fileID: 1861658648, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1124799747}
     - target: {fileID: 114982759150482062, guid: 1467177afaf1f0e44bea886f42f0efef,
         type: 3}
       propertyPath: OnGrab.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1092874722}
-    - target: {fileID: 1861658648, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1124799747}
-    - target: {fileID: 441592005, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: view
-      value: 
-      objectReference: {fileID: 1016762315}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
 --- !u!95 &371868570 stripped
@@ -451,15 +451,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685763781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 101.81482, y: 10.201853, z: 39.789097}
+  m_LocalRotation: {x: -0.28301856, y: -0, z: -0, w: 0.95911443}
+  m_LocalPosition: {x: 101.81482, y: 15.830002, z: 42.960182}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1971098868}
   - {fileID: 90483383}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -32.881, y: 0, z: 0}
 --- !u!95 &685763783
 Animator:
   serializedVersion: 3

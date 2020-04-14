@@ -14,6 +14,8 @@ public class Dialog : MonoBehaviour
     private int index = 0;
     private bool finishedSentence = false;
     public bool batonIsGrabbed = false;
+    float triggerPressed = 0;
+
 
     void Start()
     {
@@ -25,12 +27,13 @@ public class Dialog : MonoBehaviour
             new DialogSequence("Here are the visual representations of the controllers.", "controller1"),
             new DialogSequence("The grip button can be found resting under your middle finger, and is used to pick up and put down the baton.", "controller2"),
             new DialogSequence("Try moving your right controller close to the baton, and tap the grip button to pick it up!", "gripAction"),
-            new DialogSequence("Well done! Now its time to learn how to conduct.", "text"),
-            new DialogSequence("We will be conducting a song to a basic 4/4 pattern.", "text"),
-            new DialogSequence("The first gesture to learn is called the preparatory beat and it is used to signal the start of the piece.", "text"),
+            new DialogSequence("Well done!", "text"),
+            new DialogSequence("Now let's try conducting!", "text"),
+            new DialogSequence("To conduct, hold down the trigger while waving the baton. Give it a try!", "trigger"),
+            new DialogSequence("Great job! You should always hold down the trigger in order to keep conducting.", "text"),
+            new DialogSequence("Let's try cueing the orchestra to start playing the piece.", "text"),
             // upon finishing prep beat should activate next dialog
-            new DialogSequence("In order to signal the prep beat, hold down the trigger button on the right controller.", "trigger"), 
-            new DialogSequence("Try tracing the preparatory beat gesture in front of you.", "prep"),
+            new DialogSequence("While holding the trigger, trace the gesture in front of you.", "prep"),
             new DialogSequence("Great job! Now keeping the trigger held down, continue to trace the gestures in front of you!.", "text"),
             new DialogSequence("Notice how the faster or slower your pace of conducting is, the orchestra will react to match your speed.", "text"),
             new DialogSequence("Well done, you have just successfully finished your first song!", "text"),
@@ -41,6 +44,7 @@ public class Dialog : MonoBehaviour
 
     void Update()
     {
+        triggerPressed = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
         if (index < sentences.Count) 
         {
             NextSentence(sentences[index]);
@@ -49,11 +53,11 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Type()
     {
-        if (!canvas.active)
+        if (!canvas.activeSelf)
         {
             canvas.SetActive(true);
         }
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.5f);
         textDisplay.text = sentences[index].sentence;       
         yield return new WaitForSeconds(3);
         finishedSentence = true;
@@ -85,7 +89,7 @@ public class Dialog : MonoBehaviour
         }
         else if (sequence.trigger == "gripAction") 
         {
-            if (batonIsGrabbed) 
+            if (getBatonIsGrabbed()) 
             {
                 NextSentenceHelper();
             }
@@ -94,9 +98,9 @@ public class Dialog : MonoBehaviour
         {
             ActivateControllers(true);
             animations.ShowTriggerButton();
-            if (finishedSentence) 
+            ActivateControllers(false);
+            if (getBatonIsGrabbed() && triggerPressed > 0.8f) 
             {
-                ActivateControllers(false);
                 NextSentenceHelper();
             }
         }
@@ -129,8 +133,14 @@ public class Dialog : MonoBehaviour
         }
     }
 
-    public void isGrabbed() {
+    public void BatonIsGrabbed()
+    {
         batonIsGrabbed = true;
+    }
+
+    public bool getBatonIsGrabbed()
+    {
+        return this.batonIsGrabbed;
     }
 
     public struct DialogSequence

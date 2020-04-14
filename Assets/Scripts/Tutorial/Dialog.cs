@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+This Script manages the dialog text as well as any event triggers within the tutorial. 
+*/
 public class Dialog : MonoBehaviour
 {
     public GameObject canvas;
@@ -51,6 +54,9 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activates the tutorial canvas and displays the next dialog.
+    /// </summary>
     IEnumerator Type()
     {
         if (!canvas.activeSelf)
@@ -64,6 +70,9 @@ public class Dialog : MonoBehaviour
         Debug.Log(finishedSentence);
     }
 
+    /// <summary>
+    /// Manages event triggers for different types of dialog.
+    /// </summary>
     public void NextSentence(DialogSequence sequence)
     {
         if (finishedSentence && sequence.trigger == "text")
@@ -114,11 +123,17 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets tutorial controllers active in scene.
+    /// </summary>
     public void ActivateControllers(bool b)
     {
         controllers.SetActive(b);
     }
 
+    /// <summary>
+    /// Ensures we have not reached end of tutorial dialogs before calling next dialog.
+    /// </summary>
     public void NextSentenceHelper()
     {
         index++;
@@ -133,21 +148,33 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets batonIsGrabbed.
+    /// </summary>
     public void BatonIsGrabbed()
     {
         batonIsGrabbed = true;
     }
 
+    /// <summary>
+    /// Sets batonIsGrabbed.
+    /// </summary>
     public bool getBatonIsGrabbed()
     {
         return this.batonIsGrabbed;
     }
 
+    /// <summary>
+    /// structure that a DialogSequence consists of.
+    /// </summary>
     public struct DialogSequence
     {
         public string sentence;
         public string trigger;
-       
+
+        /// <summary>
+        /// Constructor for a DialogSequence. 
+        /// </summary>
         public DialogSequence(string sentence, string trigger)
         {
             this.sentence = sentence;

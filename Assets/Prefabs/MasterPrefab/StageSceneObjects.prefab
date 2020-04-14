@@ -6351,6 +6351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4148596661116712}
+  - component: {fileID: 8840596857895078855}
   m_Layer: 0
   m_Name: Baton_Tip
   m_TagString: Untagged
@@ -6373,6 +6374,20 @@ Transform:
   m_Father: {fileID: 4017886833049766}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8840596857895078855
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047564048300956}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1059096438419070
 GameObject:
   m_ObjectHideFlags: 0
@@ -16576,8 +16591,6 @@ MonoBehaviour:
   BPMToRecord: 500000006400000078000000
   NewBPMToRecord: 3c000000640000008c000000
   planeHasBeenSpawned: 0
-  beatTrace: {fileID: 0}
-  prepTrace: {fileID: 0}
   BPMPred: {fileID: 114392908039034436}
   tempoController: {fileID: 114638279673758036}
   horizontalPlane: {fileID: 114632904209176410}

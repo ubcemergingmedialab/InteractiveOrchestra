@@ -43,8 +43,6 @@ public class OVRVelocityTracker : MonoBehaviour
 
     public delegate void VelocityTracker();
     public static event VelocityTracker MusicStart;
-    public GameObject beatTrace;
-    public GameObject prepTrace;
 
     private char[] gestureSize = { 'S', 'M', 'L' };
     private char currentGestureSize;

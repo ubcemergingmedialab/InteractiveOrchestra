@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This script manages the record and playback of the last conducting sample taken.
+/// </summary>
 public class PlaybackSystem : MonoBehaviour
 {
-    #region Struct
-    /// <summary>
-    /// Struct that contains relevant information of the controller.
-    /// Collected at each frame
-    /// </summary>
-
-    #endregion
-
     private List<ConductorSample> recording;
     private bool isPlaying;
     private int playbackIndex;
@@ -28,16 +23,12 @@ public class PlaybackSystem : MonoBehaviour
     public GameObject gestureRelated;
     public CameraTransitions transitions;
 
-    private void Start()
-    {
-        recording = new List<ConductorSample>();
-        isPlaying = false;
-        teleported = false;
-        transitions.transitioning = false;
-        playbackIndex = 0;
-        conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
-        button.GetComponent<ButtonState>();
-    }
+    #region Struct
+
+    /// <summary>
+    /// Struct that contains relevant information of the controller.
+    /// Collected at each frame
+    /// </summary>
 
     private struct ConductorSample
     {
@@ -51,12 +42,27 @@ public class PlaybackSystem : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Class Methods
+
+    private void Start()
+    {
+        recording = new List<ConductorSample>();
+        isPlaying = false;
+        teleported = false;
+        transitions.transitioning = false;
+        playbackIndex = 0;
+        conductingpos = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z);
+        button.GetComponent<ButtonState>();
+    }
+
     /// <summary>
     /// Creates a conducting sample based on baton's position and rotation and add to recording.
     /// </summary>
     public void GrabSample()
     {
-        Vector3 pos = new Vector3(batonObject.transform.position.x, batonObject.transform.position.y+1, batonObject.transform.position.z+3);
+        Vector3 pos = new Vector3(batonObject.transform.position.x, batonObject.transform.position.y + 1, batonObject.transform.position.z + 3);
         ConductorSample sample = new ConductorSample(pos, batonObject.transform.rotation);
         // these are some linear transformations to the vector to make it easier to see
         recording.Add(sample);
@@ -78,7 +84,7 @@ public class PlaybackSystem : MonoBehaviour
         if (recording.Count > 0)
         {
             isPlaying = !isPlaying;
-            velocityTracker.setBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
+            velocityTracker.SetBatonObject(playbackBaton.transform.Find("Baton_Tip2").gameObject);
         }
         // if there are have not been any conducting gestures done by user.
         else
@@ -91,7 +97,7 @@ public class PlaybackSystem : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isPlaying)
+        if (isPlaying)
         {
             // reached the end of the playback stored within the samples array
             if (playbackIndex >= recording.Count)
@@ -103,7 +109,8 @@ public class PlaybackSystem : MonoBehaviour
                 if (!teleported && !transitions.transitioning)
                 {
                     StartCoroutine(TransitionToAudienceView());
-                } else if (teleported && !transitions.transitioning)
+                }
+                else if (teleported && !transitions.transitioning)
                 {
                     // playback occurs here
                     playbackBaton.transform.position = recording[playbackIndex].position;
@@ -126,7 +133,7 @@ public class PlaybackSystem : MonoBehaviour
         transitions.FadeIn("Starting Playback");
         yield return new WaitForSeconds(2.5f);
 
-        setToAudiencePosition();
+        SetToAudiencePosition();
 
         batonObject.SetActive(false);
         gestureRelated.SetActive(true);
@@ -154,28 +161,37 @@ public class PlaybackSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2.5f);
         batonObject.SetActive(true);
-        setToConductorPosition();
-        // turns the button's state off
+        SetToConductorPosition();
 
         yield return new WaitForSeconds(1f);
         ButtonState b = button.GetComponent<ButtonState>();
+        // turns the button's state off
         b.ToggleButtonState(false);
         teleported = false;
         transitions.FadeOut();
-        velocityTracker.setBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
+        velocityTracker.SetBatonObject(batonObject.transform.Find("Baton_Tip").gameObject);
 
         yield return new WaitForSeconds(2.5f);
     }
 
-    private void setToAudiencePosition()
+    /// <summary>
+    /// Switches camera to the musicians' pov.
+    /// </summary>
+    private void SetToAudiencePosition()
     {
         view.transform.position = new Vector3(view.transform.position.x, view.transform.position.y, view.transform.position.z + 20);
         view.transform.Rotate(0, 180, 0);
     }
 
-    private void setToConductorPosition()
+    /// <summary>
+    /// changes user position back to conducting position.
+    /// </summary>
+    private void SetToConductorPosition()
     {
         view.transform.position = conductingpos;
         view.transform.Rotate(0, 180, 0);
     }
+
+    #endregion
+
 }

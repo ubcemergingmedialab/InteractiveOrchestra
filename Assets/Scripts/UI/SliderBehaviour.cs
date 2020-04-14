@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This script handles the behaviour of the music piece adjustable slide feature.
+/// </summary>
 public class SliderBehaviour : MonoBehaviour {
 
     private Slider slider;

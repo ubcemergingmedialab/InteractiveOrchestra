@@ -478,7 +478,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b3b0599f8f5942f45bf2c656fc4245a8, type: 2}
+  - {fileID: 2100000, guid: d74f7e47fa3152a4ab9d412261d6a43c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   currentState: 0
   startingState: 0
   activatedState: {fileID: 2100000, guid: 54f542da0df55704388f3de298104b3c, type: 2}
-  deactivatedState: {fileID: 2100000, guid: 54f542da0df55704388f3de298104b3c, type: 2}
+  deactivatedState: {fileID: 2100000, guid: d74f7e47fa3152a4ab9d412261d6a43c, type: 2}
 --- !u!114 &851905717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6351,7 +6351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4148596661116712}
-  - component: {fileID: 8840596857895078855}
+  - component: {fileID: 2028977641}
   m_Layer: 0
   m_Name: Baton_Tip
   m_TagString: Untagged
@@ -6374,7 +6374,7 @@ Transform:
   m_Father: {fileID: 4017886833049766}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8840596857895078855
+--- !u!136 &2028977641
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6384,10 +6384,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.05
+  m_Height: 2.14
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -1.02, z: 0}
 --- !u!1 &1059096438419070
 GameObject:
   m_ObjectHideFlags: 0
@@ -16591,6 +16591,8 @@ MonoBehaviour:
   BPMToRecord: 500000006400000078000000
   NewBPMToRecord: 3c000000640000008c000000
   planeHasBeenSpawned: 0
+  beatTrace: {fileID: 0}
+  prepTrace: {fileID: 0}
   BPMPred: {fileID: 114392908039034436}
   tempoController: {fileID: 114638279673758036}
   horizontalPlane: {fileID: 114632904209176410}
@@ -16599,7 +16601,7 @@ MonoBehaviour:
   conductorBaton: {fileID: 4121199110245010}
   inHouseMetronome: {fileID: 114900767785331236}
   batonObject: {fileID: 0}
-  yVelocityThreshold: 0.1
+  yVelocityThreshold: 0.2
 --- !u!114 &114392908039034436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19584,11 +19586,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2075598454342269056, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.8100011
-      objectReference: {fileID: 0}
-    - target: {fileID: 2075598454342269056, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
-        type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2700003
       objectReference: {fileID: 0}
@@ -19597,10 +19594,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 8451807579753738918, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
+    - target: {fileID: 2075598454342269056, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
         type: 3}
-      propertyPath: batonTip
-      value: 
+      propertyPath: m_LocalScale.z
+      value: 2.8100011
       objectReference: {fileID: 0}
     - target: {fileID: 8451807579753738918, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
         type: 3}
@@ -19626,11 +19623,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 44Trace
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856661259888945433, guid: 49f1350cb1480a34daee8a6ef158016d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3856661259888945434, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}
@@ -19689,8 +19681,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3856661259888945434, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.0500011
+      propertyPath: m_LocalScale.x
+      value: 1.3100005
       objectReference: {fileID: 0}
     - target: {fileID: 3856661259888945434, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}
@@ -19699,13 +19691,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3856661259888945434, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.3100005
-      objectReference: {fileID: 0}
-    - target: {fileID: 1583626515180218055, guid: 49f1350cb1480a34daee8a6ef158016d,
-        type: 3}
-      propertyPath: batonTip
-      value: 
+      propertyPath: m_LocalScale.z
+      value: 2.0500011
       objectReference: {fileID: 0}
     - target: {fileID: 1583626515180218055, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}

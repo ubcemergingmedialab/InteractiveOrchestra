@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer))]
+
+/// <summary>
+/// 
+/// </summary>
 public class Tracing : MonoBehaviour
 {
     public bool isFirst = false;
@@ -9,61 +14,29 @@ public class Tracing : MonoBehaviour
     public bool canTrace = false;
     public bool tracedThrough = false;
     public int traceableIndex;
-    public Renderer traceRenderer;
-    public int beatSegment;
     Material TracingMaterial;
     Vector3 planePoint;
     Vector3 defaultPoint;
     Vector3 afterPoint;
     GestureTrace gestureTrace;
-    private Transform transformTrace;
 
-    public Material TransparentMaterial;
-    public Material ActiveMaterial;
     // Start is called before the first frame update
     void Awake()
     {
-        if(traceRenderer == null)
-        {
-            Debug.Log("No trace renderer assigned at " + name);
-            return;
-        }
-
-        TracingMaterial = traceRenderer.material;
+        TracingMaterial = GetComponent<Renderer>().material;
         gestureTrace = transform.parent.GetComponent<GestureTrace>();
-        transformTrace = transform.Find("Trace");
         if(gestureTrace == null)
         {
             Debug.Log("No GestureTrace found in parent");
         }
-        defaultPoint = transformTrace.position + (transformTrace.up * 10);
-        afterPoint = transformTrace.position - (transformTrace.up * 10);
+        defaultPoint = transform.position + (transform.up * 10);
+        afterPoint = transform.position - (transform.up * 10);
         planePoint = defaultPoint;
-        SegmentController controller = GetComponentInParent<SegmentController>();
-        if (controller != null)
-        {
-            controller.SegmentEvent += (int segment) => {
-                if(beatSegment == segment)
-                { 
-                    foreach(Renderer rend in GetComponentsInChildren<Renderer>())
-                    {
-                        rend.material = ActiveMaterial;
-                    }
-                } else
-                {
-                    foreach(Renderer rend in GetComponentsInChildren<Renderer>())
-                    {
-                        rend.material = TransparentMaterial;
-                    }
-                }
-                TracingMaterial = traceRenderer.material;
-            };
-        }
     }
 
     private void Start()
     {
-        Plane clipPlane = new Plane(transformTrace.up, planePoint);
+        Plane clipPlane = new Plane(transform.up, planePoint);
         Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
         TracingMaterial.SetVector("_TracingPlane", plane);
     }
@@ -74,18 +47,24 @@ public class Tracing : MonoBehaviour
         if (isTracing && canTrace && !tracedThrough)
         {
             planePoint = gestureTrace.GetBatonTip().transform.position;
-            Plane clipPlane = new Plane(transformTrace.up, planePoint);
+            Plane clipPlane = new Plane(transform.up, planePoint);
             Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
             TracingMaterial.SetVector("_TracingPlane", plane);
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void StartTracing()
     {
         canTrace = true;
     }
 
-    public void TriggerEnter(Collider other)
+    /// <summary>
+    /// 
+    /// </summary>
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Baton_Tip")
         {
@@ -96,11 +75,6 @@ public class Tracing : MonoBehaviour
                     trace.ResetTrace();
                 }
                 StartTracing();
-                Segmentation segmentation = GetComponent<Segmentation>();
-                if (segmentation != null)
-                {
-                    segmentation.publishSegment();
-                }
             }
             if(!tracedThrough && ReadyToTrace(gestureTrace.traceDifficulty))
             {
@@ -121,17 +95,15 @@ public class Tracing : MonoBehaviour
                 {
                     prevTrace.FinishTracing();
                 }
-                Segmentation segmentation = GetComponent<Segmentation>();
-                if (segmentation != null)
-                {
-                    segmentation.publishSegment();
-                }
             }
             isTracing = true;
         }
     }
 
-    public void TriggerExit(Collider other)
+    /// <summary>
+    /// 
+    /// </summary>
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Baton_Tip" && canTrace == true)
         {
@@ -140,22 +112,28 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void ResetTrace()
     {
         //Debug.Log("resetting " + gameObject.name);
-        Plane clipPlane = new Plane(transformTrace.up, defaultPoint);
+        Plane clipPlane = new Plane(transform.up, defaultPoint);
         Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
         TracingMaterial.SetVector("_TracingPlane", plane);
         tracedThrough = false;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void FinishTracing()
     {
         planePoint = defaultPoint;
         isTracing = false;
         canTrace = false;
         tracedThrough = true;
-        Plane clipPlane = new Plane(transformTrace.up, afterPoint);
+        Plane clipPlane = new Plane(transform.up, afterPoint);
         Vector4 plane = new Vector4(clipPlane.normal.x, clipPlane.normal.y, clipPlane.normal.z, clipPlane.distance);
         TracingMaterial.SetVector("_TracingPlane", plane);
         Tracing nextTrace = gestureTrace.GetNextTraceable(traceableIndex);
@@ -175,19 +153,22 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public bool ReadyToTrace(int difficulty)
     {
         Tracing prev = gestureTrace.GetPreviousTraceable(traceableIndex);
-        if(prev == null)
+        if (prev == null)
         {
             return true;
-        } else if(prev.canTrace || prev.tracedThrough)
+        } else if (prev.canTrace || prev.tracedThrough)
         {
            // Debug.Log(gameObject.name + " asking for " + prev.name);
             return true;
         } else
         {
-            if(difficulty <= 0)
+            if (difficulty <= 0)
             {
                // Debug.Log("not ready to trace yet " + name + " " + prev.name);
                 return false;

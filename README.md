@@ -39,6 +39,7 @@ The following assets are either necessary or recommended for the project to work
 
 ## Getting Started
 
+(We are currently working on a tutorial scene that will take care of the in-game instructions ie. steps 4 and 5 in order to provide a intuitive experience for the user)
 1. Make note of Oculus controller: only the grip & the trigger functionalities will be used. Baton can only be picked 
     * up with right controlller.
 2. Adjust headset for user's comfort.
@@ -51,24 +52,26 @@ The following assets are either necessary or recommended for the project to work
     * Motion baton tip along 4:4 legato static guide in a smooth motion. The audio playback will change based on your 
     * conducting speed.
     
-
 ## Team
 
 ### Faculty:
-Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities, Assistant Professor of Conducting and Ensembles at the UBC School of Music
-Dr. Patrick Pennefather | Principal Investigator - Assistant Professor at the Master of Digital Media Program and shared with UBC Theatre and Film.
+- Dr. Jonathan Girard | Principal Investigator - Director of Orchestral Activities, Assistant Professor of Conducting and Ensembles at the UBC School of Music
+- Dr. Patrick Pennefather | Principal Investigator - Assistant Professor at the Master of Digital Media Program and shared with UBC Theatre and Film.
 
 ### Current EML Student Team:
 
 - Dante Cerron - Project Coordinator
 - Jaehun Song - Project Coordinator
+- Alice Hsiao - UX Designer
+- Yousra Alfarra - UX Designer
+- Sean Jeon - UX Advisor
+
+### Past EML Student Team:
 - Julie Khashimova - Designer
 - Julia Zhu - Designer
 - Michael Hahn - Developer
 - Nikko Dumrique - Developer
 - Winston Wu - Developer
-
-### Past EML Student Team:
 - Rithvik Alluri - Developer
 - William Beltran - Technical Lead
 - Serena Chao - Project Coordinator

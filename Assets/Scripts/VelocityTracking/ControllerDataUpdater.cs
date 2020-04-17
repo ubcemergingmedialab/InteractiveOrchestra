@@ -9,7 +9,6 @@ using UnityEditor;
 /// Updates relevant data being tracked using the controller. This data is displayed and updated dynamically in the inspector and is to be used by team to view the data
 /// during screen capture (recording of the gestures) to track gesture points of the user and map to corresponding data.
 /// </summary>
-
 public class ControllerDataUpdater : MonoBehaviour
 {
 
@@ -41,7 +40,6 @@ public class ControllerDataUpdater : MonoBehaviour
 
     private Text currentDisplayText;
   
-
     // private Editor editor;
     // TODO need to define the gesturze variable.
     // private GestureSize gestureSize;
@@ -88,6 +86,7 @@ public class ControllerDataUpdater : MonoBehaviour
     #endregion
 
     #region Class functions
+
     /// <summary>
     /// This function is used to update only the controller variables that are updated dynamically. Use this function if you want to manually update the dynamic variables by specifying each variable.
     /// </summary>
@@ -101,13 +100,10 @@ public class ControllerDataUpdater : MonoBehaviour
     /// <param name="region"> "" if current data point is in neither region. Otherwise, either "P1" or "P2". </param>
     /// <param name="velocityMagnitude"> Magnitude of the velocity </param>
     /// <param name="angleToBP1"> Angle to point BP1 on the plane relative to horizontal plane </param>
-
-
     public void updateDynamicValues(float gestureVelocity, float acceleration, Vector3 positionVector,
         Vector3 directionVector, float distanceCoveredP1, float distanceCoveredP2, float timeRelativeToPrep, string region, float velocityMagnitude,
         float angleToBP1)
     {
-
         //this.gestureVelocity = gestureVelocity;
         //this.acceleration = acceleration;
         //this.positionVector = positionVector;
@@ -127,7 +123,6 @@ public class ControllerDataUpdater : MonoBehaviour
     /// </summary>
     /// <param name="BPM"> preset static BPM of the song </param>
     /// <param name="gestureSize"> preset static size of the gesture being used for the VR </param> // TODO need to add this variable to this function
-
     public void updateStaticValues(int BPM, char gestureSize) //TODO need to add gesture size parameter for this function
     {
         this.BPM = BPM;
@@ -141,7 +136,6 @@ public class ControllerDataUpdater : MonoBehaviour
     /// </summary>
     /// <param name="sample"> an instance of a ConductorSample object with its relevant variables </param>
     /// <returns> the input ConductorSample object for reference and for use where this function is called </returns>
-
     public void updateValuesWithConductorSample(OVRVelocityTracker.ConductorSample sample)
     {
         //this.directionVector = sample.direction;
@@ -169,10 +163,8 @@ public class ControllerDataUpdater : MonoBehaviour
         }
         else
         {
-
             currentDisplayText.text = "Test";
         }
-        
     }
 
     /// <summary>
@@ -201,9 +193,5 @@ public class ControllerDataUpdater : MonoBehaviour
         //Debug.Log("Preset gesture = " + ""); // TODO need to add logging gesturSize value to the console
     }
 
-    public void reRenderOnCustomWindow()
-    {
-
-    }
     #endregion
 }

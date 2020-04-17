@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This Script implements the functionality for spawning the base plane that acts as the point of reference
+/// for the user so that conducting tracking with respect to time is possible. 
+/// </summary>
 public class HorizontalPlane : MonoBehaviour {
 
     #region Variables
@@ -115,18 +119,26 @@ public class HorizontalPlane : MonoBehaviour {
         }
     }
 
-
+    /// <summary>
+    /// Changes the plane's color to black.
+    /// </summary>
     public void ChangeColorToBlackOnCollision()
     {
         planeRenderer.material.color = Color.black;
     }
 
+    /// <summary>
+    /// Changes the plane's color to blue.
+    /// </summary>
     public void ChangeColorToBlueOnCollision()
     {
         Color altColor = new Color32(92, 214, 255, 255);
         planeRenderer.material.color = altColor;
     }
 
+    /// <summary>
+    /// Toggles the plane to either be enabled or disabled.
+    /// </summary>
     public void ToggleEnablePlane()
     {
         planeIsEnabled = !planeIsEnabled;

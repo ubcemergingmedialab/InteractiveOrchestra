@@ -3,7 +3,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// This Script is the link between VR controller behaviour and the system recognition of
+/// conducting behaviour. The scripts active state is turned on when the user picks up the
+/// baton, and is deactivated when the baton is dropped. 
+/// </summary>
 public class OVRGestureHandle : MonoBehaviour {
 
     #region Variables
@@ -59,6 +63,9 @@ public class OVRGestureHandle : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Stops the UI baton trail guide.
+    /// </summary>
     public void StopParticles(float dummyParam)
     {
         batonTrail.Stop();

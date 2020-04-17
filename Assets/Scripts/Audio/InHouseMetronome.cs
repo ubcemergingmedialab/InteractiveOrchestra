@@ -5,6 +5,10 @@ using UnityEngine;
 // retrieved from https://docs.unity3d.com/2018.1/Documentation/ScriptReference/AudioSettings.html
 [RequireComponent(typeof(AudioSource))]
 
+/// <summary>
+/// The Purpose of this script is to initialze and keep track of the metronome and its audio
+/// settings, as well as its UI button state. 
+/// </summary>
 public class InHouseMetronome : MonoBehaviour {
 
     public double bpm = 140.0F;
@@ -80,16 +84,29 @@ public class InHouseMetronome : MonoBehaviour {
             n++;
         }
     }
+
+    /// <summary>
+    /// Starts metronome audio.
+    /// <param name="BPM"> Set's metronome's bpm. </param>
+    /// </summary>
     public void PlayMetronome(float BPM){
         playing = true;
         bpm = BPM;
     }
 
+    /// <summary>
+    /// Stops metronome audio.
+    /// <param name="dummyParam"> Dummy Param </param>
+    /// </summary>
     public void StopMetronome(float dummyParam)
     {
         playing = false;
     }
 
+    /// <summary>
+    /// Button onClick API that starts and stops metronome accordingly.
+    /// <param name="eventName"> Command to trigger specific audio recording in AKSoundEngine. </param>
+    /// </summary>
     public void TogglePlay()
     {
         if (!isActive)
@@ -108,6 +125,10 @@ public class InHouseMetronome : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Changes bpm of metronome.
+    /// <param name="newBPM"> The new metronome bpm. </param>
+    /// </summary>
     public void SetNewBPM(double newBPM)
     {
         bpm = newBPM;

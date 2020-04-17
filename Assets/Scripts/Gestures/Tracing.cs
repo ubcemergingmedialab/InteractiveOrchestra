@@ -17,9 +17,9 @@ public class Tracing : MonoBehaviour
     Vector3 afterPoint;
     GestureTrace gestureTrace;
     private Transform transformTrace;
-
-    public Material TransparentMaterial;
-    public Material ActiveMaterial;
+    
+    private Color activeColor = new Color(0.01201493f, 0.7834063f, 0.8490566f);
+    private Color inactiveColor = new Color(0.3018868f, 0.3018868f, 0.3018868f);
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,20 +40,28 @@ public class Tracing : MonoBehaviour
         afterPoint = transformTrace.position - (transformTrace.up * 10);
         planePoint = defaultPoint;
         SegmentController controller = GetComponentInParent<SegmentController>();
-        if (controller != null)
+        foreach(Renderer rend in GetComponentsInChildren<Renderer>())
+        {
+            rend.material.EnableKeyword("_EMISSION");
+        }
+        if (controller != null && !isFirst)
         {
             controller.SegmentEvent += (int segment) => {
                 if(beatSegment == segment)
                 { 
                     foreach(Renderer rend in GetComponentsInChildren<Renderer>())
                     {
-                        rend.material = ActiveMaterial;
+                        rend.material.SetColor("_Emission", activeColor);
+                        rend.material.SetColor("_EmissionColor", activeColor);
+                        rend.material.color = activeColor;
                     }
                 } else
                 {
                     foreach(Renderer rend in GetComponentsInChildren<Renderer>())
                     {
-                        rend.material = TransparentMaterial;
+                        rend.material.SetColor("_Emission", inactiveColor);
+                        rend.material.SetColor("_EmissionColor", inactiveColor);
+                        rend.material.color = inactiveColor;
                     }
                 }
                 TracingMaterial = traceRenderer.material;
@@ -96,11 +104,6 @@ public class Tracing : MonoBehaviour
                     trace.ResetTrace();
                 }
                 StartTracing();
-                Segmentation segmentation = GetComponent<Segmentation>();
-                if (segmentation != null)
-                {
-                    segmentation.publishSegment();
-                }
             }
             if(!tracedThrough && ReadyToTrace(gestureTrace.traceDifficulty))
             {
@@ -121,11 +124,11 @@ public class Tracing : MonoBehaviour
                 {
                     prevTrace.FinishTracing();
                 }
-                Segmentation segmentation = GetComponent<Segmentation>();
-                if (segmentation != null)
-                {
-                    segmentation.publishSegment();
-                }
+            }
+            Segmentation segmentation = GetComponent<Segmentation>();
+            if (segmentation != null)
+            {
+                segmentation.publishSegment();
             }
             isTracing = true;
         }

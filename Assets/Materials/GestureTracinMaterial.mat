@@ -79,10 +79,10 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.8985505, b: 1, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _ControllerPos: {r: 0, g: 0, b: 0, a: 0}
     - _ControllerX: {r: 0, g: 0, b: 0, a: 0}
     - _CutoffColor: {r: 0.80146176, g: 0.9150943, b: 0.7294856, a: 1}
-    - _Emission: {r: 0, g: 0.9226115, b: 1, a: 1}
+    - _Emission: {r: 0.01201493, g: 0.7834063, b: 0.8490566, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _TraceDirection: {r: 0, g: 0, b: 0, a: 0}

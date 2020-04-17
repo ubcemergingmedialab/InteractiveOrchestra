@@ -124,6 +124,18 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 1124799735}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &222853900 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114856491490465766, guid: 1467177afaf1f0e44bea886f42f0efef,
+    type: 3}
+  m_PrefabInstance: {fileID: 310577314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5998b42378ecb8c4289957192e903494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &310577314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -380,6 +392,55 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1429982315297216, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400613667195559214, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400613667195559214, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400613667195559214, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056029671646428, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056029671646428, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: ToggleGameobject
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056029671646428, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056029671646428, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114056029671646428, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 222853900}
+    - target: {fileID: 114056029671646428, guid: 1467177afaf1f0e44bea886f42f0efef,
+        type: 3}
+      propertyPath: OnTouch.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 922032260}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
 --- !u!23 &535221815 stripped
@@ -403,6 +464,12 @@ GameObject:
 --- !u!23 &909622367 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6463922940476261880, guid: 1467177afaf1f0e44bea886f42f0efef,
+    type: 3}
+  m_PrefabInstance: {fileID: 310577314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &922032260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5789389888390359918, guid: 1467177afaf1f0e44bea886f42f0efef,
     type: 3}
   m_PrefabInstance: {fileID: 310577314}
   m_PrefabAsset: {fileID: 0}

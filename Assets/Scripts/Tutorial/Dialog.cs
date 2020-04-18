@@ -13,6 +13,7 @@ public class Dialog : MonoBehaviour
     private List<DialogSequence> sentences;
     public GameObject controllers;
     public ControllerAnimations animations;
+    public GameObject traceManager;
 
     private int index = 0;
     private bool finishedSentence = false;
@@ -22,6 +23,7 @@ public class Dialog : MonoBehaviour
 
     void Start()
     {
+        traceManager.SetActive(false);
         sentences = new List<DialogSequence>
         {
             new DialogSequence("Welcome to Interactive Orchestra, a Virtual Conducting Experience.", "text"),
@@ -35,11 +37,11 @@ public class Dialog : MonoBehaviour
             new DialogSequence("To conduct, hold down the trigger while waving the baton. Give it a try!", "trigger"),
             new DialogSequence("Great job! You should always hold down the trigger in order to keep conducting.", "text"),
             new DialogSequence("Let's try cueing the orchestra to start playing the piece.", "text"),
-            // upon finishing prep beat should activate next dialog
             new DialogSequence("While holding the trigger, trace the gesture in front of you.", "prep"),
             new DialogSequence("Great job! Now keeping the trigger held down, continue to trace the gestures in front of you!.", "text"),
             new DialogSequence("Notice how the faster or slower your pace of conducting is, the orchestra will react to match your speed.", "text"),
-            new DialogSequence("Well done, you have just successfully finished your first song!", "text"),
+            new DialogSequence("Keep conducting until the end of the song!", "end"),
+            new DialogSequence("Congratulations, you have just successfully finished your first song!", "text"),
             new DialogSequence("Feel free to continue to practice conducting, and explore the other features of Interactive Orchestra!", "text"),
         };
         StartCoroutine(Type());
@@ -48,7 +50,7 @@ public class Dialog : MonoBehaviour
     void Update()
     {
         triggerPressed = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
-        if (index < sentences.Count) 
+        if (index < sentences.Count)
         {
             NextSentence(sentences[index]);
         }
@@ -64,10 +66,9 @@ public class Dialog : MonoBehaviour
             canvas.SetActive(true);
         }
         yield return new WaitForSeconds(0.5f);
-        textDisplay.text = sentences[index].sentence;       
+        textDisplay.text = sentences[index].sentence;
         yield return new WaitForSeconds(3);
         finishedSentence = true;
-        Debug.Log(finishedSentence);
     }
 
     /// <summary>
@@ -82,7 +83,7 @@ public class Dialog : MonoBehaviour
         else if (sequence.trigger == "controller1")
         {
             ActivateControllers(true);
-            if (finishedSentence) 
+            if (finishedSentence)
             {
                 NextSentenceHelper();
             }
@@ -90,15 +91,15 @@ public class Dialog : MonoBehaviour
         else if (sequence.trigger == "controller2")
         {
             animations.ShowGripButton();
-            if (finishedSentence) 
+            if (finishedSentence)
             {
                 ActivateControllers(false);
                 NextSentenceHelper();
             }
         }
-        else if (sequence.trigger == "gripAction") 
+        else if (sequence.trigger == "gripAction")
         {
-            if (getBatonIsGrabbed()) 
+            if (GetBatonIsGrabbed())
             {
                 NextSentenceHelper();
             }
@@ -108,18 +109,26 @@ public class Dialog : MonoBehaviour
             ActivateControllers(true);
             animations.ShowTriggerButton();
             ActivateControllers(false);
-            if (getBatonIsGrabbed() && triggerPressed > 0.8f) 
+            if (GetBatonIsGrabbed() && triggerPressed > 0.8f)
             {
                 NextSentenceHelper();
             }
         }
         // need to figure out logic here
-        else if (sequence.trigger == "prep") 
+        else if (sequence.trigger == "prep")
         {
-            // if (finishedPrep) 
-            // {
-            //     NextSentenceHelper();
-            // }
+            traceManager.SetActive(true);
+            if (traceManager.GetComponent<TraceManager>().GetPrepIsDone())
+            {
+                NextSentenceHelper();
+            }
+        }
+        else if (sequence.trigger == "end")
+        {
+            if (traceManager.GetComponent<TraceManager>().GetSongIsDone())
+            {
+                NextSentenceHelper();
+            }
         }
     }
 
@@ -139,10 +148,13 @@ public class Dialog : MonoBehaviour
         index++;
         textDisplay.text = "";
         finishedSentence = false;
-        if (index > this.sentences.Count) {
+        Debug.Log("index is: " + index);
+        Debug.Log("sentences is: " + this.sentences.Count);
+        if (index >= this.sentences.Count)
+        {
             canvas.SetActive(false);
         }
-        else 
+        else
         {
             StartCoroutine(Type());
         }
@@ -159,7 +171,7 @@ public class Dialog : MonoBehaviour
     /// <summary>
     /// Sets batonIsGrabbed.
     /// </summary>
-    public bool getBatonIsGrabbed()
+    public bool GetBatonIsGrabbed()
     {
         return this.batonIsGrabbed;
     }

@@ -316,10 +316,6 @@ PrefabInstance:
       propertyPath: OnGrab.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1092874722}
-    - target: {fileID: 1174107050421408, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
 --- !u!1001 &642522608
@@ -490,6 +486,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 685763783}
+--- !u!1 &927095645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5789389888390359918, guid: 1467177afaf1f0e44bea886f42f0efef,
+    type: 3}
+  m_PrefabInstance: {fileID: 310577314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &940604376
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +639,7 @@ MonoBehaviour:
   textDisplay: {fileID: 2097477385}
   controllers: {fileID: 685763781}
   animations: {fileID: 685763784}
+  traceManager: {fileID: 927095645}
   batonIsGrabbed: 0
 --- !u!4 &1092874724
 Transform:

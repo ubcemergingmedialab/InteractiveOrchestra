@@ -150,6 +150,6 @@ public class PerformanceIndicator : MonoBehaviour {
         Debug.Log(inputBPM);
         float animationSpeed = inputBPM / 100.0f;
         main.simulationSpeed = speed;
-        ConductingGuideAnimation.speed = animationSpeed;
+        //ConductingGuideAnimation.speed = animationSpeed;
     }
 }

@@ -87,7 +87,7 @@ public class TempoController : MonoBehaviour
         performanceIndicator.SetTargetBPM();
         timeSincePieceStart = 0f;
         PlayPiece(localBPM);
-        yield return new WaitForSeconds(OrchestraDelay.Instance.GetCurrentOrchDelay() * 0.001f);
+        //yield return new WaitForSeconds(OrchestraDelay.Instance.GetCurrentOrchDelay() * 0.001f);
         Debug.Log("Piece Now Play");
         am.PlayEvent(startAudioCommand);
         am.UpdateAudioPlaybackSpeed(localBPM);

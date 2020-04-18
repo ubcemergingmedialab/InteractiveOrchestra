@@ -347,7 +347,7 @@ public class OVRVelocityTracker : MonoBehaviour
             // -- start playing audio if not already playing and plane has been spawned during prep beat gesture
             tempoController.playPiece();
             isBeneathPlane = !isBeneathPlane;
-            MusicStart();
+            //MusicStart();
         } 
         // if the controller has gone over the plane
         else if (isBeneathPlane && controllerPosition.y > BP1.y)
@@ -414,7 +414,7 @@ public class OVRVelocityTracker : MonoBehaviour
     /// </summary>
     internal void StoreCurrentTrial()
     {
-        Debug.Assert(samples.Count != 0);
+        //Debug.Assert(samples.Count != 0);
         // =========================
         // -- This is used to rule out dummy trials that were made by mistake
         // -- which only grabbed a few samples

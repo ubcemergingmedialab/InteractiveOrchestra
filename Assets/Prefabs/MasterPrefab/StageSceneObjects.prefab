@@ -7383,7 +7383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4129075301418704
 Transform:
   m_ObjectHideFlags: 0
@@ -19533,11 +19533,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7583902354687939838}
     m_Modifications:
-    - target: {fileID: 2075598454342269059, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
-        type: 3}
-      propertyPath: m_Name
-      value: PrepTrace
-      objectReference: {fileID: 0}
     - target: {fileID: 2075598454342269056, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19608,6 +19603,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.8100011
       objectReference: {fileID: 0}
+    - target: {fileID: 2075598454342269059, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
+        type: 3}
+      propertyPath: m_Name
+      value: PrepTrace
+      objectReference: {fileID: 0}
+    - target: {fileID: 8451807579753738918, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
+        type: 3}
+      propertyPath: batonTip
+      value: 
+      objectReference: {fileID: 1047564048300956}
     - target: {fileID: 8451807579753738918, guid: bbe3ca1843f3eeb4eb93651c1cc7b9c0,
         type: 3}
       propertyPath: traceDifficulty
@@ -19628,11 +19633,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1106597904171405919}
     m_Modifications:
-    - target: {fileID: 3856661259888945433, guid: 49f1350cb1480a34daee8a6ef158016d,
-        type: 3}
-      propertyPath: m_Name
-      value: 44Trace
-      objectReference: {fileID: 0}
     - target: {fileID: 3856661259888945434, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19703,20 +19703,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2.0500011
       objectReference: {fileID: 0}
+    - target: {fileID: 3856661259888945433, guid: 49f1350cb1480a34daee8a6ef158016d,
+        type: 3}
+      propertyPath: m_Name
+      value: 44Trace
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583626515180218055, guid: 49f1350cb1480a34daee8a6ef158016d,
+        type: 3}
+      propertyPath: batonTip
+      value: 
+      objectReference: {fileID: 1047564048300956}
     - target: {fileID: 1583626515180218055, guid: 49f1350cb1480a34daee8a6ef158016d,
         type: 3}
       propertyPath: traceDifficulty
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856661259573386777, guid: 49f1350cb1480a34daee8a6ef158016d,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3856661259573386777, guid: 49f1350cb1480a34daee8a6ef158016d,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 0.92
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f1350cb1480a34daee8a6ef158016d, type: 3}

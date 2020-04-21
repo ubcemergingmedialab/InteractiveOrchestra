@@ -193,14 +193,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 441592005, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
-      propertyPath: view
-      value: 
-      objectReference: {fileID: 1016762315}
     - target: {fileID: 1861658648, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1124799747}
+    - target: {fileID: 441592005, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
+      propertyPath: view
+      value: 
+      objectReference: {fileID: 1016762315}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1467177afaf1f0e44bea886f42f0efef, type: 3}
 --- !u!1 &940604376

@@ -10,16 +10,15 @@ using UnityEngine;
 [RequireComponent(typeof(AudioMaster))]
 public class TempoController : MonoBehaviour
 {
-    private bool gestureCaptured;
     private bool isPlaying = false;
 
     public string rtpcID;
 
     // -- Set to -1 if piece is not playing
     private float timeSincePieceStart = -1f;
-    private float eventStartTime;
     private float localBPM = 100f;
-    
+    private string startAudioCommand = "PieceBegins";
+
     [SerializeField] private PerformanceIndicator performanceIndicator;
     private AudioMaster am;
 
@@ -31,7 +30,6 @@ public class TempoController : MonoBehaviour
     public static event TempoControllerDelegate PieceInterrupt;
     public static event TempoControllerDelegateUpdate TempoOnUpdate;
 
-
     #region Unity Methods
     /// <summary>
     /// Initialize Wwise relevant objects as well as beat values
@@ -42,7 +40,6 @@ public class TempoController : MonoBehaviour
         am = GetComponent<AudioMaster>();
     }
 
-   
     void FixedUpdate()
     {
         if (TempoOnUpdate != null) TempoOnUpdate();
@@ -56,6 +53,7 @@ public class TempoController : MonoBehaviour
             StopPiece();
         }
     }
+
     #endregion
 
     #region Class Methods
@@ -91,7 +89,7 @@ public class TempoController : MonoBehaviour
         PlayPiece(localBPM);
         yield return new WaitForSeconds(OrchestraDelay.Instance.GetCurrentOrchDelay() * 0.001f);
         Debug.Log("Piece Now Play");
-        am.PlayEvent("PieceBegins");
+        am.PlayEvent(startAudioCommand);
         am.UpdateAudioPlaybackSpeed(localBPM);
         yield return null; 
     }
@@ -110,9 +108,9 @@ public class TempoController : MonoBehaviour
     /// </summary>
     public void StopPiece()
     {
-        am.StopEvent("PieceBegins",0);
+        am.StopEvent(startAudioCommand, 0);
         timeSincePieceStart = -1f;
-        if (PieceStop != null) PieceInterrupt(1);
+        if (PieceStop != null && PieceInterrupt != null) PieceInterrupt(1);
         isPlaying = false;
     }
 
@@ -130,6 +128,11 @@ public class TempoController : MonoBehaviour
     {
         localBPM = newBPM;
     }
+
+    /// <summary>
+    /// Getter and Setter for Tempo BPM ADD THIS AFTER YOU CAN TEST IT.
+    /// </summary>
+    public int newBPM { get; set; }
 
     /// <summary>
     /// Get whether prep is complete and set it

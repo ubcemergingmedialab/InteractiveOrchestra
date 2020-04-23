@@ -145,12 +145,11 @@ public class BPMPredictor : MonoBehaviour {
             }
             else
             {
-                CalculateBPM(tp);
+                //CalculateBPM(tp);
             }
         }
     }
 
-   
     /// <summary>
     /// Finally calculate the BPM given the data from the prep beat 
     /// </summary>

@@ -3,7 +3,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// This Script is the link between VR controller behaviour and the system recognition of
+/// conducting behaviour. The scripts active state is turned on when the user picks up the
+/// baton, and is deactivated when the baton is dropped. 
+/// </summary>
 public class OVRGestureHandle : MonoBehaviour {
 
     #region Variables
@@ -13,8 +17,10 @@ public class OVRGestureHandle : MonoBehaviour {
     [SerializeField] private ParticleSystem batonTrail;
     
     public OVRVelocityTracker velocityTracker;
+    public PlaybackSystem playbackSystem;
 
     private bool tracking = false;
+    private bool samplesRecorded = false;
 
     public static bool songOver = false;
     #endregion
@@ -30,18 +36,25 @@ public class OVRGestureHandle : MonoBehaviour {
         }
         if (-1 != (int)rightHandControl.index)
         {
-            var device = OVRInput.Controller.RTouch;
-
             float triggerKeyValue = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
+            // holding the trigger on the controller
             if (triggerKeyValue > 0.8f)
             {
-                velocityTracker.CollectConductorSamples(device); 
-                velocityTracker.SetTimeSincePrevCollisionWithBasePlane(device);
+                if(samplesRecorded)
+                {
+                    playbackSystem.ClearSamples();
+                    samplesRecorded = false;
+                }
+                playbackSystem.GrabSample();
+                velocityTracker.SpawnPlaneIfNotSpawned();
+                velocityTracker.SetTimeSincePrevCollisionWithBasePlane();
                 batonTrail.Play();
                 tracking = true;
             }
+            // letting go of trigger on the controller
             else if (triggerKeyValue < 0.1f && tracking)
             {
+                samplesRecorded = true;
                 velocityTracker.StoreCurrentTrial();
                 batonTrail.Stop();
                 velocityTracker.RemovePlane();
@@ -50,6 +63,9 @@ public class OVRGestureHandle : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Stops the UI baton trail guide.
+    /// </summary>
     public void StopParticles(float dummyParam)
     {
         batonTrail.Stop();

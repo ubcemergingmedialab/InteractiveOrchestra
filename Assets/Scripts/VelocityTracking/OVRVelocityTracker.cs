@@ -46,7 +46,6 @@ public class OVRVelocityTracker : MonoBehaviour
     private List<ConductorSample> finalSamples;
     private List<ConductorSample> samples;
 
-    [SerializeField] private BPMPredictor BPMPred;
     [SerializeField] private TempoController tempoController;
     [SerializeField] private HorizontalPlane horizontalPlane;
     [SerializeField] private TrialDisplayBehaviour trialDisplayBehaviour;
@@ -269,7 +268,6 @@ public class OVRVelocityTracker : MonoBehaviour
                             currentBPMToRecord,                                         // Current BPM being collected
                             currentTrial
                             );
-                    if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
 
                     // =========================
                     // -- Uncomment to spawn debug Spheres on first prep beat
@@ -296,7 +294,6 @@ public class OVRVelocityTracker : MonoBehaviour
                             currentBPMToRecord,                                         // Current BPM being collected
                             currentTrial
                             );
-                        //if (planeHasBeenSpawned) BPMPred.RecordConductorSample(newConductorSample, tempoController);
 
                         // =========================
                         // -- Uncomment to spawn debug Spheres on first prep beat
@@ -425,7 +422,6 @@ public class OVRVelocityTracker : MonoBehaviour
             trialDisplayBehaviour.ChangeTrial(currentTrial, currentBPMToRecord.ToString(), currentGestureSize.ToString());
             finalSamples.AddRange(samples);
         }
-        BPMPred.ResetBPMPredictor();
         samples.Clear();
         planeHasBeenSpawned = false;
         dataShouldBeRecorded = true;

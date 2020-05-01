@@ -1,6 +1,7 @@
 # Interactive Orchestra
 ## Project Information
 Tool in development to provide a realistic and immersive orchestral conducting experience aimed towards both curious users as well as musical conducting students. 
+[Onboarding Information](https://docs.google.com/presentation/d/1Ni8gYi2Y3Hp6HZS5PyQRGanwPO-ND7zmk26XFdmHJX4/edit#slide=id.p) | Click this link for more information about this project and Emerging Media lab @ UBC! 
 
 ## External Assets
 

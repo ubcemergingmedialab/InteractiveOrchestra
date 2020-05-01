@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// helper script used to get the trace elements to line up with each other
+/// </summary>
 public class PointToTrace : MonoBehaviour
 {
     private Tracing tracing;

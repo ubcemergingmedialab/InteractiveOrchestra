@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Connects the traces to music events and exposes some functions to enable and disable traces
 /// </summary>
 public class TraceManager : MonoBehaviour
 {

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// exposes segment event to then be consumed by trace elements to react appropriately
+/// </summary>
 public class SegmentController : MonoBehaviour
 {
 

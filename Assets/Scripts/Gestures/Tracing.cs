@@ -55,7 +55,7 @@ public class Tracing : MonoBehaviour
         {
             Debug.Log("No GestureTrace found in parent");
         }
-        defaultPoint = transformTrace.position + (transformTrace.up * 10); //use child transform to initialize place
+        defaultPoint = transformTrace.position + (transformTrace.up * 10); //use child transform to initialize plane
         afterPoint = transformTrace.position - (transformTrace.up * 10);
         planePoint = defaultPoint;
         SegmentController controller = GetComponentInParent<SegmentController>();
@@ -108,7 +108,10 @@ public class Tracing : MonoBehaviour
             TracingMaterial.SetVector("_TracingPlane", plane);
         }
     }
-
+    
+    /// <summary>
+    /// sets canTrace to true which is for final check before segment can start clipping
+    /// </summary>
     public void StartTracing()
     {
         canTrace = true;
@@ -121,13 +124,14 @@ public class Tracing : MonoBehaviour
     ///   2a. if the next trace is the first trace, reset it so that it can be passed through again
     ///   2b. else, just continue by preparing the next element to be traced
     ///   2c. also, finish tracing the previous traceable, since we have reached this one already (dont want two tracing at the same time)
+    /// 3. if this gameobject is on the border between beats, publish the beat we are entering
     /// </summary>
-    /// <param name="other"></param>
+    /// <param name="other">A reference to the collider we interact with</param>
     public void TriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Baton_Tip")
         {
-            if (isFirst)
+            if (isFirst) // 1
             {
                 foreach (Tracing trace in gestureTrace.GetComponentsInChildren<Tracing>())
                 {
@@ -135,22 +139,22 @@ public class Tracing : MonoBehaviour
                 }
                 StartTracing();
             }
-            if(!tracedThrough && ReadyToTrace(gestureTrace.traceDifficulty))
+            if(!tracedThrough && ReadyToTrace(gestureTrace.traceDifficulty)) // 2
             {
                 Tracing nextTrace = gestureTrace.GetNextTraceable(traceableIndex);
                 if (nextTrace != null)
                 {
-                    if(nextTrace.isFirst)
+                    if(nextTrace.isFirst) // 2a
                     {
                         Debug.Log("resetting first trace");
                         nextTrace.ResetTrace();
-                    } else
+                    } else //2b
                     {
                         nextTrace.StartTracing();
                     }
                 }
                 Tracing prevTrace = gestureTrace.GetPreviousTraceable(traceableIndex);
-                if(prevTrace != null)
+                if(prevTrace != null) //2c
                 {
                     prevTrace.FinishTracing();
                 }
@@ -164,6 +168,10 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Whenever the baton leaves a segment, that segment should stay "full" until the whole trace resets (back to first)
+    /// </summary>
+    /// <param name="other">the collider we interact with</param>
     public void TriggerExit(Collider other)
     {
         if (other.gameObject.name == "Baton_Tip" && canTrace == true)
@@ -173,6 +181,9 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set a segment back to how it is when first instantiated
+    /// </summary>
     public void ResetTrace()
     {
         //Debug.Log("resetting " + gameObject.name);
@@ -182,6 +193,9 @@ public class Tracing : MonoBehaviour
         tracedThrough = false;
     }
 
+    /// <summary>
+    /// Stop segment from actively tracing and put in a "finished" state, do the same for all "previous" segments
+    /// </summary>
     public void FinishTracing()
     {
         planePoint = defaultPoint;
@@ -208,6 +222,13 @@ public class Tracing : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// recursive function that checks whether the n previous segments have been started,
+    /// because sometimes the the user will skip segments. the greater n is, the more
+    /// segments the user can skip.
+    /// </summary>
+    /// <param name="difficulty">accumulator, called at first with traceDifficulty from GestureTrace.cs</param>
+    /// <returns></returns>
     public bool ReadyToTrace(int difficulty)
     {
         Tracing prev = gestureTrace.GetPreviousTraceable(traceableIndex);

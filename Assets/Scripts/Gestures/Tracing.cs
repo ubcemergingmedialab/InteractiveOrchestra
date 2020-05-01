@@ -129,7 +129,7 @@ public class Tracing : MonoBehaviour
     /// <param name="other">A reference to the collider we interact with</param>
     public void TriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Baton_Tip")
+        if (other.gameObject.name == "Baton_Tip" && OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger) > 0.8f)
         {
             if (isFirst) // 1
             {

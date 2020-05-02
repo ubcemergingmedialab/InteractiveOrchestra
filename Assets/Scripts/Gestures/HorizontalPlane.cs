@@ -13,7 +13,6 @@ public class HorizontalPlane : MonoBehaviour {
     [SerializeField] private ParticleSystem rippleTemplate;
     public Vector3 batonTipPosition;
     private ParticleSystem rippleInPlay;
-    private bool visible = false;
     private bool flag = false;
     private bool planeIsEnabled = false;
     private Renderer planeRenderer;
@@ -29,7 +28,12 @@ public class HorizontalPlane : MonoBehaviour {
     void Awake()
     {
         planeRenderer = GetComponent<Renderer>();
-        planeRenderer.enabled = visible && planeIsEnabled;
+        planeRenderer.enabled =  planeIsEnabled;
+    }
+
+    private void Update()
+    {
+        planeRenderer.enabled = planeIsEnabled;
     }
 
     #endregion
@@ -42,8 +46,7 @@ public class HorizontalPlane : MonoBehaviour {
     void ToggleView()
     {
         Debug.Log(planeIsEnabled);
-        Debug.Log(!visible);
-        planeRenderer.enabled = !visible && planeIsEnabled;
+        planeRenderer.enabled = planeIsEnabled;
     }
 
     /// <summary>

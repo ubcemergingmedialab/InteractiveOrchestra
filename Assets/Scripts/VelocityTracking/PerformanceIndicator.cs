@@ -79,6 +79,10 @@ public class PerformanceIndicator : MonoBehaviour {
     public void SetUserBPM(float timeSincePrevCollision)
     {
         userBPM = (int)(60 / timeSincePrevCollision);
+        if (userBPM > 250)
+            userBPM = 250;
+        else if (userBPM < 0)
+            userBPM = 30;
         UserBPMTextDisplay.text = userBPM.ToString();
         tempoController.SetNewBPM(userBPM);
         tempoController.UpdateOrchestraPiece();
@@ -150,6 +154,6 @@ public class PerformanceIndicator : MonoBehaviour {
         Debug.Log(inputBPM);
         float animationSpeed = inputBPM / 100.0f;
         main.simulationSpeed = speed;
-        ConductingGuideAnimation.speed = animationSpeed;
+        //ConductingGuideAnimation.speed = animationSpeed;
     }
 }

@@ -34,3 +34,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Unity editor logs
+[Ll]ogs/
+
+# macOS Finder metadata
+.DS_Store
